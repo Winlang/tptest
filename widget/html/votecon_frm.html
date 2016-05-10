@@ -335,7 +335,7 @@
                                 {{if v.good_bad_status == 'good'}}
                                     {{if v.good_bad == '1'}}
 
-                                        <span class="aui-iconfont aui-icon-appreciatefill aui-text-theme"></span>
+                                        <span onclick="cancel_goodbad(this,{{v.id}});" class="aui-iconfont aui-icon-appreciatefill aui-text-theme"></span>
 
                                         <span>{{v.comm_good}}</span>
                                         <span onclick="good_bad(this,{{v.id}},'bad');" class="aui-iconfont aui-icon-appreciate reverse"></span>
@@ -351,7 +351,7 @@
                                         <span onclick="good_bad(this,{{v.id}},'good');" class="aui-iconfont aui-icon-appreciate"></span>
                                         <span>{{v.comm_good}}</span>
 
-                                        <span onclick="cancel_goodbad(this,{{v.id}});" class="aui-iconfont aui-iconfont aui-icon-appreciatefill aui-text-warning reverse"></span>
+                                        <span onclick="cancel_goodbad(this,{{v.id}});" class="aui-iconfont aui-iconfont aui-icon-appreciatefill aui-text-theme reverse"></span>
 
                                         <span>{{v.comm_bad}}</span>
                                     {{else}}
@@ -405,6 +405,19 @@
     
 
     apiready=function(){
+
+        //获取主题选项id
+        var itemoptid = getQueryString('itemoptid');
+        //获取当前登陆用户的id
+        var member_id = is_login();
+
+        //主题选项基本信息
+        itemoption(itemoptid,member_id);
+        //主题选项精彩评论列表
+        option_good_comm(itemoptid,member_id)
+        //主题选项最新评论列表
+        loading_new_comm(1,'new');
+
          //暂无简介
 	      var sum = $("#summary").html();
 	      if(sum == ""){
@@ -444,6 +457,8 @@
             $api.removeCls($api.byId("aui-footer"),"show");
             $api.removeCls($api.dom(".main"),"main-fix");
         });
+
+        
     }
     //qq指定好友分享
     function qqfriend_share(){

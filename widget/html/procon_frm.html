@@ -224,9 +224,9 @@
                 	{{if value.is_toupiao == 1}}
                    		<input type="radio" class="aui-radio aui-radio-theme" checked="checked" tapmode />
                    	{{else}}
-                   		<input type="radio" class="aui-radio aui-radio-theme" tapmode onclick="showToast()"/>
-                   		<input type="hidden" name="item_optid" value="{{value.item_optid}}"/>
+                   		<input type="radio" class="aui-radio aui-radio-theme" tapmode onclick="showToast(this);" value="{{value.item_optid}}" />
                    	{{/if}}
+                    <input type="hidden" name="item_optid" value="{{value.item_optid}}"/>
                    <div class="aui-toast" style="display:none" id="default_succ">
                            <i class="aui-iconfont aui-icon-check"></i>
                           <div class="aui-toast-content">投票成功</div>
@@ -327,25 +327,33 @@
 	// 	api.parseTapmode();
 	// }
 
-  apiready = function(){ 
-      //暂无简介
-      var sum = $("#summary").html();
-      if(sum == ""){
-         $("#summary").html("暂无简介");
-      }
-      //头部加宽
-      var header = $api.byId('aui-header');
-      $api.fixStatusBar(header); 
-
-      //上拉加载
-      // api.addEventListener({name:'scrolltobottom'}, function(ret, err){
-      //   showLoading();
-      //     // api.parseTapmode();
-      //     // $api.append($api.dom('body'),'<div class="aui-loading"><div class="aui-loading-1"></div><div class="aui-loading-2"></div></div>');
-      // });
-
-        
+apiready = function(){
+    //获取主题id
+    var item_id = getQueryString('item_id');
+    //获取登录用户id
+    var member_id = is_login();
+    //主题基本信息
+    iteminfo(item_id);
+    //主题对应选项列表
+    itemoptions(item_id,member_id);
+    //暂无简介
+    var sum = $("#summary").html();
+    if(sum == ""){
+     $("#summary").html("暂无简介");
     }
+    //头部加宽
+    var header = $api.byId('aui-header');
+    $api.fixStatusBar(header); 
+
+    //上拉加载
+    // api.addEventListener({name:'scrolltobottom'}, function(ret, err){
+    //   showLoading();
+    //     // api.parseTapmode();
+    //     // $api.append($api.dom('body'),'<div class="aui-loading"><div class="aui-loading-1"></div><div class="aui-loading-2"></div></div>');
+    // });
+
+    
+}
 
     //隐藏loading
     function hide(){
@@ -465,8 +473,11 @@
     function openRank(item_id){
       
         var member_id = is_login();
-        $.post(ApiUrl+'/api/is_one_toupiao?member_id='+member_id+'&item_id='+item_id+'&callback=?',{},function(data){
-            var data = JSON.parse(data);
+        api.ajax({
+            url:ApiUrl+'/api/is_one_toupiao?member_id='+member_id+'&item_id='+item_id+'&callback=?',
+            method:'post',
+            data:{}
+        },function(data,err){
             if(data.status == 1){
                 api.openWin({
                     name: 'rank_list_win',
@@ -476,6 +487,17 @@
                 api.alert({msg: data.msg});
             }
         });
+        // $.post(ApiUrl+'/api/is_one_toupiao?member_id='+member_id+'&item_id='+item_id+'&callback=?',{},function(data){
+        //     var data = JSON.parse(data);
+        //     if(data.status == 1){
+        //         api.openWin({
+        //             name: 'rank_list_win',
+        //             url: 'rank_list_win.html?item_id='+item_id
+        //        });
+        //     }else{
+        //         api.alert({msg: data.msg});
+        //     }
+        // });
     }
     
     function showToast(obj){
@@ -486,31 +508,59 @@
 			login_page();
 			return false;
 		}
-		$.post(ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',{},function(data){
-			var data = JSON.parse(data);
-	        if(data.status == 0){
+        api.ajax({
+            url:ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',
+            method:'post',
+            data:{}
+        },function(data,err){
+            if(data.status == 0){
                //投票成功
                $(obj).removeAttr('onclick');
-	            $api.css($api.byId("default_succ"),"display:block");
-		        setTimeout(function(){
-		            $api.css($api.byId("default_succ"),"display:none");
-		        },2000)
-	        }else if(data.status == 2){
+                $api.css($api.byId("default_succ"),"display:block");
+                setTimeout(function(){
+                    $api.css($api.byId("default_succ"),"display:none");
+                },2000)
+            }else if(data.status == 2){
                //已经投过了
-	        	  $(obj).removeAttr('checked');
-	            $api.css($api.byId("yitouguo"),"display:block");
+                $(obj).removeAttr('checked');
+                $api.css($api.byId("yitouguo"),"display:block");
                 setTimeout(function(){
                     $api.css($api.byId("yitouguo"),"display:none");
                 },2000)
-	        }else{
+            }else{
                //投票失败
-               $(obj).removeAttr('checked');
-               $api.css($api.byId("default_fail"),"display:block");
+                $(obj).removeAttr('checked');
+                $api.css($api.byId("default_fail"),"display:block");
                 setTimeout(function(){
                     $api.css($api.byId("default_fail"),"display:none");
                 },2000)
-           }
-	    });
+            }
+        });
+		// $.post(ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',{},function(data){
+		// 	var data = JSON.parse(data);
+	 //        if(data.status == 0){
+  //              //投票成功
+  //              $(obj).removeAttr('onclick');
+	 //            $api.css($api.byId("default_succ"),"display:block");
+		//         setTimeout(function(){
+		//             $api.css($api.byId("default_succ"),"display:none");
+		//         },2000)
+	 //        }else if(data.status == 2){
+  //              //已经投过了
+	 //        	  $(obj).removeAttr('checked');
+	 //            $api.css($api.byId("yitouguo"),"display:block");
+  //               setTimeout(function(){
+  //                   $api.css($api.byId("yitouguo"),"display:none");
+  //               },2000)
+	 //        }else{
+  //              //投票失败
+  //              $(obj).removeAttr('checked');
+  //              $api.css($api.byId("default_fail"),"display:block");
+  //               setTimeout(function(){
+  //                   $api.css($api.byId("default_fail"),"display:none");
+  //               },2000)
+  //          }
+	 //    });
     }
 
     //显示更多主题简介

@@ -83,23 +83,53 @@ function good_bad(obj,commid,status){
 		login_page();
 		return false;
 	}
-    $.post(ApiUrl+'/api/comm_goodbad?id='+commid+'&status='+status+'&member_id='+member_id+'&callback=?',{},function(data){
-    	var data = JSON.parse(data);
-        if(data.status == 0){
+	//请求接口
+	api.ajax({
+		url:ApiUrl+'/api/comm_goodbad?id='+commid+'&status='+status+'&member_id='+member_id+'&callback=?',
+		method:'post',
+		data:{}
+	},function(data,err){
+		if(data.status == 0){
             api.alert({msg: data.data});
-            $(obj).removeAttr('onclick');
+            $(obj).attr('onclick','cancel_goodbad(this,'+data.comm_id+');');
         	$(obj).removeClass('aui-icon-appreciate');
         	$(obj).addClass('aui-icon-appreciatefill');
-        	$(obj).addClass('aui-text-warning');
+        	$(obj).addClass('aui-text-theme');
         	$(obj).next('span').html(data.num);
         }else{
             api.alert({msg: data.data});
         }
-    });
+	});
+}
+
+//取消点赞点扯
+function cancel_goodbad(obj,comm_id){
+	var member_id = is_login();
+	if(member_id == '-1'){
+		api.alert({msg: '请先登录'});
+		login_page();
+		return false;
+	}
+	//请求接口
+	api.ajax({
+		url:ApiUrl+'/api/cancel_goodbad?comm_id='+comm_id+'&member_id='+member_id+'&callback=?',
+		method:'post',
+		data:{}
+	},function(data,err){
+		if(data.status == 0){
+            api.alert({msg: data.msg});
+            $(obj).attr('onclick','good_bad(this,'+data.comm_id+',"'+data.good_bad+'")');
+        	$(obj).addClass('aui-icon-appreciate');
+        	$(obj).removeClass('aui-icon-appreciatefill');
+        	$(obj).removeClass('aui-text-theme');
+        	$(obj).next('span').html(data.num);
+        }else{
+            api.alert({msg: data.msg});
+        }
+	});
 }
 
 //点击加载更多精彩评论
-loading_good_comm(1,'good');
 function loading_good_comm(page,good_new){
 	//获取主题选项id
     var itemoptid = getQueryString('itemopt_id');

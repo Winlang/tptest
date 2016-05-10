@@ -31,10 +31,18 @@
 <script type="text/javascript" src="../script/template.js"></script>
 <script type="text/javascript">
   apiready = function(){
+       var uid = is_login();
+       if(uid < 0){
+          login_page();
+       }
        api.ajax({
           url: ApiUrl+'/api/itemopt_user_zan/?callback=?',
           method: 'post',
-          data: {}
+          data: {
+            values:{
+              'uid':uid
+            }
+          }
       },function(data, err){
           if (data) {
               var html = template('comments', data);
