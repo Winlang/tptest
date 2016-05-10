@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav aui-bar-theme" id="aui-header">
+        <a class="aui-btn aui-btn-white aui-pull-left " tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left aui-text-theme"></span>
+        </a>
+        <div class="aui-title">投票主题页</div>
+        <a class="aui-iconfont aui-icon-menu aui-pull-right"></a>
+  </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    
+    function closeWin(){
+        api.closeWin();
+    }
+    apiready = function(){
+    	var item_id = getQueryString('item_id');
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        api.openFrame({
+            name: 'procon_frm',
+            url: 'procon_frm.html?item_id='+item_id,
+            bounces: true,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: headerPos.w,
+                h: 'auto'
+            }
+        });
+    };
+</script>
+</html>

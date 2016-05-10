@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,address=no"/>
+    <title>项目展示页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui-slide.css" />  
+    <!--<link rel="stylesheet" type="text/css" href="../css/aui-pull-refresh.css" />--> 
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript">
+    function openNew(item_id){
+    api.openWin({
+        name: 'procon',
+        url: 'procon_frm.html?item_id='+item_id,
+        bounces: true,
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        }
+    });
+}
+    </script>
+    <style>
+        .bg-dark{
+    	    background-color:#333!important;
+    	}
+    	.aui-slide-node img{
+    	    width:auto;
+    	    height:100%;
+    	}
+          .in-title{
+               margin-top:-70px;
+               color:#fff;
+               text-align:center;
+               padding:8px;
+          }
+          .in-title h4,.in-title h5{color:#fff;}
+                    .aui-waterfall li::after{
+              border:none;
+          }
+    </style>
+</head>
+<!-- <header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
+        <a class="aui-btn aui-btn-warning aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title"></div>
+    </header> -->
+<body>
+	<div id="aui-content"></div>
+		 <script id="test" type="text/html">
+	      	<ul class="aui-waterfall" id="aui-waterfall">
+	      	{{each list as value i}}
+	      		<li onclick="openNew({{value.id}})">
+	      	    	<div class="aui-waterfall-header">
+	      	          	<img src="{{value.item_titleimg}}" alt="" />
+	      	    	</div>
+	      	    	<div class="aui-waterfall-body in-title">
+	      	          <h4></h4>
+	      	          <h5>{{value.item_title}}</h5>
+	      	    	</div>
+	      		</li>
+	      		{{/each}}
+	      	</ul>
+	      </script>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/catedata.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript">
+	 function closeWin(){
+        api.closeWin();
+    }
+     apiready=function(){
+         var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        }
+	function openNew(item_id){
+       api.openWin({
+	       name: 'procon_frm',
+	       url: 'procon_frm.html?item_id='+item_id
+       });
+
+    }
+</script>
+</html>

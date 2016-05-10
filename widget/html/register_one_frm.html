@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style type="text/css">
+    body {
+        height: auto;
+    }
+    .aui-card {
+        margin-top: 15px;
+    }
+    .aui-input-addon.aui-iconfont {
+        font-size: 20px;
+    }
+    .login{
+         display:block;
+         padding: 5px 0 20px 0;
+         font-size: 14px;
+         color: #848f94;
+     }
+    </style>
+</head>
+<body>
+    <div class="aui-content aui-card aui-noborder">       
+        <div class="aui-form">
+            <div class="aui-input-row">
+                <i class="aui-input-addon aui-iconfont aui-icon-mobilefill aui-text-theme"></i>
+                <input type="text" id="mobile" class="aui-input" placeholder="手机号"/>
+            </div>
+            <div class="aui-input-row">
+                <input type="number" class="aui-input" id="code" placeholder="请输入收到的验证码"/>
+                <span class="aui-input-addon">
+                    <button class="aui-btn" id="sendVerify" status="1" tapmode onclick="sendVerify()">获取验证码</button>
+                </span>
+            </div>
+            
+            <div class="aui-input-row">
+                <i class="aui-input-addon aui-iconfont aui-icon-lock aui-text-theme"></i>
+                <input type="password" id="password" class="aui-input" placeholder="密码"/>
+                <i class="aui-input-addon aui-iconfont aui-icon-attention aui-text-default" tapmode onclick="showPassword();" id="showpass-btn"></i>
+            </div>
+            <div class="aui-input-row">
+                <i class="aui-input-addon aui-iconfont aui-icon-lock aui-text-theme"></i>
+                <input type="password" id="password2" class="aui-input" placeholder="确认密码"/>
+            </div>
+            <div class="aui-btn-row">
+                <div class="aui-btn aui-btn-theme aui-btn-block" tapmode onclick="register()">注册</div>
+            </div>
+            <p class="aui-text-center login" tapmode onclick="login()">
+                                                           进入登录
+            </p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js" ></script>
+<script type="text/javascript" src="../script/jquery.js" ></script>
+<script type="text/javascript" src="../script/config.js" ></script>
+<script type="text/javascript" src="../script/common.js" ></script>
+<script type="text/javascript" src="../script/user.js" ></script>
+<script type="text/javascript" src="../script/template.js" ></script>
+<script type="text/javascript">
+    var isinerval,times;
+    apiready = function () {
+        api.parseTapmode();
+    }
+    function showPassword(){
+        $api.attr($api.byId('password'),'type','text');
+        $api.removeCls($api.byId('showpass-btn'),'aui-icon-attention');
+        $api.addCls($api.byId('showpass-btn'),'aui-icon-attentionfill');
+        $api.attr($api.byId('showpass-btn'),'onclick','hidePassword();');
+        api.parseTapmode();
+    }
+    function hidePassword(){
+        $api.attr($api.byId('password'),'type','password');
+        $api.removeCls($api.byId('showpass-btn'),'aui-icon-attentionfill');
+        $api.addCls($api.byId('showpass-btn'),'aui-icon-attention');
+        $api.attr($api.byId('showpass-btn'),'onclick','showPassword();');
+        api.parseTapmode();
+    }
+</script>
+</html>

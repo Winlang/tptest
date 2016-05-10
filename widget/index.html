@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>欢迎加入关键一票！</title>
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <style>
+        .btn-a{
+           background-color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-theme" id="aui-header">
+       <a class="aui-btn aui-pull-left btn-a" tapmode></a>
+       <div class="aui-title" id="header-title">关键一票</div>
+    </header>
+    <footer class="aui-nav" id="aui-footer">
+        <ul class="aui-bar-tab">
+            <li class="active-theme" id="tabbar1" tapmode onclick="randomSwitchBtn(this,'首页',0)">
+                <span class="aui-iconfont aui-icon-home"></span>
+                <p>首页</p>
+            </li>
+            <li id="tabbar2" tapmode onclick="randomSwitchBtn(this,'活动',1)">
+                <span class="aui-iconfont aui-icon-like"></span>
+                <p>活动</p>
+            </li>
+            <li id="tabbar3" tapmode onclick="randomSwitchBtn(this,'投票',2)">
+                <span class="aui-iconfont aui-icon-roundadd"></span>
+                <p>投票</p>
+            </li>
+            <li id="tabbar4" tapmode onclick="randomSwitchBtn(this,'消息',3)">
+                <span class="aui-iconfont aui-icon-mark"></span>
+                <p>消息</p>
+            </li>
+            <li id="tabbar5" tapmode onclick="randomSwitchBtn(this,'个人中心',4)">
+                <span class="aui-iconfont aui-icon-people"></span>
+                <p>我的</p>
+            </li>
+        </ul>
+    </footer>
+</body>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.sendEvent({
+            name: 'login_succ',
+            extra: {
+                key1: 'value1', 
+                key2: 'value2'
+            }
+        });
+
+
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        var footer_h = $api.offset($api.byId('aui-footer')).h;
+        api.openFrameGroup ({
+            name: 'footer_tab_demo',
+//          scrollEnabled:true,
+            scrollEnabled:false,
+            rect:{x:0, y:headerPos.h, w:'auto', h:body_h - headerPos.h - footer_h},
+            index:0,
+            preload:4,
+            frames:
+            [{
+                name: 'home_frm', 
+                url: 'html/home_frm.html', 
+                bounces:false
+            },{
+                name: 'grid_frm', 
+                url: 'html/grid_frm.html', 
+                bounces:false
+            },{
+                name: 'recommend_frm', 
+                url: 'html/recommend_frm.html', 
+                bounces:false
+            },{
+                name: 'list_frm', 
+                url: 'html/list_frm.html', 
+                bounces:false
+            },{
+                name: 'percenter_frm', 
+                url: 'html/percenter_frm.html', 
+                bounces:false
+            }]
+        }, function(ret, err){
+            var footer = $api.byId('aui-footer');
+            var footerAct = $api.dom(footer, '.aui-bar-tab li.active-theme');
+            $api.removeCls(footerAct, 'active-theme');
+            var name = ret.name;
+            var index = ret.index;
+            if(index==0){
+                $api.text($api.byId('header-title'),'首页');
+                $api.addCls($api.byId('tabbar1'), 'active-theme');
+            }else if(index==1){
+                $api.text($api.byId('header-title'),'活动');
+                $api.addCls($api.byId('tabbar2'), 'active-theme');
+           }else if(index==2){
+                $api.text($api.byId('header-title'),'投票');
+                $api.addCls($api.byId('tabbar3'), 'active-theme');
+            }else if(index==3){
+                $api.text($api.byId('header-title'),'消息');
+                $api.addCls($api.byId('tabbar4'), 'active-theme');
+            }else if(index==4){
+                $api.text($api.byId('header-title'),'个人中心');
+                $api.addCls($api.byId('tabbar5'), 'active-theme');
+            }
+        })
+    }
+    function randomSwitchBtn(obj, name, index) {
+        $api.text($api.byId('header-title'),name);
+        var footer = $api.byId('aui-footer');
+        var footerAct = $api.dom(footer, '.aui-bar-tab li.active-theme');
+        $api.removeCls(footerAct, 'active-theme');
+        $api.addCls(obj, 'active-theme');
+        api.setFrameGroupIndex({
+            name: 'footer_tab_demo',
+            index: index,
+            scroll:true
+//          scroll:false
+        });
+    }
+
+</script>
+</html>

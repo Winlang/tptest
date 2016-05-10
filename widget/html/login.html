@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        body {
+            background: url('../image/login2.jpg') no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+        .aui-content {
+            margin-bottom: 0;
+        }
+        .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .info {
+            position: relative;
+            padding: 20px 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            vertical-align: center;
+        }
+        .info p.title {
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        .logo {
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            font-size: 36px;
+            margin-bottom:40px;
+        }
+        .logo img{
+           display:block;
+           max-width:30%;
+           margin:0 auto;
+        }
+        .box {
+            position: absolute;
+            top: 1%;
+            margin: 45px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .box .input-group {
+            background: #ffffff;
+            background: rgba(255,255,255,0.4) !important;
+            color: #ff9900;
+            position: relative;
+            display: table;
+            border-collapse: separate;
+            padding: 6px 0;
+        }
+        .box .btn-group {
+            color: #ffffff;
+            position: relative;
+            display: table;
+            border-collapse: separate;
+            width: 100%;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            overflow: hidden;
+        }
+        .box .btn-group .aui-btn {
+            border-radius: 0;
+            margin: 0;
+        }
+        .box .input-group:after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            content: '';
+            background-color: #ffffff;
+            -webkit-transform: scaleY(.3);
+                  transform: scaleY(.3);
+        }
+        .box .input-group:last-child:after {
+            height: 0;
+        }
+        .box .input-group .input-group-addon {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1;
+            color: #ffffff;
+            text-align: center;
+            display: table-cell;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+            padding: 6px 12px;
+        }
+        i.aui-iconfont {
+            font-size: 18px;
+        }
+        .box .input-group .form-control {
+            background: none;
+            margin: 0;
+            padding: 5px 0;
+            display: table-cell;
+            position: relative;
+            z-index: 2;
+            float: left;
+            width: 100%;
+            margin-bottom: 0;
+            border:none;
+            border-radius: 0;
+            color: #ffffff;
+        }
+        
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+            color:    #ffffff;
+        }
+        .register {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+        .third-party{
+             display:block;
+             width:100%;
+             margin:50px auto;
+        }
+        .third-party ul li{
+             display:inline-block;
+             float:left;
+             width:33%;
+             text-align:center;
+             vertical-align:middle;
+        }
+        .third-party ul li img{max-width:40px;max-height:40px;}
+        .tp-box{
+             width: 100%;
+             overflow: hidden;
+             position:relative;
+             margin-bottom:15px;
+        }
+        .tp-box span{
+             float:left;
+             text-align:center;
+             color:#fff;
+             font-size:14px;
+        }
+        .tp-box .tp-border{
+             border-bottom:1px solid #ffffff;
+             height:10px;
+             width:25%;
+        }
+        .tp-box .tp-content{
+             width:50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-content content">
+        <div class="info">
+             <!--<div class="logo"><img src="../image/login3.png" alt="" /></div>-->
+             <div class="box">   
+                <div class="logo"><img src="../image/login3.png" alt="" /></div>              
+                <div class="input-group">                                       
+                    <span class="input-group-addon"><i class="aui-iconfont aui-icon-mobile"></i></span>
+                    <input type="number" name="mobile" id="mobile" class="form-control" placeholder="手机号"/>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="aui-iconfont aui-icon-lock"></i></span>
+                    <input type="password" name="passwd" id="password" class="form-control" placeholder="密码"/>
+                </div>
+                <div class="btn-group">
+                    <div class="aui-btn aui-btn-block aui-btn-info" tapmode onclick="login()">登录</div>
+                </div>
+                <p class="aui-text-center register" tapmode onclick="register()">
+                                                           注册加入
+                </p>
+                <div class="third-party">
+                      <div class="tp-box">
+                            <span class="tp-border"></span>
+                            <span class="tp-content">第三方帐号登录</span>
+                            <span class="tp-border"></span>
+                      </div>
+                      <ul>
+                      	<li> 
+                      	     <a tapmode onclick="wx_login()"><img src="../image/weixin.png" alt="" /></a>
+                      	</li>
+                      	<li>
+                      	     <a tapmode onclick="qq_login()"> <img src="../image/qq.png" alt="" /></a>
+                      	</li>
+                      	<li>
+                      	     <a tapmode onclick="wb_login()"><img src="../image/sina.png" alt="" /></a>
+                      	</li>
+                      </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.js" ></script>
+<script type="text/javascript" src="../script/config.js" ></script>
+<script type="text/javascript" src="../script/common.js" ></script>
+<script type="text/javascript" src="../script/user.js" ></script>
+<script type="text/javascript" src="../script/template.js" ></script>
+
+<script type="text/javascript">
+    
+    // function login(){
+    //     api.closeWin({});
+    // }
+    function register(){
+        api.openWin({
+            name:'register_win',
+            url:'register_win.html',
+            delay:300,
+            animation:{
+                type:'fade'
+            }
+        })
+    }
+    apiready = function(){
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        api.parseTapmode();
+    }
+    
+    function qq_login(){
+        var obj = api.require('qq');
+        obj.login(function(ret,err){
+            api.alert({
+                title: 'id和token',
+                msg: 'openId--'+ret.openId + '--token--' +ret.accessToken
+            });
+        });
+    }
+
+    function wx_login(){
+        var wx = api.require('wx');
+        wx.auth({
+            apiKey: ''
+        }, function(ret, err){ 
+            if(ret.status){
+                alert(JSON.stringify(ret));
+            }else{
+                alert(err.code);
+            }
+        });
+    }
+
+    function wb_login(){
+        var sinaWeiBo = api.require('sinaWeiBo');
+        sinaWeiBo.auth(function(ret,err){
+            if (ret.status) {
+                api.alert({
+                    title: '微博授权',
+                    msg: '授权成功'
+                });
+            }else{
+                api.alert({msg:'授权失败'+err.msg});
+            }
+        });
+    }
+</script>
+</html>

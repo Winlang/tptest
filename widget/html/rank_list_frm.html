@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+           body{
+             background:#fff;
+           }
+           .caption{
+              font-size:16px;
+           }
+           .caption-1{
+              font-size: 14px;
+              color:#858f87;
+           }
+           .caption-2{
+             font-size:12px;
+             color:#858F87;
+           }
+           .rank-tit{
+             display:block;
+           }
+           .rank-options{
+              padding:10px 20px;
+           }
+           .progress{
+             display:block;
+           }
+           .aui-progress{
+             border-radius: 10px;
+           }
+           .aui-progress-bar{
+             border-radius: 10px;
+           }
+    </style>
+</head>
+<body>
+      <div class="aui-content">
+            <div class="aui-text-center aui-padded-10 caption">我最喜爱的动物</div>
+
+                <div id="item_rankinfo"></div>
+                <script type="text/html" id="item_rank">
+                  {{each data.rank as v i}}
+                  <div class="rank-options">             
+                        <div class="rank-tit aui-padded-5">
+                             <span class="aui-pull-left caption-1">{{v.item_opttitle}}</span>
+                             <span class="aui-pull-right caption-2">{{v.item_opttoupiao}}票({{v.percent}}%)</span>
+                        </div>
+                        <div class="aui-progress aui-progress-xs progress">
+                            
+                              <div class="aui-progress-bar aui-progress-{{v.color}}" style="width:{{v.percent}}%"></div>
+                             
+                        </div>
+                  </div>
+                  {{/each}}
+                </script>
+            <!--      <div class="rank-options">
+                      <div class="rank-tit aui-padded-5">
+                           <span class="aui-pull-left caption-1">狗</span>
+                           <span class="aui-pull-right caption-2">30人(30%)</span>
+                      </div>
+                      <div class="aui-progress aui-progress-xs progress">
+                            <div class="aui-progress-bar aui-progress-warning" style="width:30%"></div>
+                      </div>
+                 </div>
+                 <div class="rank-options">
+                      <div class="rank-tit aui-padded-5">
+                           <span class="aui-pull-left caption-1">松鼠</span>
+                           <span class="aui-pull-right caption-2">10人(10%)</span>
+                      </div>
+                      <div class="aui-progress aui-progress-xs progress">
+                            <div class="aui-progress-bar aui-progress-danger" style="width:10%"></div>
+                      </div>
+                 </div>   -->
+      </div>
+ </body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/rank.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+</script>
+</html>

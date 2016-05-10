@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        body{
+            background:#fff;
+        }
+        .aui-content ul li:nth-of-type(even){
+              background:#f5f5f5;
+              color:#666;
+        }
+       .aui-content ul li:nth-of-type(odd){
+              background:#fff;
+        }
+        .rank-title{
+            font-size:16px;
+            line-height:30px;
+            dislay:block;
+            padding:10px 5px;
+            text-align:center;
+            color:#333;
+            font-weight:600;
+         }
+        .rank-1,.rank-2,.rank-3{
+              display:inline-block;
+              text-align:center;
+              vertical-align:middle;
+              /*float:left;*/
+        }
+        .rank-1{width:10%;}
+        .rank-2{width:30%;}
+        .rank-3{width:50%;}
+    </style>
+</head>
+<body>
+	 <div class="aui-content">
+	    <p class="rank-title">谁是你最喜爱的影视明星？</p>     
+        <ul class="aui-list-view">       
+            <div id="item_rankinfo"></div>
+            <script type="text/html" id="item_rank">
+                {{each data.rank as v i}}
+                <li class="aui-list-view-cell">
+                    <div class="rank-1">{{i+1}}</div>
+                    <div class="rank-2">{{v.item_opttitle}}</div>
+                    <div class="rank-3">{{v.item_opttoupiao}}票</div>           
+                </li>
+                {{/each}}
+            </script>
+        </ul>
+    </div>
+ </body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/rank.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+</script>
+</html>

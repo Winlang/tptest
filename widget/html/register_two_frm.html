@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>补全信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style type="text/css">
+    body {
+        height: auto;
+    }
+    .aui-card {
+        margin-top: 15px;
+    }
+    .avatar-box {
+        width: 100%;
+        padding: 15px 0;
+        text-align: center;
+        font-size: 12px;
+    }
+    .avatar-box p {
+        margin-bottom: 0;
+        font-size: 12px;
+    }
+    .avatar-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+    </style>
+</head>
+<body>
+    <div class="aui-content aui-card aui-noborder">
+        <div class="avatar-box">
+            <img src="" id="avatarImg" tapmode onclick="getPicture()" />
+            <p>选择头像</p>
+        </div>
+        <input type="hidden" id="avatar" />
+        <div class="aui-form">
+            <div class="aui-input-row">
+                <label class="aui-input-addon">昵称</label>
+                <input type="text" class="aui-input" id="nickname" placeholder="昵称"/>
+            </div>
+            <div class="aui-input-row">
+                <label class="aui-input-addon">性别</label>
+                <div class="aui-pull-right">
+                    <input class="aui-radio aui-radio-theme" type="radio" name="sex" value=1 checked><div class="aui-radio-name">少爷</div>
+                    <input class="aui-radio aui-radio-theme" type="radio" name="sex" value=2 ><div class="aui-radio-name">公主</div>
+                </div>
+            </div>
+            <div class="aui-input-row">
+                <label class="aui-input-addon">生日</label>
+                <input type="text" class="aui-input" id="birthday" placeholder="年／月／日" readonly tapmode onclick="openPicker()" />
+            </div>
+            <!-- <div class="aui-input-row">
+                <label class="aui-input-addon">地址</label>
+                <input type="text" class="aui-input" id="address" placeholder="所在地区"/>
+            </div> -->
+            <div class="aui-btn-row">
+                <!-- <div class="aui-btn aui-btn-default" tapmode onclick="setGroupIndex()">上一步</div> -->
+                <div class="aui-btn aui-btn-theme aui-btn-block" tapmode onclick="confirm()">提交</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js" ></script>
+<script type="text/javascript" src="../script/jquery.js" ></script>
+<script type="text/javascript" src="../script/config.js" ></script>
+<script type="text/javascript" src="../script/common.js" ></script>
+<script type="text/javascript" src="../script/user.js" ></script>
+<script type="text/javascript" src="../script/template.js" ></script>
+<script type="text/javascript">
+//设置用户信息页面
+function confirm(){
+
+        //获取value值
+        var avatarImg = $('#avatarImg').attr('src');
+        var nickname = $('#nickname').val();
+        var birthday = $('#birthday').val();
+        var sex = $("input[name='sex'][checked]").val(); 
+
+        if(avatarImg == "" || avatarImg == null){
+            alert('请为您设置一个漂亮的头像哦~');
+            return false;
+        }
+
+        if(nickname == "" || nickname == null){
+            alert('给自己起个响亮的名字吧~');
+            return false;
+        }
+
+        if(birthday == "" || birthday == null){
+            alert('生日悄悄告诉我~');
+            return false;
+        }
+
+        //获取登陆标识
+        var uid = is_login();
+        if(uid < 0){
+            alert('您未登陆');
+            return false;
+        }
+        //提交数据
+        $.post(ApiUrl+'/api/register_two',{'uid':uid,'avatarImg':avatarImg,'nickname':nickname,'sex':sex,'birthday':birthday},function(data){
+            //设置成功 进入首页
+            if(data.status == 1){
+                // 广播事件
+                api.sendEvent({
+                    name : 'reg_login_successEvent',
+                    extra : {
+                       name : data.msg,
+                    }
+                });
+                //跳至应用首页
+                backtoindex();
+            }else{
+                alert('设置个人信息失败,请重新设置 Y^_^');
+            }
+        },'json');
+    }
+
+
+    //裁剪头像系列函数结束
+
+
+
+    function openPicker(){
+        api.openPicker({
+            type: 'date',
+            date: '1990-01-01',
+            title:'选择日期'
+        },function(ret,err){
+            var year = ret.year;
+            var month = ret.month;
+            var day = ret.day;
+            $api.val($api.byId("birthday"),''+year+'/'+month+'/'+day+'');
+        });
+    }
+
+    apiready = function () {
+        api.parseTapmode();
+        // 监听头像上传成功
+          api.addEventListener({
+                  name : 'avatar_upload_successEvent'
+          }, function(ret) {
+                if (ret && ret.value) {
+                    var value = ret.value;
+                    var imgpath = UploadUrl+'/avatar/'+value.name;
+                    $api.attr($api.byId("avatarImg"),'src',imgpath);
+                }
+          });
+    }
+</script>
+</html>

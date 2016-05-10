@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>投票内容页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/jquery.js"></script>
+    <script type="text/javascript" src="../script/vote.js"></script>
+    <script type="text/javascript" src="../script/template.js"></script>
+    <style>
+        body{
+            height:100%;
+            margin:0;
+            padding:0;
+        }
+        .aui-content{
+            background-color:#fff;
+        }
+        .idol-avatar{
+            max-width:100%;
+            height:240px;
+            display:block;
+            margin:0 auto;
+        }
+        .f-avatar{
+           width:30px;
+           height:30px;
+           vertical-align: middle;
+           margin-right:15px;
+           border-radius: 15px;
+        }
+        .f-vote{
+           font-size:12px;
+           line-height:30px;
+        }
+        .mine{
+           padding-top:5px;
+        }
+        .mine li{
+           display:inline-block;
+           width:24%;
+           text-align:center;
+           padding:20px 0 6px;
+           background-size:30px;
+           background-repeat:no-repeat;
+           background-position:top;
+        }
+        .mine li a{
+           margin:0 10px 10px 10px;
+           color:#323237;
+           font-size:14px;
+           display: block;
+        }
+        .mine li span{
+           display:block;
+           width:35px;
+           height:35px;
+           margin:-10px auto 0 auto;
+           font-size:30px;
+           text-align:center;
+           line-height:30px;
+        }
+               
+        .vote-info{
+              position:relative;
+              margin-top:-60px;
+              height:60px;
+              padding-top:10px;
+              background-color:rgba(0,0,0,.6);          
+        }
+        .vote-info p{
+            padding:0 20px;
+            color:#fff;
+        }
+        .vote-info p>span{
+            font-size:22px;
+        }
+        .avatar{
+            display:block;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+        }
+        .comment-tit{
+            color: #333;
+            font-size:14px;
+        }
+        .commemt-caption{
+             display:block;
+             width:100%;
+             height:40px;
+        }
+        .commemt-caption h5{
+           font-size:12px;
+           line-height:12px;
+        }
+        .commemt-caption span{
+             font-size:10px;
+             color:#858F87;
+             line-height:10px;           
+        }
+        .comment-more{
+           color:#333;
+           font-size:12px;
+        }
+        .appreciate span{
+          font-size:14px;
+        }
+        .appreciate span.aui-iconfont{
+          margin-left:10px;
+          margin-right:5px;
+          font-size:18px;
+        }
+        .reverse{
+            display:inline-block;
+            transform: rotateX(180deg);
+            -webkit-transform:rotateX(180deg);
+        }
+        .aui-img-body p{
+           font-size:12px;
+           color:#333;
+        }
+      
+   	.aui-nav {
+		border-top:1px solid #eee;
+
+	}  
+	.ask-input {
+		height: 32px;
+		line-height: 32px;
+		margin: 10px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 14px;
+		color: #999;
+		padding-left: 5px;
+	}
+	.ask-text {
+		height: 120px;
+		line-height: 30px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 14px;
+		color: #666;
+		overflow: hidden;
+	}
+	.ask-text textarea {
+		height: 100%;
+		padding: 5px;
+		margin: 0;		
+		border:none;
+		overflow-y: auto;
+	}
+	.main{
+	   display:block;
+	   width:100%;
+	   height:auto;
+	   position: relative;	
+	}
+	.main-fix{
+	  position:fixed;
+	  top:inherit;
+	}
+	.mark {
+		background: rgba(0,0,0,0.5);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		display: none;
+		z-index: 1;
+	}
+	.ask-reply-btn {
+		padding: 8px 0;
+	}
+	#ask-reply-box {
+		padding: 10px;
+		z-index: 20;
+	}
+	#aui-footer {
+		background:rgba(255,255,255,1);	
+	}
+	#aui-footer.show {
+		-webkit-animation: showIn .5s ease both;
+		animation: showIn .5s ease both;
+	}
+	@-webkit-keyframes showIn {
+		form { height: 55px;background: rgba(255,255,255,0.5);}
+		to { height: 200px; background: rgba(255,255,255,1);}
+	}
+	@-webkit-keyframes hideIn {
+		from { opacity: 1;top: 8px;}
+		to { opacity: 0;top: -20px;}
+	}
+
+    /*分享弹出层样式*/
+     .share-tit{
+       display:block;
+       padding-top:20px;
+     }
+     .share-content ul li{
+       display:inline-block;
+       float:left;
+       width:24%;
+       text-align:center;
+       padding-top:5px;
+     }
+     .share-content ul li img{
+       width:55px;
+       height:55px;
+     }
+     .desc-1{
+    	   word-wrap: break-word;
+    	}
+     .ul-comment{
+       padding-bottom: 40px;
+     }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
+            <a class="aui-btn aui-btn-warning aui-pull-left" tapmode onclick="closeWin()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title"></div>
+            <a class="aui-iconfont aui-icon-menu aui-pull-right"></a>
+    </header>
+<div class="main">
+    <div class="mark" id="mark"></div>
+    <div id="itemoptinfo"></div>
+    <script type="text/html" id="itemoptdata">
+        <div class="aui-content">
+              <img class="idol-avatar" src="http://votetest.xieli.cn/Uploads/admin/{{data.item_optimg}}" alt="" />
+              <div class="vote-info">
+                   <div class="aui-pull-left">
+                         <p>得票: <span id="vote_num">{{data.item_opttoupiao}}</span></p>
+                   </div>
+                   <div class="aui-pull-right">
+                         <p>排名: <span>{{data.item_optpaiming}}</span></p>
+                   </div>
+              </div>
+              <ul class="mine">
+                {{if data.is_toupiao == 1}}
+                    <li class="vote">
+                        <span class="aui-text-warning aui-iconfont aui-icon-roundcheckfill"></span>
+                        <a>已投票</a>
+                    </li>
+                {{else}}
+                    <li class="vote" onclick="toupiao(this,{{data.item_optid}});">
+                        <span class="aui-text-warning aui-iconfont aui-icon-roundcheck"></span>
+                        <a>投一票</a>
+                    </li>
+                {{/if}}
+                <li class="comment" onclick="showReply();">
+                     <span class="aui-text-warning aui-iconfont aui-icon-comment"></span>
+                     <a >说两句</a>
+                
+                </li>
+                <li class="share" onclick="share();">
+                     <span class="aui-text-warning aui-iconfont aui-icon-share"></span>
+                     <a>分享拉票</a>
+                </li>
+                <div class="aui-dialog aui-hidden sharecss" id="dialog">
+                    <div class="aui-dialog-header share-tit">分享拉票</div>
+                    <div class="aui-dialog-body share-content">
+                        <ul>
+                        	<li tapmode><img src="../image/sweixin.png" alt="" /></li>
+                        	<li onclick="qqfriend_share();" tapmode><img src="../image/sqq.png" alt="" /></li>
+                        	<li onclick="sina_share();" tapmode><img src="../image/ssina.png" alt="" /></li>
+                        	<li onclick="qqkongjian_share();" tapmode><img src="../image/szone.png" alt="" /></li>
+                        </ul>
+                    </div>
+                    <div class="aui-dialog-footer">
+                        <div class="aui-dialog-btn aui-text-danger" tapmode onclick="cancel()">取消</div>
+                    </div>
+               </div>
+                {{if data.collection == 1}}
+                 <li class="collect" id="collectionInfo">
+                     <span class="aui-text-warning aui-iconfont aui-icon-likefill"></span>
+                     <a>已收藏</a>
+                </li>
+                {{else}}
+                <li class="collect" id="collectionInfo" onclick="collectionInfo({{data.item_optid}});">
+                     <span class="aui-text-warning aui-iconfont aui-icon-like" id="class_shoucang"></span>
+                     <a class="shoucang">收藏</a>
+                </li>
+                  {{/if}}
+              </ul>
+        </div>
+
+    <div class="aui-content">
+         <ul class="aui-list-view">
+            <li class="aui-list-view-cell" onclick="openGrid()">
+                <div class="aui-arrow-right aui-text-default f-vote">您有11个好友投了ta <img class="f-avatar aui-pull-right" src="../image/wx.png" alt="" /></div>
+            </li>
+         </ul>
+    </div>
+
+    <div class="aui-content aui-padded-10" id="jianjie">
+          <p id="summary" class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode >{{data.item_optdesc}}</p>
+
+    </div>
+    </script>
+    
+    <div class="aui-content">
+          <ul class="aui-list-view ul-comment">
+            <div id="itemopt_good_comminfo"></div>
+            <li id="new_comm" class="aui-list-view-cell aui-img">
+                 <p class="comment-tit">最新评论</p>
+            </li>
+            <div id="itemopt_new_comminfo"></div>
+
+            <script type="text/html" id="itemopt_good_commdata">
+                <li class="aui-list-view-cell aui-img">
+                     <p class="comment-tit">精彩评论</p>
+                </li>
+                {{each data as v i}}
+                <li class="aui-list-view-cell aui-img">                  
+                     <div class="aui-img-object aui-pull-left ">
+                          <img class="avatar" src="../image/demos-2.jpg" alt="" /> 
+                     </div>                 
+                     <div class="aui-img-body">                        
+                         <div class="commemt-caption">
+                           <div class="aui-pull-left">
+                                <h5>{{v.member_nick}}</h5>
+                                <span>{{v.comm_ctime}}</span>
+                           </div>
+                           <div class="aui-pull-right appreciate">
+                                {{if v.good_bad_status == 'good'}}
+                                    {{if v.good_bad == '1'}}
+                                        <span class="aui-iconfont aui-icon-appreciatefill aui-text-warning"></span>
+                                        <span>{{v.comm_good}}</span>
+                                        <span onclick="good_bad(this,{{v.id}},'bad')" class="aui-iconfont aui-icon-appreciate reverse"></span>
+                                        <span>{{v.comm_bad}}</span>
+                                    {{else}}
+                                        <span onclick="good_bad(this,{{v.id}},'good')" class="aui-iconfont aui-icon-appreciate"></span>
+                                        <span>{{v.comm_good}}</span>
+                                        <span onclick="good_bad(this,{{v.id}},'bad')" class="aui-iconfont aui-icon-appreciate reverse"></span>
+                                        <span>{{v.comm_bad}}</span>
+                                    {{/if}}
+                                {{else}}
+                                    {{if v.good_bad == '1'}}
+                                        <span onclick="good_bad(this,{{v.id}},'good')" class="aui-iconfont aui-icon-appreciate"></span>
+                                        <span>{{v.comm_good}}</span>
+                                        <span class="aui-iconfont aui-iconfont aui-icon-appreciatefill aui-text-warning reverse"></span>
+                                        <span>{{v.comm_bad}}</span>
+                                    {{else}}
+                                        <span onclick="good_bad(this,{{v.id}},'good')" class="aui-iconfont aui-icon-appreciate"></span>
+                                        <span>{{v.comm_good}}</span>
+                                        <span onclick="good_bad(this,{{v.id}},'bad')" class="aui-iconfont aui-icon-appreciate reverse"></span>
+                                        <span>{{v.comm_bad}}</span>
+                                    {{/if}}
+                                {{/if}}
+                           </div>
+                         </div>
+                           <p>{{v.comm_con}}....</p>
+                     </div>
+                </li>
+                {{if i > 3}}
+                <li class="aui-list-view-cell aui-img">
+                     <p onclick="openGoodcomm();" class="aui-text-center comment-more">查看更多精彩评论</p>
+                </li>
+                {{/if}}
+                {{/each}}
+            </script> 
+            
+            <li class="aui-list-view-cell aui-img">
+                 <p id="loading" onclick="loading_new_comm(2,'new');" class="aui-text-center comment-more">查看更多最新评论</p>
+            </li>
+          </ul>
+    </div>
+</div> 
+    <div class="aui-line-x"></div>
+    <footer class="aui-nav" id="aui-footer">
+		<div class="ask-input" tapmode onclick="showReply()" id="ask-input">发表评论</div>
+		<div id="ask-reply-box">
+			<div class="ask-text" id="ask-text">
+				<textarea placeholder="请输入你的评论，被赞后可获得奖励"></textarea>
+			</div>
+            <div class="aui-btn aui-btn-block aui-btn-info ask-reply-btn" tapmode onclick="pinglun()">提交</div>
+		</div>
+	</footer>
+</body>
+
+<script type="text/javascript">
+    function openGrid(){
+       api.openWin({
+            name:'grid_win',
+            url:'grid_win.html'
+       });
+    }
+    function closeWin(){
+       api.closeWin();
+    }
+    
+
+    apiready=function(){
+         //暂无简介
+	      var sum = $("#summary").html();
+	      if(sum == ""){
+	         $("#summary").html("暂无简介");
+	      }
+
+        //监听 登陆成功 
+        // 监听是否注册或者登录成功   监听成功
+          api.addEventListener({
+                  name : 'reg_login_successEvent'
+          }, function(ret) {
+                if (ret && ret.value) {
+                    var value = ret.value;
+                    var type = value.callback;
+                    var item_optid=getQueryString('itemoptid');
+                    //收藏的动作
+                    if(type == 'shoucang'){
+                        
+                        collectionInfo(item_optid);
+                    }
+                    if(type=='toupiao'){
+                        var vote=$('.vote');
+                       toupiao(vote,item_optid);
+                    }
+                }
+          });
+
+
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+
+        //发表评论
+        $api.addEvt($api.byId('mark'), 'click', function(){
+            $api.css($api.dom(".mark"),"display:none");
+            $api.css($api.byId("ask-input"),"display:block");
+            $api.css($api.byId("ask-reply-box"),"display:none");
+            $api.removeCls($api.byId("aui-footer"),"show");
+            $api.removeCls($api.dom(".main"),"main-fix");
+        });
+    }
+    //qq指定好友分享
+    function qqfriend_share(){
+        var qq = api.require('qq');
+        qq.shareText({
+            text:'我在小石投里面投了一票，大家快来帮我拉一票，点击链接即可：http://www.xieli.cn'
+        });
+    }
+
+    //qq空间分享
+    function qqkongjian_share(){
+        var qq = api.require('qq');
+        qq.installed(function(ret,err){
+            if(ret.status){
+                qq.shareNews({
+                    url:'http://www.xieli.cn',
+                    title:'小石投',
+                    description:'我在小石投里面投了一票，大家快来帮我拉一票，点击链接即可：http://www.xieli.cn',
+                    imgUrl:'http://upload.wabei.cn/2011/0807/20110807025817844.jpg'
+                });
+            }else{
+                api.alert("请先安装qq客户端");
+            }
+        });
+    }
+
+    //微信分享
+    function weixin_share(){
+        var weixin = api.require('weiXin');
+        weixin.getUserInfo(function(ret,err){
+            if(ret.status){
+                api.alert({msg: ret.nickname});
+            }else{
+                api.alert({msg: "错误："+err.msg});
+            }
+        });
+    }
+
+    //新浪微博分享
+    function sina_share(){
+        var sinaweibo = api.require('sinaWeiBo');
+        sinaweibo.auth(function(ret,err){
+            if (ret.status) {
+                sinaweibo.sendRequest({
+                    contentType: 'text',
+                    text: '我在小石投里面投了一票，大家快来帮我拉一票，点击链接即可：http://www.xieli.cn',
+                    imageUrl: 'fs://a.png'
+                },function(ret,err){
+                    if (ret.status) {
+                        api.alert({
+                            title: '发表微博',
+                            msg: '发表成功',
+                            buttons: ['确定']
+                        });
+                    }else{
+                        api.alert({
+                            title: '发表微博',
+                            msg: '发表失败',
+                            buttons: ['确定']
+                        });
+                    }
+                });
+            }else{
+                api.alert({msg:'授权失败'});
+            }
+        });
+    }
+
+    function showReply(){
+    	$api.css($api.dom(".mark"),"display:block");
+    	$api.css($api.byId("ask-input"),"display:none");
+    	$api.css($api.byId("ask-reply-box"),"display:block");
+    	$api.addCls($api.byId("aui-footer"),"show");
+    	$api.addCls($api.dom(".main"),"main-fix");
+    }
+    function hideReply(){
+        $api.css($api.dom(".mark"),"display:none");
+        $api.css($api.byId("ask-input"),"display:block");
+        $api.css($api.byId("ask-reply-box"),"display:none");
+        $api.removeCls($api.byId("aui-footer"),"show");
+        $api.removeCls($api.dom(".main"),"main-fix");
+    }
+
+    function openAnswer(){
+    	api.openWin({
+    		name: 'comment_win',
+    		url: 'comment_win.html'
+    	});
+    }
+
+    //分享弹出层
+    function share(){
+        $api.append($api.dom("body"),'<div class="aui-mask"></div>');
+        $api.removeCls($api.dom(".aui-dialog.aui-hidden"),"aui-hidden");
+        api.sendEvent({
+            name: 'dialogEvent',
+            extra: {type:'show'}
+        });
+    }
+    function cancel(){
+        $api.remove($api.dom(".aui-mask"));
+        $api.addCls($api.dom(".aui-dialog"),"aui-hidden");
+        api.sendEvent({
+            name: 'dialogEvent',
+            extra: {type:'hidden'}
+        });
+//      api.alert({
+//          title: '提示',
+//          msg: '您点击了取消'
+//      });
+
+    }
+    //显示更多主题简介
+    function xian(obj) {
+    	if($(obj).hasClass('aui-ellipsis-2')){
+    		$(obj).removeClass('aui-ellipsis-2');
+    	}else{
+    		$(obj).addClass('aui-ellipsis-2');
+    	}
+    }
+
+    //打开新页面---精彩评论
+    function openGoodcomm(){
+        var itemopt_id = getQueryString('itemoptid');
+        api.openWin({
+           name: 'goodcomm_win',
+           url: 'goodcomm_win.html?itemopt_id='+itemopt_id
+       });
+    }
+</script>
+
+</html>

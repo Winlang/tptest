@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+       .boxCont{
+		  position:relative;
+		}
+	   .wheader{
+	     display:block;
+	     width:100%;
+	     height:240px;
+	   }
+       .wheader p{
+         font-size:20px;
+         text-align:center;
+         color:#FFFFFF;
+         display: block;
+         width: 100%;        
+         height:100%;
+         background:rgba(0,0,0,.5);
+       }
+       .wtitle{
+         margin-top:90px;
+         /*vertical-align: middle;*/
+         display:inline-block;
+         padding:10px;
+       }
+    /* .wmiddle{
+        display: inline-block;
+        height:100%;
+        vertical-align: middle;
+       }*/
+       .wcaption{
+          color:#858f87;
+       }
+    </style>
+</head>
+<body>
+    <div class="aui-content-padded">
+          <div class="aui-tab aui-tab-theme">
+               <ul class="aui-tab-nav aui-tab-border" id="main-tab">
+               	<li class="active" onclick="Hot()" tapmode>最热</li>
+               	<li onclick="New()" tapmode>最新</li>
+               </ul>        
+          </div>
+    </div>
+    <div id="tab-hot">
+       <div class="aui-content">
+       	  <div id="aui-content"></div>
+
+       	  <script id="test" type="text/html">
+	      <ul class="aui-waterfall" id="aui-waterfall">
+	      	{{each list as value i}}
+	      	<li onclick="openNew({{value.id}})">
+	      	     <div class="aui-waterfall-header wheader" style="background:url({{value.item_titleimg}}) center no-repeat;background-size:cover;">
+	      	          <p class="aui-text-center">
+	      	              <span class="wtitle">{{value.item_title}}</span>
+	      	              <span class="wmiddle"></span>
+	      	          </p>   	          
+	      	     </div>
+	      	     <div class="aui-waterfall-body wcaption">
+	      	          <span >2015-1-20</span>
+	      	           <span class="aui-pull-right">125人参与</span>
+	      	     </div>
+	      	</li>
+	      	{{/each}}
+	      </ul>
+	      </script>
+	</div>
+    </div>
+   <div id="tab-new" style="display:none;">
+       <div class="aui-content">
+       		<div id="aui-content1"></div>
+
+       	  <script id="test1" type="text/html">
+	      <ul class="aui-waterfall" id="aui-waterfall1">
+	      	{{each list as value i}}
+	      	<li onclick="openNew({{value.id}})">
+	      	     <div class="aui-waterfall-header wheader" style="background:url({{value.item_titleimg}}) center no-repeat;background-size:cover;">
+	      	          <p class="aui-text-center">
+	      	              <span class="wtitle">{{value.item_title}}</span>
+	      	              <span class="wmiddle"></span>
+	      	          </p>   	          
+	      	     </div>
+	      	     <div class="aui-waterfall-body wcaption">
+	      	          <span >2015-1-20</span>
+	      	           <span class="aui-pull-right">125人参与</span>
+	      	     </div>
+	      	</li>
+	      	{{/each}}
+	      </ul>
+	      </script>
+	   </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-waterfall.js" ></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript">
+$aui.waterfall($api.byId("aui-waterfall"),{
+    col:1,//列数
+    padding:10,//容器内边距
+    space:10//列间距
+});
+
+	apiready = function(){
+		api.parseTapmode();
+	    var mt = $api.domAll("#main-tab li");
+	    for(var i in mt){
+	        $api.addEvt(mt[i], 'click', function(){
+	            $api.removeCls($api.dom("#main-tab li.active"),'active');
+	            $api.addCls(this,'active');
+	        });
+	    }
+
+    //数据请求
+
+
+
+     /****************************实时数据 开始****************************/            
+	    //最新主题
+        api.ajax({
+			    url: ApiUrl+'/api/index',
+			    method: 'post',
+			    data: {}
+			},function(data, err){
+			    if (data) {
+
+			        //记录设置缓存时间
+		            //$api.setStorage('entertime',getNowTime());
+		            //设置缓存
+		            //$api.setStorage('storage_data',data);
+
+		            //处理图片
+		            for (var i = data.list.length - 1; i >= 0; i--) {
+		                    data.list[i].item_titleimg = set_item_titleimg(data.list[i].item_titleimg);
+		            }
+
+		            
+		            var html = template('test', data);
+		            document.getElementById('aui-content').innerHTML = html;
+			    } else {
+			         api.alert({msg:JSON.stringify(err)});
+			    }
+		});
+
+
+	    //最热主题
+        api.ajax({
+			    url: ApiUrl+'/api/index',
+			    method: 'post',
+			    data: {}
+			},function(data, err){
+			    if (data) {
+
+			        //记录设置缓存时间
+		            //$api.setStorage('entertime',getNowTime());
+		            
+		            //设置缓存
+		            //$api.setStorage('storage_data',data);
+
+
+		            //处理图片
+		            for (var i = data.list.length - 1; i >= 0; i--) {
+		                    data.list[i].item_titleimg = set_item_titleimg(data.list[i].item_titleimg);
+		            }
+
+		            
+		            var html = template('test1', data);
+		            document.getElementById('aui-content1').innerHTML = html;
+			    } else {
+			         api.alert({msg:JSON.stringify(err)});
+			    }
+		});
+	    /****************************实时数据 结束****************************/ 
+
+	};
+	
+	function Hot(){
+	   var hot = document.getElementById("tab-hot");
+	   var news = document.getElementById("tab-new");
+	   hot.style.display = "block";
+	   news.style.display = "none";
+	}
+	function New(){
+	   var hot = document.getElementById("tab-hot");
+	   var news = document.getElementById("tab-new");
+	   hot.style.display = "none";
+	   news.style.display = "block";
+	}
+
+	    function openNew(item_id){
+		    api.openWin({
+		        name: 'procon',
+		        url: 'procon_win.html?item_id='+item_id,
+		        bounces: true,
+		        rect: {
+		            x: 0,
+		            y: 0,
+		            w: 'auto',
+		            h: 'auto'
+		        }
+		    });
+		}
+</script>
+</html>
