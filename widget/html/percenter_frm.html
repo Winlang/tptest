@@ -69,7 +69,7 @@
             <img class="aui-img-object aui-pull-left per-avatar" src="../image/demo2.png" alt="" />
             <div class="aui-img-body">
                   <span class="aui-text-danger"><em id="nickname" tapmode onclick="login()">登陆/注册</em><em class="per-badge" tapmode onclick="openInfo()">资料</em></span>
-                  <div class="aui-ellipsis-1"><i class="aui-badge aui-badge-warning">LV.1</i><span class="rank">议员</span></div>                                
+                  <div class="aui-ellipsis-1"><i class="aui-badge aui-badge-theme">LV.1</i><span class="rank">议员</span></div>                                
             </div>
             </li>
 
@@ -269,16 +269,26 @@
               $('.logined_show').show();
               $('.logout_show').hide();
               //用户中心信息
-              $.post(ApiUrl+'/api/userinfo',{'uid':uid},function(data){
-                    //昵称
-                    $('#nickname').html(data.mobile);
-                    //金币数量
-                    //票友数量
-                    
-                    //我的号召力
-                    //积分等级
-                    //红包数量
-                },'json');
+              api.ajax({
+                  url: ApiUrl+'/api/userinfo',
+                  method: 'post',
+                  data: {
+                    values:{
+                      'uid':uid,
+                    }
+                  }
+              },function(data, err){
+                  //昵称
+                  $('#nickname').html(data.mobile);
+                  //金币数量
+                  //票友数量
+                  
+                  //我的号召力
+                  //积分等级
+                  //红包数量
+              });
+              
+
           }else{
               $('.logined_show').hide();
               $('.logout_show').show();

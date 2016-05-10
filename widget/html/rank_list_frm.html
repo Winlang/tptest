@@ -52,7 +52,6 @@
                         <div class="aui-progress aui-progress-xs progress">
                             
                               <div class="aui-progress-bar aui-progress-{{v.color}}" style="width:{{v.percent}}%"></div>
-                             
                         </div>
                   </div>
                   {{/each}}
@@ -85,7 +84,23 @@
 <script type="text/javascript" src="../script/template.js"></script>
 <script type="text/javascript">
 	apiready = function(){
-		
+		  //获取主题id
+      var id = getQueryString('item_id');
+
+      //获取主题排行榜选项
+      api.ajax({
+          url: ApiUrl+'/api/item_rank?id='+id+'&callback=?',
+          method: 'post',
+          data: {}
+      },function(data, err){
+          if (data) {
+              $('.rank-title').html(data.data.item_title);
+              var html = template('item_rank', data);
+              document.getElementById('item_rankinfo').innerHTML = html;
+          } else {
+               api.alert({msg:JSON.stringify(err)});
+          }
+    });
 	};
 </script>
 </html>

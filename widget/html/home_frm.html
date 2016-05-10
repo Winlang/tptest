@@ -51,7 +51,6 @@
     <div id="tab-hot">
        <div class="aui-content">
        	  <div id="aui-content"></div>
-
        	  <script id="test" type="text/html">
 	      <ul class="aui-waterfall" id="aui-waterfall">
 	      	{{each list as value i}}
@@ -122,6 +121,26 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
     //数据请求
 
+    //缓存处理
+    
+    	// if(getNowTime() - $api.getStorage('entertime') > 10){
+     //            $api.setStorage('storage_data','');
+     //    }      
+
+     //    //获取缓存数据
+     //    var storage_data = $api.getStorage('storage_data');
+        
+     //    if(storage_data != '' ){
+     //           var data = JSON.parse(storage_data);
+     //           //处理图片
+     //            for (var i = data.list.length - 1; i >= 0; i--) {
+     //                    data.list[i].item_titleimg = set_item_titleimg(data.list[i].item_titleimg);
+     //            }
+
+                
+     //            var html = template('test', data);
+     //            document.getElementById('aui-content').innerHTML = html;
+     //    }
 
 
      /****************************实时数据 开始****************************/            
@@ -162,7 +181,7 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
 			        //记录设置缓存时间
 		            //$api.setStorage('entertime',getNowTime());
-		            
+
 		            //设置缓存
 		            //$api.setStorage('storage_data',data);
 

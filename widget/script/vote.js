@@ -16,7 +16,6 @@ function toupiao(obj,id){
         	$(obj).children('span').addClass('aui-icon-roundcheckfill');
             $(obj).children('a').html("已投票");
         }else{
-        	
             api.alert({msg: data.data});
         }
     });
@@ -51,7 +50,7 @@ function pinglun(){
         	var hh = '';
 			hh += '<li class="aui-list-view-cell aui-img">';                  
 				hh += '<div class="aui-img-object aui-pull-left ">';
-			  		hh += '<img class="avatar" src="../image/demos-2.jpg" alt="" /> ';
+			  		hh += '<img class="avatar" src="/Uploads/avatar"'+data.comm_data.avatar+' alt="" /> ';
 				hh += '</div>';
 				hh += '<div class="aui-img-body">';
 					hh += '<div class="commemt-caption">';
@@ -84,17 +83,42 @@ function good_bad(obj,commid,status){
 		login_page();
 		return false;
 	}
+	//请求接口
     $.post(ApiUrl+'/api/comm_goodbad?id='+commid+'&status='+status+'&member_id='+member_id+'&callback=?',{},function(data){
     	var data = JSON.parse(data);
         if(data.status == 0){
             api.alert({msg: data.data});
-            $(obj).removeAttr('onclick');
+            $(obj).attr('onclick','cancel_goodbad(this,'+data.comm_id+');');
         	$(obj).removeClass('aui-icon-appreciate');
         	$(obj).addClass('aui-icon-appreciatefill');
         	$(obj).addClass('aui-text-warning');
         	$(obj).next('span').html(data.num);
         }else{
             api.alert({msg: data.data});
+        }
+    });
+}
+
+//取消点赞点扯
+function cancel_goodbad(obj,comm_id){
+	var member_id = is_login();
+	if(member_id == '-1'){
+		api.alert({msg: '请先登录'});
+		login_page();
+		return false;
+	}
+	//请求接口
+	$.post(ApiUrl+'/api/cancel_goodbad?comm_id='+comm_id+'&member_id='+member_id+'&callback=?',{},function(data){
+    	var data = JSON.parse(data);
+        if(data.status == 0){
+            api.alert({msg: data.msg});
+            $(obj).attr('onclick','good_bad(this,'+data.comm_id+',"'+data.good_bad+'")');
+        	$(obj).addClass('aui-icon-appreciate');
+        	$(obj).removeClass('aui-icon-appreciatefill');
+        	$(obj).removeClass('aui-text-warning');
+        	$(obj).next('span').html(data.num);
+        }else{
+            api.alert({msg: data.msg});
         }
     });
 }

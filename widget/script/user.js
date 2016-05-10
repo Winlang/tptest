@@ -45,6 +45,7 @@ function StepTimes() {
 
 //提交下一步   注册功能
 function register(){
+
         //获取value值
         var mobile = $('#mobile').val();
         var code = $('#code').val();
@@ -56,49 +57,54 @@ function register(){
         	return false;
         }
 
-        //提交数据
-        $.post(ApiUrl+'/api/register_one',{'mobile':mobile,'code':code,'password':password,'password2':password2},function(data){
-        	//注册成功 进入个人中心
+
+        //注册流程
+        api.ajax({
+              url: ApiUrl+'/api/register_one',
+              method: 'post',
+              data: {
+                values: { 
+                    'mobile':mobile,
+                    'code':code,
+                    'password':password,
+                    'password2':password2
+                }
+              }
+          },function(data, err){
+              //注册成功 进入个人中心
         	if(data.status == 1){
 
 	        	//设置 登陆表识
         		var uid = data.msg;
         		$api.setStorage('uid',uid);
-        		
-    			//     api.setPrefs({
-				//     key: 'uid',
-				//     value: data.msg
-				// });
 
-        		//用户中心信息
-				$.post(ApiUrl+'/api/userinfo',{'uid':uid},function(data){
+        		//获取用户数据
+				api.ajax({
+                      url: ApiUrl+'/api/userinfo',
+                      method: 'post',
+                      data: {
+                        values: { 
+                            'uid':uid
+                        }
+                      }
+                  },function(ret_data, err){
+                       // 广播事件
+			            api.sendEvent({
+				            name : 'reg_login_successEvent',
+				            extra : {
+				               name : ret_data.mobile,
+				            }
+				        });
 
-			        // 广播事件
-		            api.sendEvent({
-			            name : 'reg_login_successEvent',
-			            extra : {
-			               name : data.mobile,
-			            }
-			        });
-
-		          
-		           	//跳至信息设置页面
-		      //      	api.openWin({
-				    //     name: 'register_two',
-				    //     url: 'register_two_frm.html',
-				    // });
-
-				    api.openFrame({
-			            name : 'register_two_frm',
-			            url : 'register_two_frm.html',
-			        });
-		           
-			    });
-
+					    api.openFrame({
+				            name : 'register_two_frm',
+				            url : 'register_two_frm.html',
+				        });
+                });
 	        }else{
 	        	alert('注册失败,请重新注册~');
 	        }
-        },'json');
+        });
 }
 
 //登陆
@@ -118,33 +124,48 @@ function login(){
         	return false;
         }
         //提交数据
-        $.post(ApiUrl+'/api/login',{'mobile':mobile,'passwd':password},function(data){
-        	
-        	//登陆成功 进入个人中心
+       api.ajax({
+              url: ApiUrl+'/api/login',
+              method: 'post',
+              data: {
+                values: { 
+                    'mobile':mobile,
+                    'passwd':password
+                }
+              }
+          },function(data, err){
+              //登陆成功 进入个人中心
         	if(data.status == 1){
         		//设置 登陆表识
         		var uid = data.msg;
         		$api.setStorage('uid',uid);
 
         		//用户中心信息
-				$.post(ApiUrl+'/api/userinfo',{'uid':uid},function(data){
+				api.ajax({
+                      url: ApiUrl+'/api/userinfo',
+                      method: 'post',
+                      data: {
+                        values: { 
+                            'uid':uid
+                        }
+                      }
+                  },function(data, err){
+                      // 广播事件
+			            api.sendEvent({
+				            name : 'reg_login_successEvent',
+				            extra : {
+				               name : data.mobile,
+				               callback : type,
+				            }
+				        });
 
-			        // 广播事件
-		            api.sendEvent({
-			            name : 'reg_login_successEvent',
-			            extra : {
-			               name : data.mobile,
-			               callback : type,
-			            }
-			        });
+			            api.closeWin();
+                });
 
-		            api.closeWin();
-		           
-		           
-			    },'json');
 
 	        }else{
 	        	alert('登陆失败,请重新登陆~');
 	        }
-        },'json');
+        });
+
 }

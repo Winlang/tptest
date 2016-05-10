@@ -8,12 +8,12 @@
 </head>
 <body>   
      <!--<div class="aui-btn aui-btn-danger" tapmode onclick="closeClipCeng()">取消</div>-->
-     <header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
-        <a class="aui-btn aui-btn-warning aui-pull-left" tapmode onclick="closeWin()">
-            <span class="aui-iconfont aui-icon-left"></span>
+     <header class="aui-bar aui-bar-nav aui-bar-theme" id="aui-header">
+        <a class="aui-btn aui-btn-white aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left aui-text-theme"></span>
         </a>
         <div class="aui-title" id="header-title">上传选项图片</div>
-        <div class="aui-btn aui-btn-success aui-pull-right" tapmode onclick="xx_save()">使用</div>
+        <div class="aui-btn aui-btn-danger aui-pull-right" tapmode onclick="xx_save()">使用</div>
     </header>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -27,7 +27,6 @@
     apiready = function(){
         var picUrl = getQueryString('picUrl');
         xx_imageClip(picUrl);
-       
     }; 
 </script>
 </html>

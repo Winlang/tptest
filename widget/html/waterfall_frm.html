@@ -91,16 +91,6 @@ $aui.waterfall($api.byId("aui-waterfall"),{
       space:10
 });
 apiready = function(){
-<<<<<<< HEAD
-    api.parseTapmode();
-    var demo2 = $api.domAll("#demo2 li");
-    for(var i in demo2){
-            $api.addEvt(demo2[i], 'click', function(){
-                $api.removeCls($api.dom("#demo2 li.active"),'active');
-                $api.addCls(this,'active');
-            });
-        }
-=======
     //推送测试
     var ajpush = api.require('ajpush');
 
@@ -140,10 +130,6 @@ apiready = function(){
             });
         }
     });
-
-
-
->>>>>>> master
 
 };
 

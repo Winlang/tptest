@@ -4,18 +4,15 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <title>列表页</title>
-    <link rel="stylesheet" type="text/css" href="../css/aui-win.css"/>
-
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/aui-win.css"/>-->
 </head>
 <body>
-	<header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
-        <a class="aui-btn aui-btn-warning aui-pull-left" tapmode onclick="closeWin()">
-            <span class="aui-iconfont aui-icon-left"></span>
+	<header class="aui-bar aui-bar-nav aui-bar-theme" id="aui-header">
+        <a class="aui-btn aui-btn-white aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left aui-text-theme"></span>
         </a>
-
         <div class="aui-title"></div>
-
-
     </header>
 </body>
     <script type="text/javascript" src="../script/api.js"></script>
@@ -32,10 +29,7 @@
         var header = $api.byId('aui-header');
         $api.fixStatusBar(header); 
         var headerPos = $api.offset(header);
-        var body_h = $api.offset($api.dom('body')).h;
-
- 
-		
+        var body_h = $api.offset($api.dom('body')).h;		
 		var cateid=getQueryString('cateid');
         //头部修改
         $.post(ApiUrl+'/api/fenlei?id='+cateid+'&callback=?',{},function(data){

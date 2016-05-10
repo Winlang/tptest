@@ -15,7 +15,7 @@
 
             {{each list as value i}}
             <li class="aui-col-xs-4 aui-text-center" onclick="openList({{value.id}})">
-                <span class="aui-iconfont aui-icon-edit aui-text-warning"></span>
+                <span class="aui-iconfont aui-icon-edit aui-text-theme"></span>
                 <p>{{value.title}}</p>
             </li>
             {{/each}}
@@ -32,6 +32,25 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/template.js"></script>
 <script type="text/javascript">
+apiready = function(){
+   //分类列表
+
+   //获取主题排行榜选项
+    api.ajax({
+        url: ApiUrl+'/api/cates/?callback=?',
+        method: 'post',
+        data: {}
+    },function(data, err){
+        if (data) {
+            var html = template('cates', data);
+                document.getElementById('cates_list').innerHTML = html;
+        } else {
+             api.alert({msg:JSON.stringify(err)});
+        }
+  });
+}
+
+
 function openList(cateid){
   
    api.openWin({
