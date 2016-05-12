@@ -532,7 +532,10 @@ apiready = function(){
             if(data.status == 0){
                //投票成功
                $(obj).attr('onclick','cancel_toupiao(this);');
+               // alert($(".n_"+id).text());
                $("#n_"+id).text(data.itemopt_num);
+               $(".n_"+id).text(data.itemopt_num);
+               // alert($(".n_"+id).text());
                $('#default_succ div').text(data.data);
                 $api.css($api.byId("default_succ"),"display:block");
                 setTimeout(function(){

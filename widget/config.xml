@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<widget id="A6915992782055" version="0.0.1"> 
+<widget id="A6917226871452" version="0.0.1"> 
   <name>投票项目</name>  
   <description>应用AUI框架</description>  
   <author email="cuihuale@yeah.net" href="http://www.apicloud.com">APPxn</author>  
@@ -30,4 +30,8 @@
     <param name="apiKey" value="wxd0d84bbf23b4a0e4"/>  
     <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/> 
   </feature> 
+  <feature name="ajpush">
+        <param name="app_key" value="436d613d69806272c5469aa4" />
+        <param name="channel" value="24" />
+    </feature>
 </widget>

@@ -529,6 +529,7 @@ apiready = function(){
                //投票成功
                $(obj).attr('onclick','cancel_toupiao(this);');
                $("#n_"+id).text(data.itemopt_num);
+               $(".n_"+id).text(data.itemopt_num);
                $('#default_succ div').text(data.data);
                 $api.css($api.byId("default_succ"),"display:block");
                 setTimeout(function(){

@@ -76,10 +76,11 @@ function pinglun(){
 		    $('#ask-text textarea').val(' ');
             hideReply();
 		    //最新评论显示在最上面
+		    data.comm_data.member_avatar = set_avatar(data.comm_data.member_avatar);
         	var hh = '';
 			hh += '<li class="aui-list-view-cell aui-img">';                  
 				hh += '<div class="aui-img-object aui-pull-left ">';
-			  		hh += '<img class="avatar" src="/Uploads/avatar"'+data.comm_data.avatar+' alt="" /> ';
+			  		hh += '<img class="avatar" src="'+data.comm_data.member_avatar+'" alt="" /> ';
 				hh += '</div>';
 				hh += '<div class="aui-img-body">';
 					hh += '<div class="commemt-caption">';
@@ -213,6 +214,9 @@ function option_good_comm(itemoptid,member_id){
         method:'post',
         data:{}
     },function(data,err){
+    	$.each(data.data,function(k,v){
+    		v.member_avatar = set_avatar(v.member_avatar);
+    	});
         var html = template('itemopt_good_commdata', data);
         document.getElementById('itemopt_good_comminfo').innerHTML = html;
     });
@@ -235,8 +239,7 @@ function collectionInfo(obj){
 	},function(data,err){
 		if(data.status=='0' || data.status=='2'){
 			$(obj).attr('onclick','cancel_collection(this);');
-			$(obj).children('span').removeClass('aui-icon-like');
-			$(obj).children('span').addClass('aui-icon-likefill');
+			$(obj).children('span').attr('class','aui-text-theme aui-iconfont aui-icon-favorfill');
 			$(obj).children('a').html("已收藏");
 		}else{
 			api.alert({msg: data.data});
@@ -261,8 +264,7 @@ function cancel_collection(obj){
 	},function(data,err){
 		if(data.status == 0){
 			$(obj).attr('onclick','collectionInfo(this);');
-			$(obj).children('span').addClass('aui-icon-like');
-			$(obj).children('span').removeClass('aui-icon-likefill');
+			$(obj).children('span').attr('class','aui-text-theme aui-iconfont aui-icon-favor');
 			$(obj).children('a').html("收藏");
 		}else{
 			api.alert({msg:data.msg});

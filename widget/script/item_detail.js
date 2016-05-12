@@ -45,6 +45,7 @@ function cancel_toupiao(obj){
             $(obj).removeAttr('checked');
             $(obj).attr('onclick','showToast(this);');
             $("#n_"+itemopt_id).text(data.itemopt_num);
+            $(".n_"+itemopt_id).text(data.itemopt_num);
             $('#default_succ div').html(data.msg);
                 $api.css($api.byId("default_succ"),"display:block");
                 setTimeout(function(){
@@ -64,8 +65,14 @@ function cancel_toupiao(obj){
 //搜索
 function search_info(item_title){
     var item_id = getQueryString('item_id');
+    var member_id = is_login();
+    if(member_id == '-1'){
+        api.alert({msg: '请先登录'});
+        login_page();
+        return false;
+    }
     api.ajax({
-        url:ApiUrl+'/api/search_info?id='+item_id+'&item_title='+item_title+'&callback=?',
+        url:ApiUrl+'/api/search_info?id='+item_id+'&item_title='+item_title+'&member_id='+member_id+'&callback=?',
         method:'post',
         data:{}
     },function(data,err){
