@@ -109,7 +109,13 @@ $aui.waterfall($api.byId("aui-waterfall"),{
     space:10//列间距
 });
 
+
+	var jpush = null;
+	
+	    	
+	    
 	apiready = function(){
+		jpush = api.require('ajpush');
 		api.parseTapmode();
 	    var mt = $api.domAll("#main-tab li");
 	    for(var i in mt){
@@ -227,6 +233,165 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 		            h: 'auto'
 		        }
 		    });
+		}
+
+
+		//推送相关
+		function initJPush(){
+			jpush.init(function(ret, err){
+				if(ret && ret.status){
+					alert('操作成功!');
+				}else{
+					alert('操作失败!');
+				}
+			});
+		}
+		
+		function setListener(){
+			jpush.setListener(function(ret, err){
+				if(ret){
+					alert('收到消息：\n' + JSON.stringify(ret));
+				}else{
+					//
+				}
+			});
+			alert('设置成功，收到的消息将通过此函数回调给网页，不再弹出通知到状态栏');
+		}
+		
+		function removeListener(){
+			jpush.removeListener();
+			alert('移除成功，移除后网页将不再收到消息，消息将弹出通知到状态栏');
+		}
+		
+		function bindAliasAndTags(){
+			var alias = valueOf('alias');
+			var tags = valueOf('tags');
+			if(!alias && !tags){
+				alert('别名和标签至少传一个');
+				return;
+			}
+			if(!alias){
+				alias = '';
+			}
+			if(!tags){
+				tags = '';
+			}
+			tags = tags.split(',');
+			jpush.bindAliasAndTags({
+				alias:alias,
+				tags:tags
+			}, function(ret, err){
+				alert('处理结果：\n' + JSON.stringify(ret));
+			});
+		}
+		
+		function clearNotification(id){
+			if(!id){
+				id = -1;
+			}
+			jpush.clearNotification({id:id});
+		}
+		
+		function setPushTime(){
+			var days = valueOf('days');
+			var startHour = valueOf('startHour');
+			var endHour = valueOf('endHour');
+			if(!days){
+				alert('日期不能为空');
+				return;
+			}
+			days = days.split(',');
+			if(!startHour){
+				startHour = 0;
+			}
+			if(!endHour){
+				endHour = 23;
+			}
+			jpush.setPushTime({
+				days: days,
+				startHour: startHour,
+				endHour: endHour
+			}, function(ret, err){
+				if(ret && ret.status){
+					alert('操作成功!');
+				}else{
+					alert('操作失败!');
+				}
+			});
+		}
+		
+		function setSilenceTime(){
+			var startHour = valueOf('startHour');
+			var endHour = valueOf('endHour');
+			var startMinute = valueOf('startMinute');
+			var endMinute = valueOf('endMinute');
+			if(!startHour){
+				startHour = 0;
+			}
+			if(!endHour){
+				endHour = 23;
+			}
+			if(!startMinute){
+				startMinute = 0
+			}
+			if(!endMinute){
+				endMinute = 50;
+			}
+			jpush.setSilenceTime({
+				startHour: startHour,
+				endHour: endHour,
+				startMinute: startMinute,
+				endMinute: endMinute
+			}, function(ret, err){
+				if(ret && ret.status){
+					alert('操作成功!');
+				}else{
+					alert('操作失败!');
+				}
+			});
+		}
+		
+		function stopPush(){
+			jpush.stopPush(function(ret, err){
+				if(ret && ret.status){
+					alert('操作成功!');
+				}else{
+					alert('操作失败!');
+				}
+			});
+		}
+		
+		function resumePush(){
+			jpush.resumePush(function(ret, err){
+				if(ret && ret.status){
+					alert('操作成功!');
+				}else{
+					alert('操作失败!');
+				}
+			});
+		}
+		
+		function isPushStopped(){
+			jpush.isPushStopped(function(ret, err){
+				if(ret.isStopped == 1){
+					alert('已停止');
+				}else{
+					alert('未停止');
+				}
+			});
+		}
+
+		function getId(){
+			jpush.getRegistrationId(function(ret, err){
+				alert(JSON.stringify(ret));
+			});
+		}
+		
+		function valueOf(id){
+			if(!id){
+				return '';
+			}
+			return document.getElementById(id).value;
 		}
 </script>
 </html>
