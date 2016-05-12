@@ -845,6 +845,11 @@ input[type="time"] {
 	font-size: 16px;
 	color: #ffffff;
 }
+.aui-radio.aui-radio-theme:checked,
+.aui-radio.aui-radio-theme.aui-checked {
+	background-color: #7935FE;
+	border: solid 1px #7935FE;
+}
 .aui-radio.aui-radio-info:checked,
 .aui-radio.aui-radio-info.aui-checked {
 	background-color: #3498db;

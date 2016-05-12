@@ -113,6 +113,17 @@
  		var item_opttitle = $('#xx_title').val();
  		var item_optdesc = $('#xx_desc').val();
  		
+ 		if(item_optimg == '' || item_optimg == null){
+ 			alert('请您上传选项封面图');
+ 		}
+
+ 		if(item_opttitle == '' || item_opttitle == null){
+ 			alert('请您填写选项标题');
+ 		}
+
+ 		if(item_optdesc == '' || item_optdesc == null){
+ 			alert('请您填写选项描述');
+ 		}
  		//提交增加选项
  		api.ajax({
 			    url: ApiUrl+'/api/additemopt/?callback=?',

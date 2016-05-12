@@ -40,26 +40,23 @@
             <script id="comments" type="text/html">
                 {{each list as value i}}
                 <li class="aui-list-view-cell aui-img" tapmode>
-                      <img class="aui-img-object aui-pull-left" src="{{value.avatar}}"/>
-                      <div class="aui-img-body">
-                                                                                   {{value.nick}}
-                            <p class="sub-tit aui-text-default">{{value.ctime}}</p>                                                      
-                      </div>
-                      <p style="clear:both;"></p>
-                      <div class="aui-ellipsis-2 aui-pull-left zan">赞了我的评论</div>
+                      
                       <div class="aui-pull-left aui-padded-10 quote">
-                           <p><span class="aui-text-theme">我：</span>{{value.comm_con}}</p>
+                           <p><span class="aui-text-theme">@{{value.nick}}：</span>{{value.comm_con}}</p>
                            <div class="quote-con aui-padded-10">
                                 <span class="aui-text-danger qc-1">{{value.item_title}}</span><br />
                                 <span class="aui-text-warning qc-2">{{value.item_opttitle}}</span>
                            </div>
                       </div>
+
+                      <p class="sub-tit aui-text-default">{{value.ctime}}</p>                                                      
+                    
                  </li>
                 {{/each}}
             </script>
           
             <div class="aui-list-view-cell aui-img"> 
-            <p id="loading" onclick="loading_receive_appreciate(2)" class="aui-text-center comment-more">点击查看更多</p>
+            <p id="loading" onclick="loading_appreciate(2)" class="aui-text-center comment-more">点击查看更多</p>
             </div>
        </div>
 </body>
@@ -75,7 +72,7 @@
        login_page();
     }
     api.ajax({
-       url: ApiUrl+'/api/itemopt_user_receive_zan/?callback=?',
+       url: ApiUrl+'/api/itemopt_user_zan/?callback=?',
        method: 'post',
        data: {
          values:{
@@ -84,12 +81,6 @@
        }
    },function(data, err){
        if (data) {
-
-          for (var i = data.list.length - 1; i >= 0; i--) {
-              data.list[i].avatar = set_avatar(data.list[i].avatar);
-          }
-
-
            var html = template('comments', data);
            document.getElementById('comment_list').innerHTML = html;
        } else {
@@ -99,13 +90,13 @@
   };
 
   //点击加载更多精彩评论
-function loading_receive_appreciate(page){
+function loading_appreciate(page){
     //获取当前登陆用户的id
     var uid = is_login();
     var next_page = page+1;
     $.ajax({
       'type':'get',
-      'url':ApiUrl+'/userapi/loading_receive_appreciate?uid='+uid+'&page='+page+'&callback=?',
+      'url':ApiUrl+'/userapi/loading_appreciate?uid='+uid+'&page='+page+'&callback=?',
       beforeSend:function(){
         $('#loading').removeAttr('onclick');
         $('#loading').html('正在加载中...');
@@ -115,7 +106,7 @@ function loading_receive_appreciate(page){
         if(data.status == 0){
           $('#comment_list').append(data.msg);
           $('#loading').html('查看更多赞');
-          $('#loading').attr('onclick','loading_receive_appreciate('+next_page+')');
+          $('#loading').attr('onclick','loading_appreciate('+next_page+')');
         }else if(data.status == 2){
           $('#loading').removeAttr('onclick');
           $('#loading').html('没有更多赞了');

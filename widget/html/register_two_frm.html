@@ -75,7 +75,7 @@
 function confirm(){
 
         //获取value值
-        var avatarImg = $('#avatarImg').attr('src');
+        var avatarImg = $('#avatar').val();
         var nickname = $('#nickname').val();
         var birthday = $('#birthday').val();
         var sex = $("input[name='sex'][checked]").val(); 
@@ -110,6 +110,7 @@ function confirm(){
                     name : 'reg_login_successEvent',
                     extra : {
                        name : data.msg,
+                       avatar: avatarImg
                     }
                 });
                 //跳至应用首页
@@ -146,6 +147,7 @@ function confirm(){
           }, function(ret) {
                 if (ret && ret.value) {
                     var value = ret.value;
+                    $('#avatar').val(value.name);
                     var imgpath = UploadUrl+'/avatar/'+value.name;
                     $api.attr($api.byId("avatarImg"),'src',imgpath);
                 }

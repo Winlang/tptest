@@ -7,24 +7,29 @@ function sendVerify(){
 		    return false;
 		}
 
-		if(mobile == "" || mobile == null){
+		if(mobile == ""){
 			alert('手机号不能为空');
 			return false;
 		}
-		
 
+    // if(mobile == "" || mobile == null){
+    //   alert('手机号不能为空');
+    //   return false;
+    // }
+		
 		//发送短信 并显示 倒计时
 		var sms_status = sendMsg(mobile);
+    
 		if(sms_status == 0){
 			alert('发送失败');
 			return false;
 		}
 
 		//倒计时
-		$(this).html(60);
+		$('#sendVerify').html(60);
 
 		//不能被点击
-		$(this).attr("disabled", "disabled");
+		$('#sendVerify').attr("disabled", "disabled");
 
 		StepTimes();
 
@@ -52,6 +57,14 @@ function register(){
         var password = $('#password').val();
         var password2 = $('#password2').val();
 
+        if(mobile == ''){
+          alert('手机号不能为空');
+          return false;
+        }
+        if(password == ''){
+          alert('密码不能为空');
+          return false;
+        }
         if(password != password2){
         	alert('两次密码不一致密码');
         	return false;
@@ -79,30 +92,31 @@ function register(){
         		$api.setStorage('uid',uid);
 
         		//获取用户数据
-				api.ajax({
-                      url: ApiUrl+'/api/userinfo',
-                      method: 'post',
-                      data: {
-                        values: { 
-                            'uid':uid
-                        }
+      			api.ajax({
+                    url: ApiUrl+'/api/userinfo',
+                    method: 'post',
+                    data: {
+                      values: { 
+                          'uid':uid
                       }
-                  },function(ret_data, err){
-                       // 广播事件
-			            api.sendEvent({
-				            name : 'reg_login_successEvent',
-				            extra : {
-				               name : ret_data.mobile,
-				            }
-				        });
+                    }
+                },function(ret_data, err){
+                     // 广播事件
+		            api.sendEvent({
+			            name : 'reg_login_successEvent',
+			            extra : {
+			               name : ret_data.mobile,
+                     avatar : ret_data.avatar,
+			            }
+			        });
 
-					    api.openFrame({
-				            name : 'register_two_frm',
-				            url : 'register_two_frm.html',
-				        });
-                });
+				    api.openFrame({
+			            name : 'register_two_frm',
+			            url : 'register_two_frm.html',
+			        });
+              });
 	        }else{
-	        	alert('注册失败,请重新注册~');
+	        	alert(data.msg);
 	        }
         });
 }
@@ -141,7 +155,7 @@ function login(){
         		$api.setStorage('uid',uid);
 
         		//用户中心信息
-				api.ajax({
+    				api.ajax({
                       url: ApiUrl+'/api/userinfo',
                       method: 'post',
                       data: {
@@ -154,7 +168,8 @@ function login(){
 			            api.sendEvent({
 				            name : 'reg_login_successEvent',
 				            extra : {
-				               name : data.mobile,
+                       name : data.mobile,
+				               avatar : data.avatar,
 				               callback : type,
 				            }
 				        });

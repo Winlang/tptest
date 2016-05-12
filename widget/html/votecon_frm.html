@@ -67,18 +67,38 @@
                
         .vote-info{
               position:relative;
-              margin-top:-60px;
-              height:60px;
-              padding-top:10px;
-              background-color:rgba(0,0,0,.6);          
-        }
-        .vote-info p{
-            padding:0 20px;
-            color:#fff;
-        }
-        .vote-info p>span{
-            font-size:22px;
-        }
+              margin-top:-240px;
+              height:240px;           
+              background-color:rgba(0,0,0,.4);  
+              color:#fff;
+              padding:10px;
+    	}
+    	.vote-info .sub-title{
+    	     font-family: 12px;
+    	     height:24px;
+    	     line-height:24px;
+    	     border:1px solid #fff;
+    	     border-radius: 12px;
+    	     position: relative;
+    	     top:195px;
+    	     padding: 0 10px;
+    	}
+    	.f-all{
+    	    padding-right:20px;
+    	}
+    	.avatar-list{
+    	    overflow: hidden;
+    	    width: 100%;
+    	    height:60px;
+    	}
+    	.f-avatar{
+    	   width:40px;
+    	   height:40px;
+    	   border-radius:20px;
+    	   vertical-align: middle;
+    	   margin-right:10px; 
+    	   margin-bottom:10px;  	  
+    	   }
         .avatar{
             display:block;
             width:40px;
@@ -207,13 +227,13 @@
      .share-content ul li{
        display:inline-block;
        float:left;
-       width:24%;
+       width:20%;
        text-align:center;
        padding-top:5px;
      }
      .share-content ul li img{
-       width:55px;
-       height:55px;
+       width:45px;
+       height:45px;
      }
      .desc-1{
     	   word-wrap: break-word;
@@ -238,42 +258,44 @@
         <div class="aui-content">
               <img class="idol-avatar" src="http://votetest.xieli.cn/Uploads/admin/{{data.item_optimg}}" alt="" />
               <div class="vote-info">
-                   <div class="aui-pull-left">
-                         <p>得票: <span id="vote_num">{{data.item_opttoupiao}}</span></p>
-                   </div>
-                   <div class="aui-pull-right">
-                         <p>排名: <span>{{data.item_optpaiming}}</span></p>
-                   </div>
-              </div>
+                 <div class="aui-pull-left sub-title">
+                       <i class="aui-iconfont aui-icon-rank"></i>
+                       <span id="vote_num">{{data.item_opttoupiao}}</span>
+                 </div>
+                 <div class="aui-pull-right sub-title">
+                      <i class="aui-iconfont aui-icon-upstage"></i>
+                      <span>{{data.item_optpaiming}}</span>
+                 </div>
+            </div>
               <ul class="mine">
                 {{if data.is_toupiao == 1}}
-                    <li class="vote">
+                    <li class="vote" onclick="cancel_toupiao(this);">
                         <span class="aui-text-theme aui-iconfont aui-icon-roundcheckfill"></span>
                         <a>已投票</a>
                     </li>
                 {{else}}
-                    <li class="vote" onclick="toupiao(this,{{data.item_optid}});">
-                        <span class="aui-text-theme aui-iconfont aui-icon-roundcheck"></span>
+                    <li class="vote" onclick="toupiao(this);">
+                        <span class="aui-text-default aui-iconfont aui-icon-roundcheck"></span>
                         <a>投一票</a>
                     </li>
                 {{/if}}
                 <li class="comment" onclick="showReply();">
-                     <span class="aui-text-theme aui-iconfont aui-icon-comment"></span>
+                     <span class="aui-text-default aui-iconfont aui-icon-comment"></span>
                      <a >说两句</a>
-                
                 </li>
                 <li class="share" onclick="share();">
-                     <span class="aui-text-theme aui-iconfont aui-icon-share"></span>
+                     <span class="aui-text-default aui-iconfont aui-icon-share"></span>
                      <a>分享拉票</a>
                 </li>
                 <div class="aui-dialog aui-hidden sharecss" id="dialog">
                     <div class="aui-dialog-header share-tit">分享拉票</div>
                     <div class="aui-dialog-body share-content">
                         <ul>
-                        	<li tapmode><img src="../image/sweixin.png" alt="" /></li>
-                        	<li onclick="qqfriend_share();" tapmode><img src="../image/sqq.png" alt="" /></li>
-                        	<li onclick="sina_share();" tapmode><img src="../image/ssina.png" alt="" /></li>
-                        	<li onclick="qqkongjian_share();" tapmode><img src="../image/szone.png" alt="" /></li>
+                        	<li tapmode><img src="../image/sweixin.png"/></li>
+                        	<li onclick="qqfriend_share();" tapmode><img src="../image/sqq.png"/></li>
+                        	<li onclick="sina_share();" tapmode><img src="../image/ssina.png"/></li>
+                        	<li onclick="qqkongjian_share();" tapmode><img src="../image/szone.png"/></li>
+                        	<li onclick="clip_share();" tapmode><img src="../image/sclip.jpg"/></li>
                         </ul>
                     </div>
                     <div class="aui-dialog-footer">
@@ -281,27 +303,39 @@
                     </div>
                </div>
                 {{if data.collection == 1}}
-                 <li class="collect" id="collectionInfo">
-                     <span class="aui-text-theme aui-iconfont aui-icon-likefill"></span>
-                     <a>已收藏</a>
-                </li>
+                    <li class="collect" onclick="cancel_collection(this);">
+                        <span class="aui-text-theme aui-iconfont aui-icon-favorfill"></span>
+                        <a>已收藏</a>
+                    </li>
                 {{else}}
-                <li class="collect" id="collectionInfo" onclick="collectionInfo({{data.item_optid}});">
-                     <span class="aui-text-theme aui-iconfont aui-icon-like" id="class_shoucang"></span>
-                     <a class="shoucang">收藏</a>
-                </li>
+                    <li class="collect" onclick="collectionInfo(this);">
+                        <span class="aui-text-default aui-iconfont aui-icon-favor"></span>
+                        <a class="shoucang">收藏</a>
+                    </li>
                   {{/if}}
               </ul>
         </div>
 
     <div class="aui-content">
-         <ul class="aui-list-view">
-            <li class="aui-list-view-cell" onclick="openGrid()">
-                <div class="aui-arrow-right aui-text-default f-vote">您有11个好友投了ta <img class="f-avatar aui-pull-right" src="../image/wx.png" alt="" /></div>
-            </li>
-         </ul>
-    </div>
-
+            <ul class="aui-list-view aui-in">
+                 <li class="aui-list-view-cell aui-text-default">
+                     <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i>81个好友参加</div>
+                     <div class="aui-arrow-right aui-pull-right"><span class="f-all">全部</span></div>
+                 </li>
+                 <li>
+                     <div class="aui-padded-10 avatar-list">
+                            <img class="f-avatar" src="../image/demo1.png"/>
+		             	   <img class="f-avatar" src="../image/demo4.png"/>
+		             	   <img class="f-avatar" src="../image/demo5.png"/>
+		             	   <img class="f-avatar" src="../image/demo3.png"/>
+		             	   <img class="f-avatar" src="../image/demo2.png"/>
+		             	   <img class="f-avatar" src="../image/demo6.png"/>
+		             	   <img class="f-avatar" src="../image/demo2.png"/>
+		             	   <img class="f-avatar" src="../image/demo6.png"/>
+                     </div>
+                 </li>
+            </ul>
+       </div>
     <div class="aui-content aui-padded-10" id="jianjie">
           <p id="summary" class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode >{{data.item_optdesc}}</p>
 
@@ -393,12 +427,6 @@
 </body>
 
 <script type="text/javascript">
-    function openGrid(){
-       api.openWin({
-            name:'grid_win',
-            url:'grid_win.html'
-       });
-    }
     function closeWin(){
        api.closeWin();
     }
@@ -527,6 +555,45 @@
         });
     }
 
+    //复制链接分享 
+    function clip_share(){
+        var clipBoard = api.require('clipBoard');
+        //拼装复制链接
+        var s_url = 'http://votetest.xieli.cn';
+        clipBoard.set({
+             value:s_url
+        },function(ret,err){
+           if(ret){
+                alert( "恭喜！复制成功！" );
+           }else{
+                alert( "抱歉！复制失败！" );
+           }
+        });
+    }
+    
+    //评论框粘贴
+//  function getClip(){
+//    var paste = api.require('pasteboard');
+//	  var param = {value:'粘贴信息！'};
+//		paste.paste(param,function(ret,err){
+//		    if (ret.status){
+//		        api.alert({
+//		            title: '返回信息',
+//		            msg: 'statues:'+ret.status,
+//		            buttons:['确定']
+//		        },function(ret,err){
+//		        });
+//		    } else{
+//		    api.alert({
+//		        title: '返回信息',
+//		        msg: 'msg:'+ret.msg+" code:'+err.code,
+//		        buttons:['确定']
+//		    },function(ret,err){
+//		        });
+//		    }
+//		})
+//  }
+    
     function showReply(){
     	$api.css($api.dom(".mark"),"display:block");
     	$api.css($api.byId("ask-input"),"display:none");

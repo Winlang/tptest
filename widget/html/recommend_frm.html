@@ -1,159 +1,171 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,address=no"/>
     <title>投票主题页</title>
     <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
     <link rel="stylesheet" type="text/css" href="../css/aui-slide.css" />   
     <style>
-      body{
-        height:100%;
-        margin:0;
-        padding:0;
-        background-color:#f7f9f8;
-      }
-      .aui-content{background-color:#fff;}
-      .desc-1{
-         word-wrap: break-word;
-      }
-      .savatar img{
-               max-width:100%;
-               height:240px;
-               }
-      div.title h2{margin:0;padding:0;}
-      .friend{
-               width:18px;
-               height:18px;
-               }
-      .option{
-          display:block;
-      }
-      .idol-info{
-           display:inline-block;
-           position: relative;
-           
-      }
-       .idol-info-1,
-       .idol-info-2{
-           display:inline-block;
-           float:left;
-       }
-       .idol-info-2{padding-top:20px;}
-      .idol-info-1 img{
-               width:40px;
-               height:40px;
-               margin-right:10px;
-               margin-top:10px;
-       }
-      .idol-vote{
-           display:inline-block;
-           font-size:12px; 
-             margin-top:20px;
+        body{
+            height:100%;
+            margin:0;
+            padding:0;
+            background-color:#f7f9f8;
+        }
+        .aui-content{background-color:#fff;}
+        .desc-1{
+           word-wrap: break-word;
+        }
+        .savatar img{
+                 max-width:100%;
+                 height:240px;
+                 }
+        .vote-info{
+              position:relative;
+              margin-top:-250px;
+              height:245px;           
+              background-color:rgba(0,0,0,.4);  
+              color:#fff;
+              padding:10px;
+        }
+        .vote-info .title{
+             font-size:20px;
+             position:relative;
+             top:90px;
+        }
+        .vote-info .sub-title{
+             font-family: 12px;
+             height:24px;
+             line-height:24px;
+             border:1px solid #fff;
+             border-radius: 12px;
+             position: relative;
+             top:165px;
+             padding: 0 10px;
+        }
+        .f-all{
+            padding-right:20px;
+        }
+        .avatar-list{
+            overflow: hidden;
+            width: 100%;
+            height:60px;
+        }
+        .f-avatar{
+           width:40px;
+           height:40px;
+           border-radius:20px;
+           vertical-align: middle;
+           margin-right:10px; 
+           margin-bottom:10px;        
+           }
+        .friend{
+                 width:18px;
+                 height:18px;
+                 }
+        .add{
+             padding:8px 0 12px;
+             background-color:#ebeced;
+             
+         }
+        .option{
+            display:block;
+        }
+        .idol-info{
+             display:inline-block;
+             position: relative;
+             
+        }
+         .idol-info-1,
+         .idol-info-2{
+             display:inline-block;
+             float:left;
+         }
+        .idol-info-2{padding-top:10px;}
+        .idol-info-1 img{
+                 width:40px;
+                 height:40px;
+                 border-radius:5px;
+                 margin-right:10px;
+                 margin-top:10px;
+         }
+        .idol-vote{
+             display:inline-block;
+             font-size:14px; 
+             margin-top:10px;
              margin-right:10px;
-      }
-      .idol-vote img{
-          position: relative;
-          top:5px;
-      }
-      .comment{
-         display:block;
-         padding-left:12%;
-         font-size:14px;
-      }
-      .comment-1{
-        display:inline-block;
-        max-width:70%;
-        height:auto;
+        }
+        .idol-vote span{
+            padding-right:5px;
+        }
+        .idol-vote span i{
+            padding-right:2px;
+        }
+        .comment{
+           display:block;
+           padding-left:26%;  
+           margin-top:-20px;       
+        }
+        .comment-1{
+          display:inline-block;
+          width:95%;
+          height:auto;
           word-break:break-all;
           word-wrap: break-word;
           text-overflow:ellipsis;
           background-color:#f5f5f5;
           color:#333;
-          padding:5px;
+          font-size:12px;
+          padding:10px 5px;
           border-radius: 5px;
-       }
-      .comment-2{
-         display:inline-block;
-         width:60px;
-         height:25px;
-         margin-top:5px;
-         border:1px solid #3498db;
-         border-radius:15px;
-         text-align:center;
-         font-size:12px;
-         padding:0 5px;
-      }
-      .idols{
-               vertical-align:middle;
-               width: 100%;
-               color:#858f87;
-               }
-      .f-avatar{
-         width:30px;
-         height:30px;
-         border-radius:15px;
-         vertical-align: middle;
-         margin-right:15px;
          }
-    .rule{
-         display:block;
-      }
+        .idols{
+                 vertical-align:middle;
+                 width: 100%;
+                 color:#858f87;
+                 }
+       .rule{
+           display:block;
+           padding:15px 10px 0 10px;
+        }
         .rule-1,.rule-2{
             display: inline-block;
-            margin-left:20%;
-         }  
+            margin-right:10px;
+         } 
+        .rule-3{
+           padding:8px 0;
+           line-height: 1;
+        } 
          .rule-1 div{letter-spacing:3px;}
         .vote-title{
-           font-size:18px;
-      }
-      .vote-title span{
-           font-size:12px;
-      }
-      .vote-info{
-              position:relative;
-              margin-top:-65px;
-              height:60px;
-              padding-top:10px;
-              background-color:rgba(0,0,0,.6);  
-      }
-      .vote-info p{
-          padding:0 20px;
-          color:#FFFFFF;
-      }
-      .f-vote{
-        font-size:12px;
-        line-height:30px;
-      }</style>
+             font-size:18px;
+        }
+        .vote-title span{
+             font-size:12px;
+        }
+    </style>
 </head>
 <body>
-  <input type="hidden" id="item_id_hidden" value="">
-  <!-- <header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
-        <a class="aui-btn aui-btn-warning aui-pull-left " tapmode onclick="closeWin()">
-            <span class="aui-iconfont aui-icon-left"></span>
-        </a>
-        <div class="aui-title">投票主题页</div>
-        <a class="aui-iconfont aui-icon-menu aui-pull-right"></a>
-  </header> -->
+<input type="hidden" id="no" value="yes" />
       <div id="iteminfo"></div>
        <script type="text/html" id="item">
        <div class="aui-content">
+            <input type="hidden" id="item_id" value="{{data.id}}" />
             <div class="aui-text-center savatar">
                  <img src="{{data.item_titleimg}}" alt="" />
             </div>
             <div class="vote-info">
-                 <div class="aui-pull-left">
-                       <p>开始：{{data.item_starttime}}</p>
-                       <p>结束：{{data.item_endtime}}</p>
+                 <div class="aui-text-center title">{{data.item_title}}</div>
+                 <div class="aui-pull-left sub-title">
+                       <i class="aui-iconfont aui-icon-time"></i>
+                       <span>剩余0天</span>
                  </div>
-                 <div class="aui-pull-right">
-                       <p>选项数：{{data.item_optnum}}</p>
-                       <p>投票数：{{data.item_click}}</p>
+                 <div class="aui-pull-right sub-title">
+                      <i class="aui-iconfont aui-icon-likefill"></i>
+                      <span>{{data.item_toupiao_num}}人参与</span>
                  </div>
-            </div>
-            <div class="aui-padded-10 title">
-                  <h2 class="aui-text-center">{{data.item_title}}</h2>
             </div>
             <div class="rule">
                <div class="aui-content-padded rule-1">
@@ -171,24 +183,37 @@
                               <div class="aui-dialog-btn aui-text-info" tapmode onclick="confirm()">确定</div>
                           </div>
                </div>
-               <input type="hidden" id="search_id" value="{{data.id}}">
                <div class="aui-content-padded rule-2">
                     <div class="aui-btn aui-btn-theme aui-btn-outlined" tapmode onclick="openRank({{data.id}})">排行榜</div>
+               </div>
+               <div class="aui-pull-right aui-text-default rule-3">
+                    <span>{{data.item_click}}人浏览</span>
                </div>
             </div>
        </div>
        <div class="aui-content aui-padded-10">
-             <p class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode id="summary">
-              {{data.item_desc}}
-            </p>
+             <p class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode id="summary">{{data.item_desc}}</p>
        </div>  
        </script>
        <div class="aui-content">
-             <ul class="aui-list-view">
-              <li class="aui-list-view-cell">
-                   <div class="aui-arrow-right aui-text-default f-vote">您有81个好友参加<img class="f-avatar aui-pull-right" src="../image/wx.png" alt="" /></div>
-              </li>
-             </ul>
+            <ul class="aui-list-view aui-in">
+                 <li class="aui-list-view-cell aui-text-default">
+                     <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i>81个好友参加</div>
+                     <div class="aui-arrow-right aui-pull-right"><span class="f-all">全部</span></div>
+                 </li>
+                 <li>
+                     <div class="aui-padded-10 avatar-list">
+                           <img class="f-avatar" src="../image/demo1.png"/>
+                           <img class="f-avatar" src="../image/demo4.png"/>
+                           <img class="f-avatar" src="../image/demo5.png"/>
+                           <img class="f-avatar" src="../image/demo3.png"/>
+                           <img class="f-avatar" src="../image/demo2.png"/>
+                           <img class="f-avatar" src="../image/demo6.png"/>
+                           <img class="f-avatar" src="../image/demo2.png"/>
+                           <img class="f-avatar" src="../image/demo6.png"/>
+                     </div>
+                 </li>
+            </ul>
        </div>
        <div class="aui-content">
            <div class="aui-padded-10 vote-title">
@@ -208,52 +233,60 @@
             </div>
             <i class="aui-iconfont aui-icon-roundclosefill" tapmode onclick="clearInput()"></i>
         </div>
-        <div class="aui-btn aui-btn-theme" tapmode onclick="search_info_two()">搜索</div>
+
+        <div class="aui-btn aui-btn-theme" tapmode onclick="search_info($('#search-input').val())">搜索</div>
     </div>
 <!--搜索项目-->
+
            <div class="aui-form">
-                <div id="itemoption_list" style="display:block;"></div>
-                <div id="itemoption_list_two" style="display:none;"></div>                
+
+                <div id="itemoption_list" style="display:block;" ></div>
+                <div id="itemoption_l" style="display:none;"></div>
                 <!--选项列表-->
+                <div class="aui-toast" style="display:none" id="default_succ">
+                       <i class="aui-iconfont aui-icon-check"></i>
+                      <div class="aui-toast-content"></div>
+               </div>
+               <div class="aui-toast" style="display:none" id="default_fail">
+                       <i class="aui-iconfont aui-icon-close"></i>
+                      <div class="aui-toast-content"></div>
+               </div>
                 <script type="text/html" id="itemoptions">
                 {{each data as value i}}
                 <div class="aui-input-row idols">
-                  {{if value.is_toupiao == 1}}
-                      <input type="radio" class="aui-radio aui-radio-theme" checked="checked" tapmode />
+                    {{if value.is_toupiao == 1}}
+                        <input type="radio" class="aui-radio aui-radio-theme" checked="checked" tapmode onclick="cancel_toupiao(this);" value="{{value.item_optid}}" />
                     {{else}}
-                      <input type="radio" class="aui-radio aui-radio-theme" tapmode onclick="showToast()"/>
-                      <input type="hidden" name="item_optid" value="{{value.item_optid}}"/>
+                        <input type="radio" class="aui-radio aui-radio-theme" tapmode onclick="showToast(this);" value="{{value.item_optid}}" />
                     {{/if}}
-                   <div class="aui-toast" style="display:none" id="default">
-                           <i class="aui-iconfont aui-icon-check"></i>
-                          <div class="aui-toast-content">投票成功</div>
-                   </div>
-                   <div class="option">
-                      <div class="idol-info" tapmode onclick="openVote({{value.item_optid}})">
-                          <div class="idol-info-1" >
-                                <img src="{{value.item_optimg}}" alt="" />
-                          </div>
-                          <div class="idol-info-2">
-                               {{value.item_opttitle}}                            
-                          </div>                                                           
-                          <!--<img src="http://votetest.xieli.cn/Uploads/admin/{{value.item_optimg}}" alt="" />
-                          {{value.item_opttitle}}-->
-                     </div>
-                     <div class="aui-pull-right idol-vote">
-                           <div>
-                                 <img src="../image/idol-1.png" alt="" />{{value.item_opttoupiao}}
-                                 <img src="../image/idol-2.png" alt="" />{{value.item_optcomment_number}}
-                           </div>
-                     </div>
-                   </div>
+                    <input type="hidden" name="item_optid" value="{{value.item_optid}}"/>
+                   
+                   <div class="option" tapmode onclick="openVote({{value.item_optid}})">
+                        <div class="idol-info">
+                            <div class="idol-info-1" >
+                                  <img src="{{value.item_optimg}}" alt="" />
+                            </div>
+                            <div class="idol-info-2">
+                                 {{value.item_opttitle}}                            
+                            </div>                                                                                  
+                       </div>
+                       <div class="aui-pull-right idol-vote">
+                             <div>
+                                    <i class="aui-iconfont aui-icon-rank aui-text-theme"></i>
+                                   <span id="n_{{value.item_optid}}">{{value.item_opttoupiao}}</span>
+                                   <i class="aui-iconfont aui-icon-comment aui-text-theme"></i>
+                                   <span>{{value.item_optcomment_number}}</span>
+                             </div>
+                       </div>
                     {{if value.comm_data}}
-                    <div class="comment">
-                          <div class="comment-1 aui-ellipsis-2">
-                                <span class="aui-text-danger aui-padded-5"></span>SSA:
-                                {{value.comm_data}}
-                          </div>
-                      </div>
-                  {{/if}}
+                        <div class="comment">
+                            <div class="comment-1 aui-ellipsis-2">
+                                    <span class="aui-text-default aui-padded-5">{{value.member_nick}}:</span>
+                                    {{value.comm_data}}
+                            </div>
+                        </div>
+                    {{/if}}
+                   </div>
                 </div>
                 {{/each}}
                 </script>
@@ -271,24 +304,25 @@
 <script type="text/javascript" src="../script/config.js"></script>
 <script type="text/javascript" src="../script/jquery.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<!-- <script type="text/javascript" src="../script/item_detail.js"></script> -->
-<script type="text/javascript" src="../script/template.js"></script>
 <script type="text/javascript" src="../script/recommend.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+
 <script type="text/javascript">
     function openVote(itemoptid){
        api.openWin({
-         name: 'votecon_frm',
-         url: 'votecon_frm.html?itemoptid='+itemoptid
+           name: 'votecon_frm',
+           url: 'votecon_frm.html?itemoptid='+itemoptid
        });
     }
-    function openAdd(){
-      var item_id = $('#item_id_hidden').val();
+   function openAdd(){
+       var item_id = $('#item_id').val();
+
        api.openWin({
-         name: 'add_option',
-         url: 'add_option_win.html?item_id='+item_id
+           name: 'add_option',
+           url: 'add_option_win.html?item_id='+item_id
        });
     }
-  // apiready = function(){
+    // apiready = function(){
  //    var header = $api.byId('aui-header');
  //    $api.fixStatusBar(header); 
 
@@ -307,42 +341,31 @@
  //            alert(888);
  //    });
     
-  //  api.parseTapmode();
-  // }
+    //  api.parseTapmode();
+    // }
 
-  apiready = function(){
-
-
-    //监听 登陆成功 
-        // 监听是否注册或者登录成功   监听成功
-          api.addEventListener({
-                  name : 'reg_login_successEvent'
-          }, function(ret) {
-                if (ret && ret.value) {
-                    var value = ret.value;
-                    var type = value.callback;
-                    var item_optid=getQueryString('itemoptid');
-                   
-                    if(type=='toupiao'){
-                        // var vote=$('.vote');
-                       showToast();
-                    }
-                }
-          });
-      //头部加宽
-      var header = $api.byId('aui-header');
-      $api.fixStatusBar(header); 
-
-      //上拉加载
-      // api.addEventListener({name:'scrolltobottom'}, function(ret, err){
-      //   showLoading();
-      //     // api.parseTapmode();
-      //     // $api.append($api.dom('body'),'<div class="aui-loading"><div class="aui-loading-1"></div><div class="aui-loading-2"></div></div>');
-      // });
-     
-
-        
+apiready = function(){
+    //主题基本信息
+    iteminfo();
+    
+    //暂无简介
+    var sum = $("#summary").html();
+    if(sum == ""){
+     $("#summary").html("暂无简介");
     }
+    //头部加宽
+    var header = $api.byId('aui-header');
+    $api.fixStatusBar(header); 
+
+    //上拉加载
+    // api.addEventListener({name:'scrolltobottom'}, function(ret, err){
+    //   showLoading();
+    //     // api.parseTapmode();
+    //     // $api.append($api.dom('body'),'<div class="aui-loading"><div class="aui-loading-1"></div><div class="aui-loading-2"></div></div>');
+    // });
+
+    
+}
 
     //隐藏loading
     function hide(){
@@ -370,34 +393,34 @@
         },2000)
     }
 
-  function doSearch(){
-    $api.addCls($api.dom(".aui-searchbar-wrap"),"focus");
-    $api.dom('.aui-searchbar-input input').focus();
-  }
-  function cancelSearch(){
-    $api.removeCls($api.dom(".aui-searchbar-wrap.focus"),"focus");
-    $api.val($api.byId("search-input"),'');
-    $api.dom('.aui-searchbar-input input').blur();
-  }
-  function clearInput(){
-    $api.val($api.byId("search-input"),'');
-  }
-  function search(){
-    var content = $api.val($api.byId("search-input"));
-    if(content){
-      api.alert({
-          title: '搜索提示',
-          msg: '您输入的内容为：'+content
-      });
-    }else{
-      api.alert({
-          title: '搜索提示',
-          msg: '您没有输入任何内容'
-      });
+    function doSearch(){
+        $api.addCls($api.dom(".aui-searchbar-wrap"),"focus");
+        $api.dom('.aui-searchbar-input input').focus();
     }
-    cancelSearch();
-  }
-      function show(){
+    function cancelSearch(){
+        $api.removeCls($api.dom(".aui-searchbar-wrap.focus"),"focus");
+        $api.val($api.byId("search-input"),'');
+        $api.dom('.aui-searchbar-input input').blur();
+    }
+    function clearInput(){
+        $api.val($api.byId("search-input"),'');
+    }
+    function search(){
+        var content = $api.val($api.byId("search-input"));
+        if(content){
+            api.alert({
+                title: '搜索提示',
+                msg: '您输入的内容为：'+content
+            });
+        }else{
+            api.alert({
+                title: '搜索提示',
+                msg: '您没有输入任何内容'
+            });
+        }
+        cancelSearch();
+    }
+        function show(){
         $api.append($api.dom("body"),'<div class="aui-mask"></div>');
         $api.removeCls($api.dom(".aui-dialog.aui-hidden"),"aui-hidden");
         api.sendEvent({
@@ -435,43 +458,134 @@
 //          msg: '您点击了确定'
 //      });
     }
+
+
+    function search_info_two(item_title){
+
+            var item_id=$('#search_id').val();
+            var item_title=$('#search-input').val();
+             $.post(ApiUrl+'/api/search_info?id='+item_id+'&item_title='+item_title+'&callback=?',{},function(data){
+                    
+                    var data = JSON.parse(data);
+                   if(data.status=='0'){
+                    $('#itemoption_list_two').css('display','block');
+                    $('#itemoption_list').css('display','none');
+                    document.getElementById('itemoption_list_two').innerHTML = data.data;
+                   }else{
+                    api.alert({msg:data.data});
+                    $('#itemoption_list_two').css('display','none');
+                    $('#itemoption_list').css('display','block');
+                   }
+                    
+                    
+            });
+    }
+
+
     function openRank(item_id){
-       api.openWin({
-         name: 'rank_list_win',
-         url: 'rank_list_win.html?item_id='+item_id
-       });
+      
+        var member_id = is_login();
+        api.ajax({
+            url:ApiUrl+'/api/is_one_toupiao?member_id='+member_id+'&item_id='+item_id+'&callback=?',
+            method:'post',
+            data:{}
+        },function(data,err){
+            if(data.status == 1){
+                api.openWin({
+                    name: 'rank_list_win',
+                    url: 'rank_list_win.html?item_id='+item_id
+               });
+            }else{
+                api.alert({msg: data.msg});
+            }
+        });
+        // $.post(ApiUrl+'/api/is_one_toupiao?member_id='+member_id+'&item_id='+item_id+'&callback=?',{},function(data){
+        //     var data = JSON.parse(data);
+        //     if(data.status == 1){
+        //         api.openWin({
+        //             name: 'rank_list_win',
+        //             url: 'rank_list_win.html?item_id='+item_id
+        //        });
+        //     }else{
+        //         api.alert({msg: data.msg});
+        //     }
+        // });
     }
     
-    function showToast(){
-      var id = $('input[name="item_optid"]').val();
-      var member_id = is_login();
-    if(member_id == '-1'){
-      api.alert({msg: '请先登录'});
-      login_page('toupiao');
-      return false;
-    }
-    $.post(ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',{},function(data){
-      var data = JSON.parse(data);
-          if(data.status == 0 || data.status == 2){
-            api.alert({msg: data.data});
-           //    $api.css($api.byId("default"),"display:block");
-            // setTimeout(function(){
-            //     $api.css($api.byId("default"),"display:none");
-            // },2000)
-          }else{
-            $('input[name="item_optid"]').prev().removeAttr('checked');
-              api.alert({msg: data.data});
-          }
-      });
+    function showToast(obj){
+        var id = $(obj).val();
+        var member_id = is_login();
+        if(member_id == '-1'){
+            api.alert({msg: '请先登录'});
+            login_page();
+            return false;
+        }
+        api.ajax({
+            url:ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',
+            method:'post',
+            data:{}
+        },function(data,err){
+            if(data.status == 0){
+               //投票成功
+               $(obj).attr('onclick','cancel_toupiao(this);');
+               $("#n_"+id).text(data.itemopt_num);
+               $('#default_succ div').text(data.data);
+                $api.css($api.byId("default_succ"),"display:block");
+                setTimeout(function(){
+                    $api.css($api.byId("default_succ"),"display:none");
+                },2000)
+            }else if(data.status == 2){
+                //已经投过了
+                $(obj).removeAttr('checked');
+                $('#default_fail div').html(data.data);
+                $api.css($api.byId("default_fail"),"display:block");
+                setTimeout(function(){
+                    $api.css($api.byId("default_fail"),"display:none");
+                },2000)
+            }else{
+               //投票失败
+                $(obj).removeAttr('checked');
+                $('#default_fail div').html(data.data);
+                $api.css($api.byId("default_fail"),"display:block");
+                setTimeout(function(){
+                    $api.css($api.byId("default_fail"),"display:none");
+                },2000)
+            }
+        });
+        // $.post(ApiUrl+'/api/toupiao?id='+id+'&member_id='+member_id+'&callback=?',{},function(data){
+        //  var data = JSON.parse(data);
+     //        if(data.status == 0){
+  //              //投票成功
+  //              $(obj).removeAttr('onclick');
+     //            $api.css($api.byId("default_succ"),"display:block");
+        //         setTimeout(function(){
+        //             $api.css($api.byId("default_succ"),"display:none");
+        //         },2000)
+     //        }else if(data.status == 2){
+  //              //已经投过了
+     //           $(obj).removeAttr('checked');
+     //            $api.css($api.byId("yitouguo"),"display:block");
+  //               setTimeout(function(){
+  //                   $api.css($api.byId("yitouguo"),"display:none");
+  //               },2000)
+     //        }else{
+  //              //投票失败
+  //              $(obj).removeAttr('checked');
+  //              $api.css($api.byId("default_fail"),"display:block");
+  //               setTimeout(function(){
+  //                   $api.css($api.byId("default_fail"),"display:none");
+  //               },2000)
+  //          }
+     //    });
     }
 
     //显示更多主题简介
     function xian(obj) {
-      if($(obj).hasClass('aui-ellipsis-2')){
-        $(obj).removeClass('aui-ellipsis-2');
-      }else{
-        $(obj).addClass('aui-ellipsis-2');
-      }
+        if($(obj).hasClass('aui-ellipsis-2')){
+            $(obj).removeClass('aui-ellipsis-2');
+        }else{
+            $(obj).addClass('aui-ellipsis-2');
+        }
     }
 </script>
 

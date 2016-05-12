@@ -28,6 +28,39 @@ function itemoptions(item_id,member_id){
     });
 }
 
+//取消投票
+function cancel_toupiao(obj){
+    var itemopt_id = $(obj).val();
+    var member_id = is_login();
+    if(member_id == '-1'){
+        api.alert({msg: '请先登录'});
+        login_page();
+        return false;
+    }
+
+    api.ajax({
+        url:ApiUrl+'/api/cancel_toupiao?itemopt_id='+itemopt_id+'&member_id='+member_id+'&callback=?',
+    },function(data,err){
+        if(data.status == 0){
+            $(obj).removeAttr('checked');
+            $(obj).attr('onclick','showToast(this);');
+            $("#n_"+itemopt_id).text(data.itemopt_num);
+            $('#default_succ div').html(data.msg);
+                $api.css($api.byId("default_succ"),"display:block");
+                setTimeout(function(){
+                    $api.css($api.byId("default_succ"),"display:none");
+                },2000)
+        }else{
+            $(obj).removeAttr('checked');
+            $('#default_fail div').html(data.msg);
+            $api.css($api.byId("default_fail"),"display:block");
+            setTimeout(function(){
+                $api.css($api.byId("default_fail"),"display:none");
+            },2000)
+        }
+    });
+}
+
 //搜索
 function search_info(item_title){
     var item_id = getQueryString('item_id');
