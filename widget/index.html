@@ -44,6 +44,20 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript">
+    //打开主题
+function openItem(item_id){
+    api.openWin({
+        name: 'procon',
+        url: './html/procon_win.html?item_id='+item_id,
+        bounces: true,
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        }
+    });
+}
     //统计-app恢复
     function onResume(){
         jpush.onResume();
@@ -66,7 +80,7 @@
             //打开相应主题
             var item_id = ret.appParam.ajpush.extra.item_id;
             openItem(item_id);
-            alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+            //alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
         })
         api.addEventListener({name:'pause'}, function(ret,err) {
             onPause();//监听应用进入后台，通知jpush暂停事件

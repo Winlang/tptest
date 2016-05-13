@@ -8,20 +8,7 @@ function getQueryString(name) {
 	if (r != null) return unescape(r[2]); return null;
 }
 
-//打开主题
-function openItem(item_id){
-    api.openWin({
-        name: 'procon',
-        url: 'procon_win.html?item_id='+item_id,
-        bounces: true,
-        rect: {
-            x: 0,
-            y: 0,
-            w: 'auto',
-            h: 'auto'
-        }
-    });
-}
+
 
 /**
  * 回到应用的首页
