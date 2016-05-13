@@ -42,7 +42,7 @@
     </footer>
 </body>
 <script type="text/javascript" src="script/api.js"></script>
-<script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/jquery.js"></script>
 <script type="text/javascript">
 //打开主题
 function openItem(item_id){
@@ -78,8 +78,9 @@ function openItem(item_id){
         jpush = api.require('ajpush');
         api.addEventListener({name:'appintent'}, function(ret,err) {
             //打开相应主题
-            var item_id = ret.appParam.ajpush.extra;
-            alert(typeof(item_id));
+            
+            var extra = JSON.parse(ret.appParam.ajpush.extra);
+            var item_id = extra.item_id;
             openItem(item_id);
             alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
         })
