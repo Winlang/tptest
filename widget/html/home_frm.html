@@ -244,7 +244,8 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
 		//推送相关
 		function initJPush(){
-			alert(api.deviceId);
+			//apicloud 获取设备号
+			//alert(api.deviceId);
 			jpush.init(function(ret, err){
 				if(ret && ret.status){
 					//alert('操作成功!');
