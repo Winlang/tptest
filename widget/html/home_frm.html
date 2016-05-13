@@ -116,8 +116,11 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 	    
 	apiready = function(){
 		jpush = api.require('ajpush');
+		//极光推送初始化
 		initJPush();
-		getId();
+
+		//获取极光推送 Registration ID 号 推送
+		//getId();
 
 		api.parseTapmode();
 	    var mt = $api.domAll("#main-tab li");
