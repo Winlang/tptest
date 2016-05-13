@@ -117,6 +117,7 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 	apiready = function(){
 		jpush = api.require('ajpush');
 		initJPush();
+		getId();
 
 		api.parseTapmode();
 	    var mt = $api.domAll("#main-tab li");
