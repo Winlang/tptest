@@ -79,7 +79,7 @@ function openItem(item_id){
         api.addEventListener({name:'appintent'}, function(ret,err) {
             //打开相应主题
             var item_id = ret.appParam.ajpush.extra;
-            alert(item_id);
+            alert(typeof(item_id));
             openItem(item_id);
             alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
         })
