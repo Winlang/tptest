@@ -31,7 +31,7 @@
     <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/> 
   </feature> 
   <feature name="ajpush">
-        <param name="app_key" value="436d613d69806272c5469aa4" />
+        <param name="app_key" value="2a67e27c08e0682c0df9ad38" />
         <param name="channel" value="24" />
     </feature>
 </widget>
