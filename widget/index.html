@@ -116,22 +116,22 @@ function openItem(item_id){
 
         /*************************************正式版本打包 打开*****************************************/
         //极光推送
-        // jpush = api.require('ajpush');
-        // api.addEventListener({name:'appintent'}, function(ret,err) {
-        //     //打开相应主题
+        jpush = api.require('ajpush');
+        api.addEventListener({name:'appintent'}, function(ret,err) {
+            //打开相应主题
             
-        //     var extra = JSON.parse(ret.appParam.ajpush.extra);
-        //     var item_id = extra.item_id;
-        //     openItem(item_id);
-        //     //alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
-        // })
-        // api.addEventListener({name:'pause'}, function(ret,err) {
-        //     onPause();//监听应用进入后台，通知jpush暂停事件
-        // })
+            var extra = JSON.parse(ret.appParam.ajpush.extra);
+            var item_id = extra.item_id;
+            openItem(item_id);
+            //alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+        })
+        api.addEventListener({name:'pause'}, function(ret,err) {
+            onPause();//监听应用进入后台，通知jpush暂停事件
+        })
             
-        // api.addEventListener({name:'resume'}, function(ret,err) {
-        //     onResume();//监听应用恢复到前台，通知jpush恢复事件
-        // })
+        api.addEventListener({name:'resume'}, function(ret,err) {
+            onResume();//监听应用恢复到前台，通知jpush恢复事件
+        })
         /*************************************正式版本打包 打开*****************************************/
 
 
