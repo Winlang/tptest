@@ -141,6 +141,7 @@
          .rule-1 div{letter-spacing:3px;}
         .vote-title{
              font-size:18px;
+             line-height:35px;
         }
         .vote-title span{
              font-size:12px;
@@ -217,10 +218,10 @@
        </div>
        <div class="aui-content">
            <div class="aui-padded-10 vote-title">
-                                        投票选项          
-             <span>（投票请点选  <i class="aui-iconfont aui-icon-round"></i>）</span>  
-             <div class="aui-btn aui-btn-theme aui-pull-right" tapmode onclick="openAdd()"> <span class="aui-iconfont aui-icon-add"></span>增加选项</div>                      
-          </div>                    
+                                        投票选项     
+             <span>（投票请点选  <i class="aui-iconfont aui-icon-round"></i>,限3票）</span>
+             <div class="aui-btn aui-btn-theme aui-pull-right" tapmode onclick="openTheme()"> <span class="aui-iconfont aui-icon-add"></span>增加主题</div>                      
+          </div>               
 <!--搜索项目-->
   <div class="aui-searchbar-wrap aui-padded-0-10" id="search">
         <div class="aui-searchbar aui-border-radius" tapmode onclick="doSearch()">
@@ -259,8 +260,7 @@
                     {{else}}
                         <input type="radio" class="aui-radio aui-radio-theme" tapmode onclick="showToast(this);" value="{{value.item_optid}}" />
                     {{/if}}
-                    <input type="hidden" name="item_optid" value="{{value.item_optid}}"/>
-                   
+                    <input type="hidden" name="item_optid" value="{{value.item_optid}}"/>                  
                    <div class="option" tapmode onclick="openVote({{value.item_optid}})">
                         <div class="idol-info">
                             <div class="idol-info-1" >
@@ -314,12 +314,12 @@
            url: 'votecon_frm.html?itemoptid='+itemoptid
        });
     }
-   function openAdd(){
-       var item_id = $('#item_id').val();
+   function openTheme(){
+       var item_id = getQueryString('item_id');
 
        api.openWin({
-           name: 'add_option',
-           url: 'add_option_win.html?item_id='+item_id
+	       name: 'add_theme',
+	       url: 'add_theme_win.html?item_id='+item_id
        });
     }
     // apiready = function(){

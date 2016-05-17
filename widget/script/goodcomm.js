@@ -149,11 +149,9 @@ function loading_good_comm(page,good_new){
 				$('#itemopt_good_comminfo').append(data.msg);
 				$('#loading').html('查看更多精彩评论');
 				$('#loading').attr('onclick','loading_good_comm('+next_page+',"good")');
-			}else if(data.status == 2){
+			}else{
 				$('#loading').removeAttr('onclick');
 				$('#loading').html('没有更多评论了');
-			}else{
-				api.alert({msg:data.msg});
 			}
 		}
 	});

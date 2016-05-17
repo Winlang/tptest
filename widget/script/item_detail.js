@@ -5,6 +5,8 @@ function iteminfo(item_id){
         method:'post',
         data:{}
     },function(data,err){
+        //限制投票数
+        $("#item_setnum").html(data.data.item_setnum);
         //设置图片
         data.data.item_titleimg = set_item_titleimg(data.data.item_titleimg);
 
@@ -25,6 +27,32 @@ function itemoptions(item_id,member_id){
         }
         var html = template('itemoptions', data);
         document.getElementById('itemoption_list').innerHTML = html;
+    });
+}
+
+//点击加载更多选项
+function loading_itemopt(page){
+    //获取主题的id
+    var item_id = getQueryString('item_id');
+    //获取当前登陆用户的id
+    var member_id = is_login();
+    var next_page = page+1;
+
+    api.ajax({
+        url:ApiUrl+'/api/loading_itemopt?item_id='+item_id+'&member_id='+member_id+'&page='+page+'&callback=?',
+        method:'post',
+        data:{}
+    },function(data,err){
+        if(data.status == 0){
+            $('#itemoption_list').append(data.msg);
+            $('#loading').html('查看更多选项');
+            $('#loading').attr('onclick','loading_itemopt('+next_page+')');
+        }else if(data.status == 2){
+            $('#loading').removeAttr('onclick');
+            $('#loading').html('没有更多选项了');
+        }else{
+            $('#loading').parent('li').remove();
+        }
     });
 }
 
@@ -66,11 +94,6 @@ function cancel_toupiao(obj){
 function search_info(item_title){
     var item_id = getQueryString('item_id');
     var member_id = is_login();
-    if(member_id == '-1'){
-        api.alert({msg: '请先登录'});
-        login_page();
-        return false;
-    }
     api.ajax({
         url:ApiUrl+'/api/search_info?id='+item_id+'&item_title='+item_title+'&member_id='+member_id+'&callback=?',
         method:'post',

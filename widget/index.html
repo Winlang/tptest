@@ -9,7 +9,46 @@
         .btn-a{
            background-color:#fff;
         }
-    </style>
+        .aui-nav {
+           	height: 68px;
+	        background: rgba(0,0,0,0);
+        }
+        .aui-nav .aui-bar-tab {
+			background: rgba(0,0,0,0);
+			height: 68px;
+			-moz-box-align:end;
+			-webkit-box-align:end;
+			-o-box-align:end;
+			box-align:end;
+		}
+		.aui-nav .aui-bar-tab li {
+            background-color:#FFFFFF;
+            height:55px;       
+        }
+        #tabbar3{
+           height:66px;
+           border-top-left-radius:35px;
+           border-top-right-radius:35px;
+           padding-top:5px;
+           margin-top:-10px;
+        }
+        #tabbar3 .aui-iconfont {
+			font-size: 60px;
+			color: #8f8f94;
+			padding-top: 5px;
+			height: 60px;
+			line-height: 60px;
+			display: inline-block;
+			border-raidus:50%;
+			margin-top:-8px;
+		}
+		.lbg{
+		   width:100%;
+		   height:45px;
+		   margin-top:-46px;
+		   background-color:#fff;
+		}
+  </style>
 </head>
 <body>
     <header class="aui-bar aui-bar-nav aui-bar-theme" id="aui-header">
@@ -23,12 +62,12 @@
                 <p>首页</p>
             </li>
             <li id="tabbar2" tapmode onclick="randomSwitchBtn(this,'活动',1)">
-                <span class="aui-iconfont aui-icon-like"></span>
+                <span class="aui-iconfont aui-icon-group"></span>            
                 <p>活动</p>
             </li>
-            <li id="tabbar3" tapmode onclick="randomSwitchBtn(this,'投票',2)">
-                <span class="aui-iconfont aui-icon-roundadd"></span>
-                <p>投票</p>
+            <li id="tabbar3" tapmode onclick="randomSwitchBtn(this,'增加主题',2)" >
+                <span class="aui-iconfont aui-icon-roundaddfill aui-text-theme"></span>
+                <div class="lbg"></div>
             </li>
             <li id="tabbar4" tapmode onclick="randomSwitchBtn(this,'消息',3)">
                 <span class="aui-iconfont aui-icon-mark"></span>
@@ -74,39 +113,35 @@ function openItem(item_id){
 
     var jpush = null;
     apiready = function(){
+
+        /*************************************正式版本打包 打开*****************************************/
         //极光推送
-        jpush = api.require('ajpush');
-        api.addEventListener({name:'appintent'}, function(ret,err) {
-            //打开相应主题
+        // jpush = api.require('ajpush');
+        // api.addEventListener({name:'appintent'}, function(ret,err) {
+        //     //打开相应主题
             
-            var extra = JSON.parse(ret.appParam.ajpush.extra);
-            var item_id = extra.item_id;
-            openItem(item_id);
-            alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
-        })
-        api.addEventListener({name:'pause'}, function(ret,err) {
-            onPause();//监听应用进入后台，通知jpush暂停事件
-        })
+        //     var extra = JSON.parse(ret.appParam.ajpush.extra);
+        //     var item_id = extra.item_id;
+        //     openItem(item_id);
+        //     //alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+        // })
+        // api.addEventListener({name:'pause'}, function(ret,err) {
+        //     onPause();//监听应用进入后台，通知jpush暂停事件
+        // })
             
-        api.addEventListener({name:'resume'}, function(ret,err) {
-            onResume();//监听应用恢复到前台，通知jpush恢复事件
-        })
+        // api.addEventListener({name:'resume'}, function(ret,err) {
+        //     onResume();//监听应用恢复到前台，通知jpush恢复事件
+        // })
+        /*************************************正式版本打包 打开*****************************************/
+
+
+
         var header = $api.byId('header');
         var bodyHeight = window.innerHeight;
         var offset = $api.offset(header);
         var footer = $api.byId('footer');
         var fPos = $api.offset(footer);
-        // api.openFrame({
-        //     name: 'home_frm',
-        //     url: './html/home_frm.html',
-        //     bounces: true,
-        //     rect: {
-        //         x: offset.l,
-        //         y: offset.t + offset.h,
-        //         w: offset.w,
-        //         h: bodyHeight - offset.h - fPos.h
-        //     }
-        // });
+ 
 
 
         api.sendEvent({
@@ -141,8 +176,8 @@ function openItem(item_id){
                 url: 'html/grid_frm.html', 
                 bounces:false
             },{
-                name: 'recommend_frm', 
-                url: 'html/recommend_frm.html', 
+                name: 'add_theme_frm', 
+                url: 'html/add_theme_frm.html', 
                 bounces:false
             },{
                 name: 'list_frm', 
@@ -166,8 +201,9 @@ function openItem(item_id){
                 $api.text($api.byId('header-title'),'活动');
                 $api.addCls($api.byId('tabbar2'), 'active-theme');
            }else if(index==2){
-                $api.text($api.byId('header-title'),'投票');
-                $api.addCls($api.byId('tabbar3'), 'active-theme');
+                $api.text($api.byId('header-title'),'增加主题');
+//              $api.addCls($api.byId('tabbar3'), 'active-theme');
+//               $api.addCls($api.byId('tabbar3'), 'aui-text-theme');
             }else if(index==3){
                 $api.text($api.byId('header-title'),'消息');
                 $api.addCls($api.byId('tabbar4'), 'active-theme');

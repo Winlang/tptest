@@ -73,11 +73,6 @@ function cancel_toupiao(obj){
 function search_info(item_title){
     var item_id = $("#item_id").val();
     var member_id = is_login();
-    if(member_id == '-1'){
-        api.alert({msg: '请先登录'});
-        login_page();
-        return false;
-    }
     api.ajax({
         url:ApiUrl+'/api/search_info?id='+item_id+'&item_title='+item_title+'&member_id='+member_id+'&callback=?',
         method:'post',

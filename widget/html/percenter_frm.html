@@ -112,7 +112,7 @@
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">12306个</span>
                </div>             
             </li>
-            <li class="aui-list-view-cell">
+            <li class="aui-list-view-cell" tapmode onclick="openRank()">
                <div class="aui-arrow-right">  
                       <i class="aui-iconfont aui-icon-favor aui-bg-danger"></i>积分等级        
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">议长</span>
@@ -213,6 +213,20 @@
        api.openWin({
          name: 'collect_win',
          url: 'collect_win.html',
+         bounces:true,
+          rect:{
+             x:0,
+             y:0,
+             w:'auto',
+             h:'auto'
+          }
+       });
+    }
+   //打开我的积分等级
+   function openRank(){
+       api.openWin({
+         name: 'rank_intg_win',
+         url: 'rank_intg_win.html',
          bounces:true,
           rect:{
              x:0,

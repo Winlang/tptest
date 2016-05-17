@@ -145,6 +145,10 @@
     	.vote-title span{
     	     font-size:12px;
     	}
+    	.checkmore{
+    	  font-size:12px;
+    	  padding-bottom:15px; 
+    	}
     </style>
 </head>
 <body>
@@ -216,7 +220,7 @@
        <div class="aui-content">
            <div class="aui-padded-10 vote-title">
                                         投票选项          
-             <span>（投票请点选  <i class="aui-iconfont aui-icon-round"></i>）</span>  
+             <span>（投票请点选  <i class="aui-iconfont aui-icon-round"></i>,限<span id="item_setnum">3</span>票）</span>  
              <div class="aui-btn aui-btn-theme aui-pull-right" tapmode onclick="openAdd()"> <span class="aui-iconfont aui-icon-add"></span>增加选项</div>                      
           </div>                    
 <!--搜索项目-->
@@ -265,8 +269,8 @@
 	                              <img src="{{value.item_optimg}}" alt="" />
 	                        </div>
 	                        <div class="idol-info-2">
-	                             {{value.item_opttitle}}                            
-	                        </div>                                                           	                    
+	                             {{value.item_opttitle}}
+	                        </div>
 	                   </div>
 	                   <div class="aui-pull-right idol-vote">
 	                         <div>
@@ -292,6 +296,10 @@
            </div>      
        </div>
 
+       <div class='aui-text-center'>
+            <a id="loading" onclick="loading_itemopt(1);" class="aui-text-default checkmore">查看更多选项</a>
+       </div>
+
 
        <div class="aui-toast"  style="display:none" id="loading">
         <div class="aui-toast-loading"></div>
@@ -304,7 +312,6 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/item_detail.js"></script>
 <script type="text/javascript" src="../script/template.js"></script>
-<!-- <script type="text/javascript" src="../script/recommend.js"></script> -->
 
 <script type="text/javascript">
     function openVote(itemoptid){
@@ -351,7 +358,9 @@ apiready = function(){
     //主题基本信息
     iteminfo(item_id);
     //主题对应选项列表
-    itemoptions(item_id,member_id);
+    // itemoptions(item_id,member_id);
+    //加载更多选项
+    loading_itemopt(1);
     //暂无简介
     var sum = $("#summary").html();
     if(sum == ""){

@@ -25,7 +25,6 @@
        }
        .wtitle{
          margin-top:90px;
-         /*vertical-align: middle;*/
          display:inline-block;
          padding:10px;
        }
@@ -40,6 +39,9 @@
     </style>
 </head>
 <body>
+	<input type="hidden" id = "channel" value='hot'>
+	<input type="hidden" id = "hot_page_cache" value=2>
+    <input type="hidden" id = "new_page_cache" value=2>
     <div class="aui-content-padded">
           <div class="aui-tab aui-tab-theme">
                <ul class="aui-tab-nav aui-tab-border" id="main-tab">
@@ -48,11 +50,12 @@
                </ul>        
           </div>
     </div>
+    <!--最热 主题-->
     <div id="tab-hot">
        <div class="aui-content">
-       	  <div id="aui-content"></div>
+       	 <ul class="aui-waterfall" id="aui-waterfall"></ul>
        	  <script id="test" type="text/html">
-	      <ul class="aui-waterfall" id="aui-waterfall">
+	      
 	      	{{each list as value i}}
 	      	<li onclick="openNew({{value.id}})">
 	      	     <div class="aui-waterfall-header wheader" style="background:url({{value.item_titleimg}}) center no-repeat;background-size:cover;">
@@ -62,21 +65,20 @@
 	      	          </p>   	          
 	      	     </div>
 	      	     <div class="aui-waterfall-body wcaption">
-	      	          <span >2015-1-20</span>
-	      	           <span class="aui-pull-right">125人参与</span>
+	      	          <span >{{value.item_time}}</span>
+	      	           <span class="aui-pull-right">{{value.num}}人参与</span>
 	      	     </div>
 	      	</li>
 	      	{{/each}}
-	      </ul>
+	      
 	      </script>
 	</div>
     </div>
-   <div id="tab-new" style="display:none;">
-       <div class="aui-content">
-       		<div id="aui-content1"></div>
-
-       	  <script id="test1" type="text/html">
-	      <ul class="aui-waterfall" id="aui-waterfall1">
+    <!--最新主题-->
+   <div id="tab-new" style="display:none;padding-top: 10px;">
+       <div class="aui-content-padded">     	
+       	<ul class="aui-waterfall" id="aui-waterfall1"></ul>
+       	  <script id="test1" type="text/html">	      
 	      	{{each list as value i}}
 	      	<li onclick="openNew({{value.id}})">
 	      	     <div class="aui-waterfall-header wheader" style="background:url({{value.item_titleimg}}) center no-repeat;background-size:cover;">
@@ -86,13 +88,16 @@
 	      	          </p>   	          
 	      	     </div>
 	      	     <div class="aui-waterfall-body wcaption">
-	      	          <span >2015-1-20</span>
-	      	           <span class="aui-pull-right">125人参与</span>
+	      	          <span >{{value.item_time}}</span>
+	      	           <span class="aui-pull-right">{{value.num}}人参与</span>
 	      	     </div>
 	      	</li>
 	      	{{/each}}
-	      </ul>
+	      
 	      </script>
+	      <div class="aui-list-view-cell aui-img"> 
+            <p id="loading" class="aui-text-center comment-more">加载更多</p>
+            </div>
 	   </div>
     </div>
 </body>
@@ -115,12 +120,30 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 	    	
 	    
 	apiready = function(){
-		jpush = api.require('ajpush');
-		//极光推送初始化
-		initJPush();
 
-		//获取极光推送 Registration ID 号 推送
-		//getId();
+		//监听是否已经到底部 自动刷新
+		api.addEventListener({
+            name: 'scrolltobottom'
+        }, function(ret, err){
+            //page++;
+           	//getData(page);//取数据
+           	
+           	var channel = $('#channel').val();
+           	if(channel == 'new'){
+           		loading_index_new();
+           	}else{
+           		//热门暂时占位
+           		//loading_index_hot();
+           	}
+           	
+        });
+
+		/***************************正式版打包 放开********************************/
+		//jpush = api.require('ajpush');
+		//极光推送初始化
+		//initJPush();
+		/***************************正式版打包 放开********************************/
+
 
 		api.parseTapmode();
 	    var mt = $api.domAll("#main-tab li");
@@ -156,7 +179,7 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
 
      /****************************实时数据 开始****************************/            
-	    //最新主题
+	    //最热主题
         api.ajax({
 			    url: ApiUrl+'/api/index',
 			    method: 'post',
@@ -176,16 +199,16 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
 		            
 		            var html = template('test', data);
-		            document.getElementById('aui-content').innerHTML = html;
+		            document.getElementById('aui-waterfall').innerHTML = html;
 			    } else {
 			         api.alert({msg:JSON.stringify(err)});
 			    }
 		});
 
 
-	    //最热主题
+	    //最新主题
         api.ajax({
-			    url: ApiUrl+'/api/index',
+			    url: ApiUrl+'/api/index_new',
 			    method: 'post',
 			    data: {}
 			},function(data, err){
@@ -205,7 +228,7 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 
 		            
 		            var html = template('test1', data);
-		            document.getElementById('aui-content1').innerHTML = html;
+		            document.getElementById('aui-waterfall1').innerHTML = html;
 			    } else {
 			         api.alert({msg:JSON.stringify(err)});
 			    }
@@ -213,47 +236,83 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 	    /****************************实时数据 结束****************************/ 
 
 	};
+
+
+	//瀑布流加载更多最新主题
+	function loading_index_new(){
+	    //获取当前登陆用户的id
+	    var uid = is_login();
+	    //自动加载更多内容
+       	var page = $('#new_page_cache').val();
+       	
+
+	    $.ajax({
+	      'type':'get',
+	      'url':ApiUrl+'/api/loading_index_new?uid='+uid+'&page='+page+'&callback=?',
+	      beforeSend:function(){
+	        $('#loading').html('正在加载中...');
+	      },
+	      success:function(data){
+	        var data = JSON.parse(data);
+	        if(data.status == 0){
+	          $('#aui-waterfall1').append(data.msg);
+	          var new_page = parseInt(page) + 1;
+	          $('#new_page_cache').val(new_page);
+	          
+	          $('#loading').html('加载更多主题中');
+	        }else if(data.status == 2){
+	          $('#loading').html('没有更多主题啦');
+	        }else{
+	          api.alert({msg:data.msg});
+	        }
+	      }
+	    });
+	}
+
+
 	
 	function Hot(){
 	   var hot = document.getElementById("tab-hot");
 	   var news = document.getElementById("tab-new");
 	   hot.style.display = "block";
 	   news.style.display = "none";
+	   $('#channel').val('hot');
 	}
 	function New(){
 	   var hot = document.getElementById("tab-hot");
 	   var news = document.getElementById("tab-new");
 	   hot.style.display = "none";
 	   news.style.display = "block";
+	   $('#channel').val('new');
 	}
 
-	    function openNew(item_id){
-		    api.openWin({
-		        name: 'procon',
-		        url: 'procon_win.html?item_id='+item_id,
-		        bounces: true,
-		        rect: {
-		            x: 0,
-		            y: 0,
-		            w: 'auto',
-		            h: 'auto'
-		        }
-		    });
-		}
+    function openNew(item_id){
+	    api.openWin({
+	        name: 'procon',
+	        url: 'procon_win.html?item_id='+item_id,
+	        bounces: true,
+	        rect: {
+	            x: 0,
+	            y: 0,
+	            w: 'auto',
+	            h: 'auto'
+	        }
+	    });
+	}
 
 
-		//推送相关
-		function initJPush(){
-			//apicloud 获取设备号
-			//alert(api.deviceId);
-			jpush.init(function(ret, err){
-				if(ret && ret.status){
-					//alert('操作成功!');
-				}else{
-					//alert('操作失败!');
-				}
-			});
-		}
+	//----------------------------------  推送相关 开始 ---------------------------------------//
+	function initJPush(){
+		//apicloud 获取设备号
+		//alert(api.deviceId);
+		jpush.init(function(ret, err){
+			if(ret && ret.status){
+				//alert('操作成功!');
+			}else{
+				//alert('操作失败!');
+			}
+		});
+	}
 		
 		function setListener(){
 			jpush.setListener(function(ret, err){
@@ -401,5 +460,7 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 			}
 			return document.getElementById(id).value;
 		}
+		/**********************************推送相关 结束*********************************************/
+
 </script>
 </html>

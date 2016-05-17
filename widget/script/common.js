@@ -297,6 +297,146 @@ function save(){
 /**********************************头像上传相关函数  结束************************************/
 
 
+/**********************************主题图片上传相关函数  开始************************************/
+//   xx 代表:  选项
+
+//主题图片打开系统相册
+function item_getPicture(){
+    api.getPicture({
+        sourceType: 'library',
+        encodingType: 'jpg',
+        mediaValue: 'pic',
+        destinationType: 'url',
+        allowEdit: true,
+        quality: 75,
+        // targetWidth:200,
+        // targetHeight:200,
+        saveToPhotoAlbum: false
+    }, function(ret, err){
+        if(ret.data){
+            //打开功能弹层
+             api.openWin({
+                name: 'itemclip_frm',
+                url: 'itemclip_frm.html?picUrl='+ret.data,
+                bounces: true,
+            });
+        }else{
+            api.alert({msg:err.msg});
+        }
+    })
+}
+
+
+ //主题剪裁图片
+ function item_imageClip(picUrl){ 
+        var imageClip = api.require('imageClip');
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        imageClip.open({
+               path: picUrl,
+                clipRect : {
+                    x : api.winWidth/2-150,
+                    y : api.winHeight/2-180,                
+                    w : 300,
+                    h : 200,
+                    fixation:true
+                },
+                bg:'#080808',     
+                x: 0,
+                y: headerPos.h,
+                w: headerPos.w,
+                h: 'auto'                       
+        },function( ret, err ){    
+            if (ret.status) {
+                //功能frame控制保存和关闭功能
+//              api.openFrame({
+//                  name : 'save',
+//                  url : 'avatarclip_frm.html',
+//                  rect : {
+//                      x : 0,
+//                      y : 0,
+//                      w : 'auto',
+//                      h : 65
+//                  },
+//                  bounces : true,
+//                  opaque : false
+//              });
+                //功能frame控制保存和关闭功能
+                // api.openFrame({
+                //     name : 'close',
+                //     url : './clipclose.html',
+                //     rect : {
+                //         x : 0,
+                //         y : 0,
+                //         w : 'auto',
+                //         h : 64
+                //     },
+                //     bounces : false,
+                //     opaque : false
+                // });
+            }else{
+                alert('打开裁剪头像失败~');
+            }
+        });
+}
+
+
+//上传主题图片
+function uploaditempic(picUrl){
+    //上传
+    api.ajax({
+            url: ApiUrl+'/api/uploaditemimg',
+            method: 'post',
+            data: {
+                values: { 
+                    name: 'upfile'
+                },
+                files: { 
+                    file: picUrl
+                }
+            }
+        },function(ret, err){
+        
+            //显示等待上传过程
+            //showDialog()
+            if (ret.msg != '') {
+                //手机显示预览
+                var uid = is_login();
+                  //设置监听 返回设置头像
+                  // 广播事件
+                    api.sendEvent({
+                        name : 'item_upload_successEvent',
+                        extra : {
+                           name : ret.msg,
+                        }
+                    });
+
+                    //关闭当前窗口
+                    api.closeWin();
+                    
+                };
+        });   
+ }
+
+//主题保存剪裁图像
+function item_save(){
+    var imageClip = api.require('imageClip');
+    imageClip.save(function( ret, err ){        
+        if( ret ){
+            //alert( JSON.stringify( ret ) );
+            uploaditempic(ret.savePath);
+        }else{
+            alert( JSON.stringify( err ) );
+        }
+    })
+}
+
+
+
+/**********************************主题图片上传相关函数  结束************************************/
 
 
 /**********************************选项图片上传相关函数  开始************************************/
