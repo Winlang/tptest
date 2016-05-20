@@ -12,9 +12,9 @@
     		height:100%;
     		margin:0;
     		padding:0;
-    		background-color:#f7f9f8;
+    		background-color:#ebebeb;
     	}
-    	.aui-content{background-color:#fff;}
+    	.aui-content{background-color:#fff;margin-bottom:8px;}
     	.desc-1{
     	   word-wrap: break-word;
     	}
@@ -36,13 +36,13 @@
     	     top:90px;
     	}
     	.vote-info .sub-title{
-    	     font-family: 12px;
+    	     font-size: 12px;
     	     height:24px;
     	     line-height:24px;
     	     border:1px solid #fff;
     	     border-radius: 12px;
     	     position: relative;
-    	     top:165px;
+    	     top:170px;
     	     padding: 0 10px;
     	}
     	.f-all{
@@ -60,6 +60,18 @@
     	   vertical-align: middle;
     	   margin-right:10px; 
     	   margin-bottom:10px;  	  
+    	   }
+    	  .img-mask{
+    	   width:40px;
+    	   height:40px;
+    	   border-radius:20px;
+    	   vertical-align: middle;
+    	   margin-right:10px; 
+    	   margin-bottom:10px;
+    	   background-color:#7935FE;
+    	   opacity:.5;
+    	   margin-left:-50px;
+    	   display:inline-block;	  
     	   }
     	.friend{
     	         width:18px;
@@ -105,22 +117,15 @@
     	}
     	.comment{
     	   display:block;
-    	   padding-left:26%;  
-    	   margin-top:-20px;  	   
-    	}
-    	.comment-1{
-    	  display:inline-block;
-    	  width:95%;
-    	  height:auto;
-          word-break:break-all;
-          word-wrap: break-word;
-          text-overflow:ellipsis;
+    	   margin-left:26%;  
+    	   margin-top:-20px; 
+    	   width:70%;
           background-color:#f5f5f5;
           color:#333;
           font-size:12px;
           padding:10px 5px;
-          border-radius: 5px;
-    	 }
+          border-radius: 5px; 	   
+    	}
     	.idols{
     	         vertical-align:middle;
     	         width: 100%;
@@ -144,6 +149,11 @@
     	}
     	.vote-title span{
     	     font-size:12px;
+    	}
+    	.vote-title .vote-num{
+    	     font-size:14px;
+    	     margin:0 5px;
+    	     color:#7935FE;
     	}
     	.checkmore{
     	  font-size:12px;
@@ -197,7 +207,7 @@
              <p class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode id="summary">{{data.item_desc}}</p>
        </div>  
        </script>
-       <div class="aui-content">
+<!--       <div class="aui-content" style="margin-bottom: -5px;">
             <ul class="aui-list-view aui-in">
                  <li class="aui-list-view-cell aui-text-default">
                      <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i>81个好友参加</div>
@@ -205,23 +215,23 @@
                  </li>
                  <li>
                      <div class="aui-padded-10 avatar-list">
-                           <img class="f-avatar" src="../image/demo1.png"/>
-		             	   <img class="f-avatar" src="../image/demo4.png"/>
-		             	   <img class="f-avatar" src="../image/demo5.png"/>
-		             	   <img class="f-avatar" src="../image/demo3.png"/>
-		             	   <img class="f-avatar" src="../image/demo2.png"/>
-		             	   <img class="f-avatar" src="../image/demo6.png"/>
-		             	   <img class="f-avatar" src="../image/demo2.png"/>
-		             	   <img class="f-avatar" src="../image/demo6.png"/>
+                           <img class="f-avatar" src="../image/demo1.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo4.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo5.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo3.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
                      </div>
                  </li>
             </ul>
-       </div>
+       </div>-->
        <div class="aui-content">
            <div class="aui-padded-10 vote-title">
                                         投票选项          
-             <span>（投票请点选  <i class="aui-iconfont aui-icon-round"></i>,限<span id="item_setnum">3</span>票）</span>  
-             <div class="aui-btn aui-btn-theme aui-pull-right" tapmode onclick="openAdd()"> <span class="aui-iconfont aui-icon-add"></span>增加选项</div>                      
+             <span class="aui-text-danger">（投票请点选  <i class="aui-iconfont aui-icon-round"></i>，限<span id="item_setnum" class="vote-num"> 3 </span>票）</span>  
+             <div class="aui-btn aui-btn-warning aui-pull-right" tapmode onclick="openAdd()"> <span class="aui-iconfont aui-icon-add"></span>增加选项</div>                      
           </div>                    
 <!--搜索项目-->
   <div class="aui-searchbar-wrap aui-padded-0-10" id="search">
@@ -282,10 +292,9 @@
 	                   </div>
 	                {{if value.comm_data}}
 	               		<div class="comment">
-	                        <div class="comment-1 aui-ellipsis-2">
-		                            <span class="aui-text-default aui-padded-5">{{value.member_nick}}:</span>
-	                             	{{value.comm_data}}
-	                        </div>
+	                      <p class="aui-ellipsis-2">
+	                         <span class="aui-text-default">{{value.member_nick}}:</span>{{value.comm_data}}
+	                      </p>
 	                   	</div>
 	                {{/if}}
                    </div>

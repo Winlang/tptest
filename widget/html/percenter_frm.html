@@ -66,35 +66,35 @@
     <div class="aui-content">
         <ul class="aui-list-view aui-in">
             <li class="aui-list-view-cell aui-img">
-            <img id="avatar_img" class="aui-img-object aui-pull-left per-avatar" src="../image/demo2.png" alt="" />
+            <img id="avatar_img" tapmode onclick="update_avatar()" class="aui-img-object aui-pull-left per-avatar" src="../image/demo2.png" alt="" />
             <div class="aui-img-body">
-                  <span class="aui-text-danger"><em id="nickname" tapmode onclick="login()">登陆/注册</em><em class="per-badge" tapmode onclick="openInfo()">资料</em></span>
+                  <span class="aui-text-danger"><em id="nickname" tapmode onclick="login()">登陆/注册</em><!--<em class="per-badge" tapmode onclick="openInfo()">资料</em>--></span>
                   <div class="aui-ellipsis-1"><i class="aui-badge aui-badge-theme">LV.1</i><span class="rank">议员</span></div>                                
             </div>
             </li>
 
             
             <li class="aui-list-view-cell per-account">
-                 <div>金币：<span class="aui-text-danger coin">281,858</span></div>
-                 <div class="per-change">
+                 <div>金币：<span class="aui-text-danger coin" id="coin">0</span></div>
+                 <!--<div class="per-change">
                        <span><i class="aui-iconfont aui-icon-pay aui-text-danger"></i>兑换</span> 
                        <span><i class="aui-iconfont aui-icon-form aui-text-danger"></i>明细</span>
-                 </div>               
+                 </div>-->               
             </li>
           
-            <li class="aui-list-view-cell" tapmode onclick="openFocus()">
+            <!--<li class="aui-list-view-cell" tapmode onclick="openFocus()">
                <div class="aui-arrow-right">
                      <i class="aui-iconfont aui-icon-edit aui-bg-info"></i>关注
                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">兴趣；主题；选项；票友</span>
                </div>
-            </li>
-            <li class="aui-list-view-cell">
+            </li>-->
+            <li class="aui-list-view-cell" tapmode onclick="openThemes()">
                <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-emoji aui-bg-success"></i>我发起的活动
-                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">无</span>
+                      <i class="aui-iconfont aui-icon-activity aui-bg-info"></i>我发起的主题
+                      <span id='myitem_num' class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1"></span>
                </div>               
             </li>
-            <li class="aui-list-view-cell">
+            <!--<li class="aui-list-view-cell">
                <div class="aui-arrow-right">
                      <i class="aui-iconfont aui-icon-favor aui-bg-danger"></i>我的票友
                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">共120好友</span>
@@ -102,52 +102,52 @@
             </li>
             <li class="aui-list-view-cell">
                <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-like aui-bg-warning"></i>我的号召力
+                      <i class="aui-iconfont aui-icon-hotfill aui-bg-danger"></i>我的号召力
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">37785</span>
                </div>             
-            </li>
+            </li>-->
             <li class="aui-list-view-cell">
                <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-shop aui-bg-success"></i>我的金币
-                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">12306个</span>
+                      <i class="aui-iconfont aui-icon-sponsor aui-bg-warning"></i>我的金币
+                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1" id="coin_1">0个</span>
                </div>             
             </li>
             <li class="aui-list-view-cell" tapmode onclick="openRank()">
                <div class="aui-arrow-right">  
-                      <i class="aui-iconfont aui-icon-favor aui-bg-danger"></i>积分等级        
-                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">议长</span>
+                      <i class="aui-iconfont aui-icon-choiceness aui-bg-primary"></i>积分等级        
+                      <span id="level" class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1"></span>
                </div>
             </li>
              <li class="aui-list-view-cell" tapmode onclick="openMyZan()">
                <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-favor aui-bg-info"></i>我的赞
+                      <i class="aui-iconfont aui-icon-appreciate aui-bg-warning"></i>我的赞
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1"></span>
                </div>             
             </li>
             <li class="aui-list-view-cell" tapmode onclick="openCollect()">
                <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-favor aui-bg-info"></i>我的收藏
+                      <i class="aui-iconfont aui-icon-favor aui-bg-danger"></i>我的收藏
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1"></span>
                </div>             
             </li>
         </ul>
     </div>
-    <div class="aui-content">
+    <!--<div class="aui-content">
          <ul class="aui-list-view aui-in">
             <li class="aui-list-view-cell">
                 <div class="aui-arrow-right">
-                     <i class="aui-iconfont aui-icon-emoji aui-bg-success"></i>拆红包
+                     <i class="aui-iconfont aui-icon-redpacket aui-bg-danger"></i>拆红包
                      <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">123个未拆红包</span>
                 </div>
             </li>
             <li class="aui-list-view-cell">
                 <div class="aui-arrow-right">
-                      <i class="aui-iconfont aui-icon-like aui-bg-warning"></i>邀请好友
+                      <i class="aui-iconfont aui-icon-friendadd aui-bg-theme"></i>邀请好友
                       <span class="per-setting  aui-text-default aui-pull-right aui-ellipsis-1">提升号召力，获得金币暴涨</span>
                 </div>
             </li>
         </ul>
-    </div>
+    </div>-->
     <section class="aui-content">
         <!--退出后显示-->
         <ul class="aui-list-view logout_show">
@@ -168,7 +168,7 @@
         <ul class="aui-list-view logined_show">
         <li class="aui-list-view-cell" tapmode onclick="dologout()">
                 <a class="aui-arrow-right">
-                   <i class="aui-iconfont aui-icon-friendfamous aui-bg-success"></i> 退出
+                   <i class="aui-iconfont aui-icon-backdelete aui-bg-danger"></i> 退出
                 </a>
         </li>
         </ul>
@@ -186,6 +186,19 @@
        api.openWin({
           name:'focus_win',
           url:'focus_win.html',
+          bounces:true,
+          rect:{
+             x:0,
+             y:0,
+             w:'auto',
+             h:'auto'
+          }
+       });
+    }
+    function openThemes(){
+       api.openWin({
+          name:'my_themes_win',
+          url:'my_themes_win.html',
           bounces:true,
           rect:{
              x:0,
@@ -258,11 +271,21 @@
         });
     }
     function login(){
-        api.openWin({
-            name: 'login',
-            url: 'login.html',
-            delay:delay
-        });
+        var uid = is_login();
+        if(uid > 0){
+
+        }else{
+          login_page();
+        }
+    }
+
+    function update_avatar(){
+        var uid = is_login();
+        if(uid > 0){
+          getPicture();
+        }else{
+          login_page();
+        }
     }
 
     // function logout(){
@@ -310,6 +333,17 @@
                     $('.logout_show').hide();
                 }
           });
+
+          // 监听头像上传成功
+          api.addEventListener({
+                  name : 'avatar_upload_successEvent'
+          }, function(ret) {
+                if (ret && ret.value) {
+                    var value = ret.value;
+                    var imgpath = UploadUrl+'/avatar/'+value.name;
+                    $api.attr($api.byId("avatar_img"),'src',imgpath);
+                }
+          });
           
 
 
@@ -332,9 +366,18 @@
                     }
                   }
               },function(data, err){
+                  //头像
+                  var imgpath = UploadUrl+'/avatar/'+data.avatar;
+                  $api.attr($api.byId("avatar_img"),'src',imgpath);
                   //昵称
                   $('#nickname').html(data.mobile);
                   //金币数量
+                  $('#coin').html(data.coin);
+                  $('#coin_1').html(data.coin+'个');
+                  //积分等级
+                  $('#level').html(data.level.lev_text);
+                  //我发布主题数量
+                  $('#myitem_num').html(data.myitem_num);
                   //票友数量
                   
                   //我的号召力

@@ -63,10 +63,10 @@ function set_avatar(avatar){
 }
 
 function showToast(){
-    $api.css($api.byId("default"),"display:block");
+    $api.css($api.byId("loading"),"display:block");
     setTimeout(function(){
-        $api.css($api.byId("default"),"display:none");
-    },2000)
+        $api.css($api.byId("loading"),"display:none");
+    },3000)
 }
 
 function login_page(callback){
@@ -222,26 +222,6 @@ function uploadAvatar(picUrl){
             if (ret1.msg != '') {
                 //手机显示预览
                 var uid = is_login();
-                //记录用户所传图片路径及返回
-             //    $.post(ApiUrl+'/api/saveUserAvatar/?callback=?',{'avatar':ret1.msg,'uid':uid},function(ret_data){
-             //          var ret_data = JSON.parse(ret_data);
-             //          if(ret_data.status == 1){
-             //          	  //设置监听 返回设置头像
-             //    		  // 广播事件
-				         //    api.sendEvent({
-					        //     name : 'avatar_upload_successEvent',
-					        //     extra : {
-					        //        name : ret1.msg,
-					        //     }
-					        // });
-
-				         //    //关闭当前窗口
-				         //    api.closeWin();
-                		  	
-             //          }else{
-             //          	  alert(ret_data.msg);
-             //          }
-             //    });
 
                 api.ajax({
                       url: ApiUrl+'/api/saveUserAvatar/?callback=?',
@@ -386,6 +366,8 @@ function item_getPicture(){
 
 //上传主题图片
 function uploaditempic(picUrl){
+    //显示等待上传过程
+    showToast();
     //上传
     api.ajax({
             url: ApiUrl+'/api/uploaditemimg',
@@ -399,7 +381,12 @@ function uploaditempic(picUrl){
                 }
             }
         },function(ret, err){
-        
+             //alert(ret.progress);
+             // if(0 == ret.status){
+             //         loading('进度：' + ret.progress);
+             //  }else{
+             //         api.alert({msg:'上传成功：\n' + JSON.stringify(ret)});
+             //  }
             //显示等待上传过程
             //showDialog()
             if (ret.msg != '') {

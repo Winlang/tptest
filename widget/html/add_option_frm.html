@@ -130,14 +130,17 @@
  		
  		if(item_optimg == '' || item_optimg == null){
  			alert('请您上传选项封面图');
+ 			return false;
  		}
 
  		if(item_opttitle == '' || item_opttitle == null){
  			alert('请您填写选项标题');
+ 			return false;
  		}
 
  		if(item_optdesc == '' || item_optdesc == null){
  			alert('请您填写选项描述');
+ 			return false;
  		}
  		//提交增加选项
  		api.ajax({
@@ -156,7 +159,8 @@
               		var item_optid = data.msg;
 
               		if(tag == 'complate'){
-              			openVote(item_optid);
+              			openItem(item_id);
+              			//openVote(item_optid);
 		            	//跳至所增加的选项页
               		}else{
               			openOption(item_id);
@@ -182,5 +186,20 @@ function openOption(item_id){
        url: 'add_option_win.html?item_id='+item_id
    });
 }
+
+function openItem(item_id){
+	    api.openWin({
+	        name: 'procon',
+	        url: 'procon_add_win.html?item_id='+item_id,
+	        bounces: true,
+	        rect: {
+	            x: 0,
+	            y: 0,
+	            w: 'auto',
+	            h: 'auto'
+	        }
+	    });
+	}
+	
  </script>
  </html>

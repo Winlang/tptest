@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div class="aui-content">
-		<!--选项列表-->
-        <div id="cates_list"></div>
+	
+        <!--<div id="cates_list"></div>
         <script type="text/html" id="cates">
         <ul class="aui-grid-nine">
 
@@ -18,10 +18,47 @@
                 <span class="aui-iconfont aui-icon-community aui-text-theme"></span>
                 <p>{{value.title}}</p>
             </li>
-            {{/each}}
-            
+            {{/each}}            
 		</ul>
-        </script>
+        </script>-->
+        <ul class="aui-grid-nine aui-text-center">
+        	<li class="aui-col-xs-4" tapmode onclick="openList(122)" >
+        		<span class="aui-iconfont aui-icon-voice aui-text-success"></span>
+        		<p>娱乐</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(124)">
+        		<span class="aui-iconfont aui-icon-upstage aui-text-danger"></span>
+        		<p>体育</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(128)">
+        		<span class="aui-iconfont aui-icon-wifi aui-text-theme"></span>
+        		<p>互联网</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(133)">
+        		<span class="aui-iconfont aui-icon-ticket aui-text-warning"></span>
+        		<p>追剧</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(134)">
+        		<span class="aui-iconfont aui-icon-focus aui-text-info"></span>
+        		<p>国际</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(135)">
+        		<span class="aui-iconfont aui-icon-game aui-text-danger"></span>
+        		<p>游戏</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(136)">
+        		<span class="aui-iconfont aui-icon-likefill aui-text-danger"></span>
+        		<p>美女</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(137)">
+        		<span class="aui-iconfont aui-icon-qrcode aui-text-theme"></span>
+        		<p>搞笑</p>
+        	</li>
+        	<li class="aui-col-xs-4 aui-text-center" tapmode onclick="openList(138)">
+        		<span class="aui-iconfont aui-icon-edit aui-text-success"></span>
+        		<p>社会</p>
+        	</li>
+        </ul>
 	</div>
 	
 </body>
@@ -36,18 +73,18 @@ apiready = function(){
    //分类列表
 
    //获取主题排行榜选项
-    api.ajax({
-        url: ApiUrl+'/api/cates/?callback=?',
-        method: 'post',
-        data: {}
-    },function(data, err){
-        if (data) {
-            var html = template('cates', data);
-                document.getElementById('cates_list').innerHTML = html;
-        } else {
-             api.alert({msg:JSON.stringify(err)});
-        }
-  });
+//  api.ajax({
+//      url: ApiUrl+'/api/cates/?callback=?',
+//      method: 'post',
+//      data: {}
+//  },function(data, err){
+//      if (data) {
+//          var html = template('cates', data);
+//              document.getElementById('cates_list').innerHTML = html;
+//      } else {
+//           api.alert({msg:JSON.stringify(err)});
+//      }
+//});
 }
 
 

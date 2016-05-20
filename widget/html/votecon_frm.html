@@ -19,6 +19,7 @@
         }
         .aui-content{
             background-color:#fff;
+            margin-bottom:8px;
         }
         .idol-avatar{
             max-width:100%;
@@ -74,7 +75,7 @@
               padding:10px;
     	}
     	.vote-info .sub-title{
-    	     font-family: 12px;
+    	     font-size: 12px;
     	     height:24px;
     	     line-height:24px;
     	     border:1px solid #fff;
@@ -98,6 +99,18 @@
     	   vertical-align: middle;
     	   margin-right:10px; 
     	   margin-bottom:10px;  	  
+    	   }
+    	.img-mask{
+    	   width:40px;
+    	   height:40px;
+    	   border-radius:20px;
+    	   vertical-align: middle;
+    	   margin-right:10px; 
+    	   margin-bottom:10px;
+    	   background-color:#7935FE;
+    	   opacity:.5;
+    	   margin-left:-50px;
+    	   display:inline-block;	  
     	   }
         .avatar{
             display:block;
@@ -316,7 +329,7 @@
               </ul>
         </div>
 
-    <div class="aui-content">
+<!--    <div class="aui-content" style="margin-bottom:-5px;">
             <ul class="aui-list-view aui-in">
                  <li class="aui-list-view-cell aui-text-default">
                      <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i>81个好友参加</div>
@@ -324,21 +337,20 @@
                  </li>
                  <li>
                      <div class="aui-padded-10 avatar-list">
-                            <img class="f-avatar" src="../image/demo1.png"/>
-		             	   <img class="f-avatar" src="../image/demo4.png"/>
-		             	   <img class="f-avatar" src="../image/demo5.png"/>
-		             	   <img class="f-avatar" src="../image/demo3.png"/>
-		             	   <img class="f-avatar" src="../image/demo2.png"/>
-		             	   <img class="f-avatar" src="../image/demo6.png"/>
-		             	   <img class="f-avatar" src="../image/demo2.png"/>
-		             	   <img class="f-avatar" src="../image/demo6.png"/>
+                           <img class="f-avatar" src="../image/demo1.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo4.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo5.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo3.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
+		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
                      </div>
                  </li>
             </ul>
-       </div>
+       </div>-->
     <div class="aui-content aui-padded-10" id="jianjie">
           <p id="summary" class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode >{{data.item_optdesc}}</p>
-
     </div>
     </script>
     

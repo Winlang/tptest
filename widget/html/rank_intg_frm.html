@@ -52,10 +52,10 @@
         .trends dl{width: 100%;height:10px;background-color:#f5f5f5;border-radius: 5px;}
         .trends dl dd{background-color:#7935fe;height:10px;border-radius: 5px;}
         .scale{display: block;z-index:99;width:100%;height:10px;margin-top: -26px;}
-        .scale ul li{border-left:1px solid #fff;list-style: none;float:left;width:10%;height:26px;}
+        .scale ul li{border-left:1px solid #fff;list-style: none;float:left;width:12.5%;height:26px;}
         .scale ul li:first-child{border-left:0;}
         .scale li a{display: block;width: 16px;height:16px;border-radius:8px;margin-left:-8px;line-height: 16px;text-align: center;color:#333;font-size:12px;}
-        .sten{display:inline-block;float:right;margin-right:-8px;font-size:12px;margin-top:-16px;}
+        .sten{display:inline-block;float:right;margin-right:-8px;font-size:12px;margin-top:-16px;width: 16px;height:16px;border-radius:8px;line-height: 16px;text-align: center;color:#333;}
         .scale .pactive{background-color:red; color:#fff;}
         .scale .sactive{color:red;}          
     </style>
@@ -63,19 +63,18 @@
 <body>
     <div class="aui-content rcontent">
           <div class="aui-text-center rhead">
-                <img src="../image/demo3.png"/>
-                <h2>当前等级：<span class="aui-text-theme">Lv.4</span></h2>
+                <img id="avatar" src="../image/demo3.png"/>
+                <h2>当前等级：<span id="lev" class="aui-text-theme"></span></h2>
           </div>
           <!--<div class="aui-progress aui-progress-sm">
                 <div class="aui-progress-bar aui-progress-theme" style="width:65%"></div>
           </div>-->
           <div class="trends">
 			<dl>
-				<dd ps="66" style="width:0%" class="charts"></dd>
+				<dd ps="31" style="width:0%" class="charts"></dd>
 			</dl>
 			<div class="scale">
 				<ul>
-				    <li><a href="javascript:void(0);">0</a></li>
 					<li><a href="javascript:void(0);">1</a></li>
 					<li><a href="javascript:void(0);">2</a></li>
 					<li><a href="javascript:void(0);">3</a></li>
@@ -83,9 +82,7 @@
 					<li><a href="javascript:void(0);">5</a></li>
 					<li><a href="javascript:void(0);">6</a></li>
 					<li><a href="javascript:void(0);">7</a></li>
-					<li><a href="javascript:void(0);">8</a></li>
-					<li><a href="javascript:void(0);">9</a><span class="sten">10</span></li>
-					<!--<li><a href="javascript:void(0);">10</a></li>-->
+					<li><a href="javascript:void(0);">8</a><span class="sten">9</span></li>
 				</ul>
 			</div>
 		</div>
@@ -98,7 +95,7 @@
           </div>
     </div>
     <div class="aui-content">
-          <p class="aui-padded-10 aui-text-default">距离下一个等级：<span class="aui-text-danger">Lv.5</span></p>
+          <p class="aui-padded-10 aui-text-default">距离下一个等级：<span id='next_lev' class="aui-text-danger">Lv.5</span></p>
           <div class="loading-circle" id="loadingCircle">
             <p><span id="loadedNum">0</span>%</p>
             <canvas class="mask" id="loadingProgress" width="100" height="100"></canvas>
@@ -107,70 +104,103 @@
           <p class="aui-text-center aui-padded-10">投票量</p>
           <p class="notice">投票量是指累计投票的数量而非重复投票的数量，并且重复投票的数量将不纳入计算。</p>
     </div>    
-	<div class="aui-content">
+	<!--<div class="aui-content">
 	     <ul class="aui-list-view">
 	     	<li class="aui-list-view-cell" tapmode onclick="openPriv()">
 	     		<div class="aui-arrow-right">了解等级特权</div>
 	     	</li>
 	     </ul>
-	</div>
+	</div>-->
 </body>
-<!--进度条-->
-	<script type="text/javascript" src="../script/jquery.js"></script>
-	<script>
-         function animate(){
-            $(".charts").each(function(i,item){
-                var a = parseInt($(item).attr("ps"));
-                if(a>=0 && a<10){
-                     b=0;
-                }
-                if(a>=10 && a<20){
-                     b=1;
-                }
-                if(a>=20 && a<=30){
-                     b=2;
-                }
-                if(a>30 && a<=40){
-                     b=3;
-                }
-                if(a>40 && a<=50){
-                     b=4;
-                }
-                if(a>50 && a<=60){
-                     b=5;
-                }
-                if(a>60 && a<=70){
-                     b=6;
-                }
-                if(a>70 && a<=80){
-                     b=7;
-                }
-                if(a>80 && a<=90){
-                     b=8;
-                }
-                if(a>90 && a<=100){
-                     b=9;
-                }
-                if(a>100){
-                	b=10;
-                }
-                // b = b*10;
-                // $(item).attr("ps",a);
-                $('.scale li').eq(b).children('a').addClass('pactive');
-                for(var i=0; i<b;i++ ){
-                	$('.scale li').eq(i).children('a').addClass('sactive');
-                }
-                $(item).animate({
-                   width: a+"%"
-                },1000);
-            });
-         }
-         animate();
-	</script>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/integral_level.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<!--进度条-->
+<script>
+    function animate(){
+        /**
+         *  a --------------- 从数据库取出的分数
+         *  b --------------- calss="scale" 中li索引
+         *  one ------------- 每一等级代表的百分比，整体是100%
+         *  width ----------- 填充颜色的宽度
+         *  toupiao_num ----- 投票量，触发ulp函数的参数
+        **/
+            var a = parseInt($('.charts').attr("ps"));
+            var width = 0;
+            var one = 12.5;
+            var toupiao_num = 0;
+
+            if(a >= 1 && a < 100){
+                toupiao_num = (a-1)/(100-1)*100;
+                width = (a-1)/(100-1)*one;
+                b = 0;
+            }
+            if(a >= 100 && a < 1000){
+                toupiao_num = (a-100)/(1000-100)*100;
+                width = (a-100)/(1000-100)*one+one*1;
+                b = 1;
+            }
+            if(a >= 1000 && a < 10000){
+                toupiao_num = (a-1000)/(10000-1000)*100;
+                width = (a-1000)/(10000-1000)*one+one*2;
+                b = 2;
+            }
+            if(a >= 10000 && a < 100000){
+                toupiao_num = (a-10000)/(100000-10000)*100;
+                width = (a-10000)/(100000-10000)*one+one*3;
+                b = 3;
+            }
+            if(a >= 100000 && a < 500000){
+                toupiao_num = (a-100000)/(500000-100000)*100;
+                width = (a-100000)/(500000-100000)*one+one*4;
+                b = 4;
+            }
+            if(a >= 500000 && a < 2000000){
+                toupiao_num = (a-500000)/(2000000-500000)*100;
+                width = (a-500000)/(2000000-500000)*one+one*5;
+                b = 5;
+            }
+            if(a >= 2000000 && a < 5000000){
+                toupiao_num = (a-2000000)/(5000000-2000000)*100;
+                width = (a-2000000)/(5000000-2000000)*one+one*6;
+                b = 6;
+            }
+            if(a >= 5000000 && a < 12000000){
+                toupiao_num = (a-5000000)/(12000000-5000000)*100;
+                width = (a-5000000)/(12000000-5000000)*one+one*7;
+                b = 7;
+            }
+            if(a >= 12000000){
+                width = 100;
+                b = 8;
+            }
+
+            if(b == 8){
+                $('.scale li').eq(b-1).children('span').addClass('pactive');
+            }else{
+                $('.scale li').eq(b).children('a').addClass('pactive');
+            }
+            for(var i=0; i<b;i++ ){
+                $('.scale li').eq(i).children('a').addClass('sactive');
+            }
+            
+          
+            $('.charts').animate({
+               width: width+"%"
+            },1000);
+
+            toupiao_num = toupiao_num+1;
+            ulp(toupiao_num);
+    }
+
 	apiready = function(){
-		
+        //调取用户信息
+		userinfo();
+        //等级信息
+        
 	};
 	function openPriv(){
        api.openWin({
@@ -178,8 +208,8 @@
 	       url: 'priv_win.html'
        });
     }
-</script>
-<script>
+
+
     var slots={},c=document.getElementById('loadingProgress'),ctx=c.getContext('2d');
     window.hasLoaded = 0;
     window.loading = false;
@@ -218,6 +248,5 @@
         ctx.strokeStyle = '#7935FE';
         ctx.stroke();
     }
-    ulp(48);
 </script>
 </html>

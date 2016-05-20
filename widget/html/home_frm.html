@@ -73,7 +73,7 @@
 	      
 	      </script>
 	</div>
-    </div>
+   </div>
     <!--最新主题-->
    <div id="tab-new" style="display:none;padding-top: 10px;">
        <div class="aui-content-padded">     	
@@ -120,7 +120,56 @@ $aui.waterfall($api.byId("aui-waterfall"),{
 	    	
 	    
 	apiready = function(){
+		//最新主题刷新
+		//var channel = $('#channel').val();
+       	//if(channel == 'new'){
+       		
+       		api.setRefreshHeaderInfo({
+			visible: true,
+			loadingImg: 'widget://image/refresh.png',
+			bgColor: '#ccc',
+			textColor: '#fff',
+			textDown: '下拉刷新…',
+			textUp: '松开刷新…',
+			showTime: true
+			}, function(ret, err){
+			// 这里写重新渲染页面的方法
+			//最新主题
+	        api.ajax({
+				    url: ApiUrl+'/api/index_new',
+				    method: 'post',
+				    data: {}
+				},function(data, err){
+				    if (data) {
 
+				        //记录设置缓存时间
+			            //$api.setStorage('entertime',getNowTime());
+
+			            //设置缓存
+			            //$api.setStorage('storage_data',data);
+
+
+			            //处理图片
+			            for (var i = data.list.length - 1; i >= 0; i--) {
+			                    data.list[i].item_titleimg = set_item_titleimg(data.list[i].item_titleimg);
+			            }
+
+			            
+			            var html = template('test1', data);
+			            document.getElementById('aui-waterfall1').innerHTML = html;
+				    } else {
+				         api.alert({msg:JSON.stringify(err)});
+				    }
+			});
+
+			api.refreshHeaderLoadDone();
+		});
+
+       	//}else{
+       		//热门暂时占位
+       		//loading_index_hot();
+       	//}
+		
 		//监听是否已经到底部 自动刷新
 		api.addEventListener({
             name: 'scrolltobottom'
@@ -130,7 +179,9 @@ $aui.waterfall($api.byId("aui-waterfall"),{
            	
            	var channel = $('#channel').val();
            	if(channel == 'new'){
+           		
            		loading_index_new();
+
            	}else{
            		//热门暂时占位
            		//loading_index_hot();
