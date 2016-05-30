@@ -269,6 +269,7 @@
     <div id="itemoptinfo"></div>
     <script type="text/html" id="itemoptdata">
         <!--相关数据保存 开始-->
+        <input type="hidden" id="item_title" value="{{data.item_title}}">
         <input type="hidden" id="item_opttitle" value="{{data.item_opttitle}}">
         <input type="hidden" id="item_optdesc" value="{{data.item_optdesc}}">
         <!--相关数据保存 开始-->
@@ -547,15 +548,20 @@
           wx.isInstalled(function(ret, err){
               if(ret.installed){
                     //alert("当前设备已安装微信客户端");
-                    var title = $('#item_opttitle').val();
+                    var item_title = $('#item_title').val();
+                    var opt_title = $('#item_opttitle').val();
                     var desc = $('#item_optdesc').val();
                     var thumb = $('.idol-avatar').attr('src');
+                    var share_url = "http://www.xieli.cn"; 
+
+                    var share_text = "我在#"+item_title+"#活动中，为"+opt_title+"投出了宝贵一票，男神女神们正在等你投票，猛戳"+share_url+"，还能赢取手机大奖哦！";
+
                     wx.shareWebpage({
                           apiKey: '',
                           scene: wx_scene,
-                          title: title,
+                          title: share_text,
                           description: desc,
-                          thumb: thumb,
+                          thumb: 'widget://icon/icon2.png',
                           contentUrl: 'http://www.xieli.com'
                     }, function(ret, err){
 
