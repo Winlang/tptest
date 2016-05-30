@@ -268,6 +268,10 @@
     <div class="mark" id="mark"></div>
     <div id="itemoptinfo"></div>
     <script type="text/html" id="itemoptdata">
+        <!--相关数据保存 开始-->
+        <input type="hidden" id="item_opttitle" value="{{data.item_opttitle}}">
+        <input type="hidden" id="item_optdesc" value="{{data.item_optdesc}}">
+        <!--相关数据保存 开始-->
         <div class="aui-content">
               <img class="idol-avatar" src="http://votetest.xieli.cn/Uploads/admin/{{data.item_optimg}}" alt="" />
               <div class="vote-info">
@@ -542,20 +546,24 @@
           var wx = api.require('wx');
           wx.isInstalled(function(ret, err){
               if(ret.installed){
-                    alert("当前设备已安装微信客户端");
+                    //alert("当前设备已安装微信客户端");
+                    var title = $('#item_opttitle').val();
+                    var desc = $('#item_optdesc').val();
+                    var thumb = $('.idol-avatar').attr('src');
                     wx.shareWebpage({
                           apiKey: '',
                           scene: wx_scene,
-                          title: '我是标题',
-                          description: '我是描述',
-                          thumb: '123.jpg',
-                          contentUrl: 'http://www.baidu.com'
+                          title: title,
+                          description: desc,
+                          thumb: thumb,
+                          contentUrl: 'http://www.xieli.com'
                     }, function(ret, err){
 
                           if(ret.status){
-                              alert('分享成功');
+                              //显示等待上传过程
+                              api.showProgress({title: '努力上传中...',text: '请稍后...'});
                           }else{
-                              //alert(err.code);
+                              alert(err.code);
                           }
                     });
 
@@ -606,9 +614,9 @@
              value:s_url
         },function(ret,err){
            if(ret){
-                alert( "恭喜！复制成功！" );
+                alert( "复制成功！" );
            }else{
-                alert( "抱歉！复制失败！" );
+                alert( "复制失败！" );
            }
         });
     }

@@ -576,3 +576,9 @@ function xx_save(){
 
 
 /**********************************选项图片上传相关函数  结束************************************/
+
+function alertWindow(title,text){
+    //显示等待上传过程
+     api.showProgress({title: title,text: text});
+     setTimeout("api.hideProgress();",2000);
+}
