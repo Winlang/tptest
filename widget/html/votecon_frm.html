@@ -526,23 +526,23 @@
     }
 
     //微信分享
-    function weixin_share(){
-        var weixin = api.require('weiXin');
-        weixin.getUserInfo(function(ret,err){
-            if(ret.status){
-                api.alert({msg: ret.nickname});
-            }else{
-                api.alert({msg: "错误："+err.msg});
-            }
-        });
-    }
+    // function weixin_share(){
+    //     var weixin = api.require('weiXin');
+    //     weixin.getUserInfo(function(ret,err){
+    //         if(ret.status){
+    //             api.alert({msg: ret.nickname});
+    //         }else{
+    //             api.alert({msg: "错误："+err.msg});
+    //         }
+    //     });
+    // }
 
 
     function share_wx(wx_scene){//wx_scene,取值范围：session（会话）timeline（朋友圈）favorite（收藏）
           var wx = api.require('wx');
           wx.isInstalled(function(ret, err){
               if(ret.installed){
-                    //alert("当前设备已安装微信客户端");
+                    alert("当前设备已安装微信客户端");
                     wx.shareWebpage({
                           apiKey: '',
                           scene: wx_scene,
