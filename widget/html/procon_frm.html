@@ -172,7 +172,13 @@
                  <div class="aui-text-center title">{{data.item_title}}</div>
                  <div class="aui-pull-left sub-title">
                        <i class="aui-iconfont aui-icon-time"></i>
-                       <span>剩余0天</span>
+                        <span>
+                            {{if data.item_day > 0}}
+                                剩余{{data.item_day}}天
+                            {{else}}
+                                剩余0天
+                            {{/if}}
+                        </span>
                  </div>
                  <div class="aui-pull-right sub-title">
                       <i class="aui-iconfont aui-icon-likefill"></i>
@@ -186,9 +192,13 @@
                <div class="aui-dialog aui-hidden" id="dialog">
                           <div class="aui-dialog-header">投票奖励</div>
                           <div class="aui-dialog-body aui-text-left">
+                            {{if data.item_prize!= ''}}
                                 {{each data.item_prize as v i}}
                                     <p>{{i+1}}、{{v}}</p>
                                 {{/each}}
+                            {{else}}
+                                该主题还没设置奖项
+                            {{/if}}
                           </div>
                           <div class="aui-dialog-footer">
                               <div class="aui-dialog-btn aui-text-danger" tapmode onclick="cancel()">取消</div>
