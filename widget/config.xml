@@ -26,9 +26,9 @@
     <param name="registUrl" value="http://www.apicloud.com"/> 
   </feature>  
   <feature name="weiXin"> 
-    <param name="urlScheme" value="wxd0d84bbf23b4a0e4"/>  
-    <param name="apiKey" value="wxd0d84bbf23b4a0e4"/>  
-    <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/> 
+    <param name="urlScheme" value="wx31725b58dfe195f4"/>  
+    <param name="apiKey" value="wx31725b58dfe195f4"/>  
+    <param name="apiSecret" value="5d8af5e8791a680f5c1a6243dcd00642"/> 
   </feature> 
   <feature name="ajpush">
         <param name="app_key" value="2a67e27c08e0682c0df9ad38" />

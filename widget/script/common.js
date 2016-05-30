@@ -204,6 +204,8 @@ function getPicture(){
 
 //上传头像
 function uploadAvatar(picUrl){
+    //显示等待上传过程
+     api.showProgress({title: '努力上传中...',text: '请稍后...'});
  	//上传
     api.ajax({
             url: ApiUrl+'/api/uploadAvatar',
@@ -243,6 +245,8 @@ function uploadAvatar(picUrl){
                                 }
                             });
 
+                            //停止显示上传中
+                            api.hideProgress();
                             //关闭当前窗口
                             api.closeWin();
                             
@@ -367,7 +371,7 @@ function item_getPicture(){
 //上传主题图片
 function uploaditempic(picUrl){
     //显示等待上传过程
-    showToast();
+     api.showProgress({title: '努力上传中...',text: '请稍后...'});
     //上传
     api.ajax({
             url: ApiUrl+'/api/uploaditemimg',
@@ -401,6 +405,8 @@ function uploaditempic(picUrl){
                         }
                     });
 
+                    //停止显示上传中
+                    api.hideProgress();
                     //关闭当前窗口
                     api.closeWin();
                     
@@ -515,6 +521,8 @@ function xx_getPicture(){
 
 //上传头像
 function uploadxxpic(picUrl){
+    //显示等待上传过程
+     api.showProgress({title: '努力上传中...',text: '请稍后...'});
 	//上传
     api.ajax({
             url: ApiUrl+'/api/uploaditemoptimg',
@@ -543,6 +551,8 @@ function uploadxxpic(picUrl){
 			            }
 			        });
 
+                    //停止显示上传中
+                    api.hideProgress();
 		            //关闭当前窗口
 		            api.closeWin();
                 	

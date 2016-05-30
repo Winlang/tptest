@@ -61,18 +61,18 @@
     	   margin-right:10px; 
     	   margin-bottom:10px;  	  
     	   }
-    	  .img-mask{
-    	   width:40px;
-    	   height:40px;
-    	   border-radius:20px;
-    	   vertical-align: middle;
-    	   margin-right:10px; 
-    	   margin-bottom:10px;
-    	   background-color:#7935FE;
-    	   opacity:.5;
-    	   margin-left:-50px;
-    	   display:inline-block;	  
-    	   }
+    	  /*.img-mask{
+        	   width:40px;
+        	   height:40px;
+        	   border-radius:20px;
+        	   vertical-align: middle;
+        	   margin-right:10px; 
+        	   margin-bottom:10px;
+        	   background-color:#7935FE;
+        	   opacity:.5;
+        	   margin-left:-50px;
+        	   display:inline-block;	  
+    	   }*/
     	.friend{
     	         width:18px;
     	         height:18px;
@@ -207,26 +207,22 @@
              <p class="aui-ellipsis-2 desc-1"  onclick="xian(this);" tapmode id="summary">{{data.item_desc}}</p>
        </div>  
        </script>
-<!--       <div class="aui-content" style="margin-bottom: -5px;">
+       <div class="aui-content" style="margin-bottom: -5px;">
             <ul class="aui-list-view aui-in">
                  <li class="aui-list-view-cell aui-text-default">
-                     <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i>81个好友参加</div>
+                     <div class="aui-pull-left"><i class="aui-iconfont aui-icon-like aui-text-theme f-num"></i><span id="member_num"></span>个用户参加</div>
                      <div class="aui-arrow-right aui-pull-right"><span class="f-all">全部</span></div>
                  </li>
                  <li>
-                     <div class="aui-padded-10 avatar-list">
-                           <img class="f-avatar" src="../image/demo1.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo4.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo5.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo3.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo2.png"/><span class="img-mask"></span>
-		             	   <img class="f-avatar" src="../image/demo6.png"/><span class="img-mask"></span>
-                     </div>
+                     <div class="aui-padded-10 avatar-list" id="item_user_data_info"></div>
+                     <script type="text/html" id="item_user_data">
+                        {{each data.member_avatar as v k}}
+                            <img class="f-avatar" src="{{v.avatar}}"/>
+                        {{/each}}
+                     </script>
                  </li>
             </ul>
-       </div>-->
+       </div>
        <div class="aui-content">
            <div class="aui-padded-10 vote-title">
                                         投票选项          

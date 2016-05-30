@@ -12,6 +12,17 @@ function iteminfo(item_id){
 
         var html = template('item', data);
         document.getElementById('iteminfo').innerHTML = html;
+
+        //展示头像
+        for(var i = 0;i<data.data.member_avatar.length;i++){
+            data.data.member_avatar[i].avatar = set_avatar(data.data.member_avatar[i].avatar);
+        }
+
+        //参与的人数
+        $('#member_num').html(data.data.member_num);
+        //参与的用户分配模板
+        var touxiang = template('item_user_data', data);
+        document.getElementById('item_user_data_info').innerHTML = touxiang;
     });
 }
 //主题对应选项列表

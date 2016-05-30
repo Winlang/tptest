@@ -14,34 +14,7 @@
 <body>
 	<div class="aui-content">
 	      <ul class="aui-list-view" id="iteminfo"></ul>
-	      	<script type="text/html" id="item">
-	      	{{each list as v i}}
-	      	<li class="aui-list-view-cell" tapmode onclick="openMyTheme({{v.id}});">
-	      		<div class="aui-arrow-right">
-	      		      <h3 class="aui-text-danger">{{v.item_title}}</h3>
-	      		      <span class="stime">{{v.item_time}}</span>
-	      		</div>
-	      	</li>
-	      	{{/each}}
-	      	<!-- <li class="aui-list-view-cell" tapmode onclick="openMyTheme()">
-	      		<div class="aui-arrow-right">
-	      		      <h3 class="aui-text-danger">谁是最火球星？</h3>
-	      		      <span class="stime">2016-05-19</span>
-	      		</div>
-	      	</li>
-	      	<li class="aui-list-view-cell" tapmode onclick="openMyTheme()">
-	      		<div class="aui-arrow-right">
-	      		      <h3 class="aui-text-danger">谁是最火球星？</h3>
-	      		      <span class="stime">2016-05-19</span>
-	      		</div>
-	      	</li>
-	      	<li class="aui-list-view-cell" tapmode onclick="openMyTheme()">
-	      		<div class="aui-arrow-right">
-	      		      <h3 class="aui-text-danger">谁是最火球星？</h3>
-	      		      <span class="stime">2016-05-19</span>
-	      		</div>
-	      	</li> -->
-	    </script>
+	      <p  class="aui-text-center aui-text-default" id="but" onclick="myitem_data(1);">查看更多</p>
 	</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -54,7 +27,7 @@
 	apiready = function(){
 		
 		//调取我发布的主题
-		myitem_data();
+		myitem_data(1);
 	};
 
 	function openMyTheme(item_id){
