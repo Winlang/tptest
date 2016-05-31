@@ -75,7 +75,16 @@
         var uid = getQueryString('uid');
         
         //提交数据
-        $.post(ApiUrl+'/userapi/bindmobile',{'uid':uid,'mobile':mobile,'code':code},function(data){
+        api.ajax({
+            url:ApiUrl+'/userapi/bindmobile',
+            method:'post',
+            data:{
+                values: { 
+                    'uid':uid,
+                    'mobile':mobile,
+                    'code':code
+                }}
+        },function(data,err){
             //绑定成功 进入首页
             if(data.status == 1){
                 // 广播事件
@@ -91,7 +100,25 @@
             }else{
                 alert(data.msg);
             }
-        },'json');
+        })
+
+        // $.post(ApiUrl+'/userapi/bindmobile',{'uid':uid,'mobile':mobile,'code':code},function(data){
+        //     //绑定成功 进入首页
+        //     if(data.status == 1){
+        //         // 广播事件
+        //         api.sendEvent({
+        //             name : 'reg_login_successEvent',
+        //             extra : {
+        //                name : data.msg,
+        //                avatar: avatarImg
+        //             }
+        //         });
+        //         //跳至应用首页
+        //         backtoindex();
+        //     }else{
+        //         alert(data.msg);
+        //     }
+        // },'json');
     }
 
 </script>
