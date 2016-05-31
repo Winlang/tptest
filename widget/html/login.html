@@ -271,25 +271,45 @@
                                 alert('登陆成功');
                             }else{
                                 //未绑定手机号 未授权
+
+                                // 2.如果没有绑定,首相第一步就是将微信用户的头像、昵称等等基本信息添加到数据库；然后通过手机获取验证码;最后绑定手机号。然后就登录App.
+
+                                //getUserInfo
+                                wx.getUserInfo({
+                                    accessToken: ret.accessToken,
+                                    openId: ret.openId
+                                }, function(ret,err){ 
+                                    if(ret.status){
+                                    
+                                        api.ajax({
+                                            url:ApiUrl+'/userapi/savewxuserinfo',
+                                            method:'post',
+                                            data:{'openId':ret.openId,'nickname':ret.nickname,'sex':ret.sex,'avatar':ret.headimgurl,'unionid':ret.unionid}
+                                        },function(data,err){
+                                            if(data.status == 2){
+                                                //跳至绑定手机页面
+                                                register();
+                                            }else{
+                                                alert('授权失败，请重新尝试~');
+                                            }
+
+                                        });
+
+
+                                    }else{
+                                        alert(err.code);
+                                    }
+                                });
+
                                 alert('登录失败');
                             }
                         });
-                        // 2.如果没有绑定,首相第一步就是将微信用户的头像、昵称等等基本信息添加到数据库；然后通过手机获取验证码;最后绑定手机号。然后就登录App.
+                        
                         
                         
 
 
-                        //getUserInfo
-                        wx.getUserInfo({
-                            accessToken: ret.accessToken,
-                            openId: ret.openId
-                        }, function(ret,err){ 
-                            if(ret.status){
-                                alert(JSON.stringify(ret));
-                            }else{
-                                alert(err.code);
-                            }
-                        });
+                        
 
 
 
