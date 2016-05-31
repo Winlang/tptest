@@ -39,7 +39,7 @@
             </div>
             
             <div class="aui-btn-row">
-                <div class="aui-btn aui-btn-theme aui-btn-block" tapmode onclick="">绑定</div>
+                <div class="aui-btn aui-btn-theme aui-btn-block" tapmode onclick="bind()">绑定</div>
             </div>
            
         </div>
@@ -56,19 +56,42 @@
     apiready = function () {
         api.parseTapmode();
     }
-    function showPassword(){
-        $api.attr($api.byId('password'),'type','text');
-        $api.removeCls($api.byId('showpass-btn'),'aui-icon-attention');
-        $api.addCls($api.byId('showpass-btn'),'aui-icon-attentionfill');
-        $api.attr($api.byId('showpass-btn'),'onclick','hidePassword();');
-        api.parseTapmode();
+
+    function bind(){
+
+        //获取value值
+        var mobile = $('#$mobile').val();
+
+
+        if(mobile == "" || mobile == null){
+            alert('手机号不能为空');
+            return false;
+        }
+
+
+
+        //获取登陆标识
+        var uid = getQueryString('uid');
+        
+        //提交数据
+        $.post(ApiUrl+'/userapi/bindmobile',{'uid':uid,'mobile':mobile},function(data){
+            //绑定成功 进入首页
+            if(data.status == 1){
+                // 广播事件
+                api.sendEvent({
+                    name : 'reg_login_successEvent',
+                    extra : {
+                       name : data.msg,
+                       avatar: avatarImg
+                    }
+                });
+                //跳至应用首页
+                backtoindex();
+            }else{
+                alert(data.msg);
+            }
+        },'json');
     }
-    function hidePassword(){
-        $api.attr($api.byId('password'),'type','password');
-        $api.removeCls($api.byId('showpass-btn'),'aui-icon-attentionfill');
-        $api.addCls($api.byId('showpass-btn'),'aui-icon-attention');
-        $api.attr($api.byId('showpass-btn'),'onclick','showPassword();');
-        api.parseTapmode();
-    }
+
 </script>
 </html>

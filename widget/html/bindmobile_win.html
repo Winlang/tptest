@@ -30,33 +30,22 @@
         api.closeWin({});
     }
     apiready = function () {
+        var uid = getQueryString('uid');
         api.parseTapmode();
         var header = $api.byId('aui-header');
-        $api.fixStatusBar(header);
+        $api.fixStatusBar(header); 
         var headerPos = $api.offset(header);
         var body_h = $api.offset($api.dom('body')).h;
-        api.openFrameGroup ({
-            name: 'register_frm',
-            scrollEnabled:false,
-            rect:{x:0, y:headerPos.h, w:'auto', h:body_h - headerPos.h},
-            index:0,
-            frames:
-            [{
-                name: 'register_one_frm', 
-                url: 'register_one_frm.html',
-                bounces:false,
-                vScrollBarEnabled: false,
-                hScrollBarEnabled: false
-            },{
-                name: 'register_two_frm', 
-                url: 'register_two_frm.html',
-                bounces:false,
-                vScrollBarEnabled: false,
-                hScrollBarEnabled: false
-            }]
-        }, function(ret, err){
-            var name = ret.name;
-            var index = ret.index;
+        api.openFrame({
+            name: 'bindmobile_frm',
+            url: 'bindmobile_frm.html?uid='+uid,
+            bounces: true,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: headerPos.w,
+                h: 'auto'
+            }
         });
     }
 </script>

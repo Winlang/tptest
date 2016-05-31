@@ -295,10 +295,11 @@
                                             }
                                         },function(data,err){
                                             if(data.status == 2){
+                                                var uid = data.msg;
                                                 //跳至绑定手机页面
                                                 api.openWin({
                                                     name:'bindmobile_win',
-                                                    url:'bindmobile_win.html',
+                                                    url:'bindmobile_win.html?uid='+uid,
                                                     delay:300,
                                                     animation:{
                                                         type:'fade'
