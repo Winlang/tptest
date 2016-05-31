@@ -62,7 +62,7 @@
     </style>
 </head>
 <body>
-	      <div id="aui-content"></div>
+	      <div id="aui-content" class="aui-content-padded"></div>
        	  <script id="test" type="text/html">
 	      <ul class="aui-waterfall" id="aui-waterfall">
 	      	{{each list as value i}}
@@ -93,6 +93,8 @@
         api.closeWin();
     }
     apiready=function(){
+             cateitems();
+             
             var header = $api.byId('aui-header');
             $api.fixStatusBar(header);
 

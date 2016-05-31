@@ -251,12 +251,7 @@
             apiKey: ''
         }, function(ret, err){ 
             if(ret.status){
-                alert(JSON.stringify(ret));
-                // 1.首先获取到微信的openID，然后通过openID去后台数据库查询该微信的openID有没有绑定好的手机号.
-                // 2.如果没有绑定,首相第一步就是将微信用户的头像、昵称等等基本信息添加到数据库；然后通过手机获取验证码;最后绑定手机号。然后就登录App.
-                // 3.如果有，那么后台就返回一个手机号，然后通过手机登录App.
-
-
+                //alert(JSON.stringify(ret));
                 //getToken
                 wx.getToken({
                     apiKey: '',
@@ -265,6 +260,23 @@
                 },function(ret, err){ 
                     if(ret.status){
                         //alert(JSON.stringify(ret));
+                        // 1.首先获取到微信的openID，然后通过openID去后台数据库查询该微信的openID有没有绑定好的手机号.
+                        api.ajax({
+                            url:ApiUrl+'/userapi/checkopenid',
+                            method:'post',
+                            data:{'openId':ret.openId}
+                        },function(data,err){
+                            if(data.status == 1){
+                                //登陆成功
+                                alert('登陆成功');
+                            }else{
+                                //未绑定手机号 未授权
+                                alert('登录失败');
+                            }
+                        });
+                        // 2.如果没有绑定,首相第一步就是将微信用户的头像、昵称等等基本信息添加到数据库；然后通过手机获取验证码;最后绑定手机号。然后就登录App.
+                        
+                        
 
 
                         //getUserInfo
@@ -278,6 +290,8 @@
                                 alert(err.code);
                             }
                         });
+
+
 
 
                     }else{
