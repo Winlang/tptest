@@ -61,6 +61,7 @@
 
         //获取value值
         var mobile = $('#mobile').val();
+        var code = $('#code').val();
 
 
         if(mobile == "" || mobile == null){
@@ -74,7 +75,7 @@
         var uid = getQueryString('uid');
         
         //提交数据
-        $.post(ApiUrl+'/userapi/bindmobile',{'uid':uid,'mobile':mobile},function(data){
+        $.post(ApiUrl+'/userapi/bindmobile',{'uid':uid,'mobile':mobile,'code':code},function(data){
             //绑定成功 进入首页
             if(data.status == 1){
                 // 广播事件
