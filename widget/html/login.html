@@ -280,7 +280,8 @@
                                     openId: ret.openId
                                 }, function(ret,err){ 
                                     if(ret.status){
-                                    
+                                        alert(ret.openId);
+                                        return false;
                                         api.ajax({
                                             url:ApiUrl+'/userapi/savewxuserinfo',
                                             method:'post',
@@ -288,7 +289,14 @@
                                         },function(data,err){
                                             if(data.status == 2){
                                                 //跳至绑定手机页面
-                                                register();
+                                                api.openWin({
+                                                    name:'bindmobile_win',
+                                                    url:'bindmobile_win.html',
+                                                    delay:300,
+                                                    animation:{
+                                                        type:'fade'
+                                                    }
+                                                })
                                             }else{
                                                 alert('授权失败，请重新尝试~');
                                             }
@@ -301,7 +309,6 @@
                                     }
                                 });
 
-                                alert('登录失败');
                             }
                         });
                         
