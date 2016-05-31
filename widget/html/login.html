@@ -285,7 +285,15 @@
                                         api.ajax({
                                             url:ApiUrl+'/userapi/savewxuserinfo',
                                             method:'post',
-                                            data:{'openId':ret.openId,'nickname':ret.nickname,'sex':ret.sex,'avatar':ret.headimgurl,'unionid':ret.unionid}
+                                            data:{
+                                                values: { 
+                                                    'openid':ret.openid,
+                                                    'nickname':ret.nickname,
+                                                    'sex':ret.sex,
+                                                    'avatar':ret.headimgurl,
+                                                    'unionid':ret.unionid
+                                                }
+                                            }
                                         },function(data,err){
                                             if(data.status == 2){
                                                 //跳至绑定手机页面
@@ -311,15 +319,6 @@
 
                             }
                         });
-                        
-                        
-                        
-
-
-                        
-
-
-
 
                     }else{
                         alert(err.code);
