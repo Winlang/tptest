@@ -280,8 +280,7 @@
                                     openId: ret.openId
                                 }, function(ret,err){ 
                                     if(ret.status){
-                                        alert(JSON.stringify(ret));
-                                        return false;
+                                        
                                         api.ajax({
                                             url:ApiUrl+'/userapi/savewxuserinfo',
                                             method:'post',
