@@ -164,15 +164,18 @@ function login(){
                         }
                       }
                   },function(data, err){
+                      //存储常用信息
+                      $api.setStorage('nickname',data.nick);
+                      $api.setStorage('wx_avatar',data.wx_avatar);
                       // 广播事件
-			            api.sendEvent({
-				            name : 'reg_login_successEvent',
-				            extra : {
-                       name : data.mobile,
-				               avatar : data.avatar,
-				               callback : type,
-				            }
-				        });
+    			            api.sendEvent({
+    				            name : 'reg_login_successEvent',
+    				            extra : {
+                           name : data.mobile,
+    				               avatar : data.avatar,
+    				               callback : type,
+    				            }
+    				        });
 
 			            api.closeWin();
                 });
