@@ -328,7 +328,12 @@
                 if (ret && ret.value) {
                     var value = ret.value;
                     $('#nickname').html(value.name);
-                    $('#avatar_img').attr('src',UploadUrl+'/avatar/'+value.avatar);
+                    if(value.type == 'wx_login'){
+                        $('#avatar_img').attr('src',value.wx_avatar);
+                    }else{
+                        $('#avatar_img').attr('src',UploadUrl+'/avatar/'+value.avatar);
+                    }
+                    
                     $('.logined_show').show();
                     $('.logout_show').hide();
                 }

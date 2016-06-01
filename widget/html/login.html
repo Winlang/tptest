@@ -266,7 +266,7 @@
                         },function(data,err){
                             if(data.status == 1){
                                 //登陆成功
-                                alert('登陆成功');
+                                
                                 //设置 登陆表识
                                 var uid = data.msg;
                                 $api.setStorage('uid',uid);
@@ -285,9 +285,9 @@
                                         api.sendEvent({
                                             name : 'reg_login_successEvent',
                                             extra : {
-                                       name : data.mobile,
-                                               avatar : data.avatar,
-                                               callback : type,
+                                               name : data.mobile,
+                                               wx_avatar : data.wx_avatar,
+                                               type : 'wx_login'
                                             }
                                         });
 
@@ -318,7 +318,7 @@
                                             }
                                         },function(data,err){
                                             if(data.status == 2){
-                                                alert('去绑定');
+                                            
                                                 var uid = data.msg;
                                                 //跳至绑定手机页面
                                                 api.openWin({
@@ -330,7 +330,7 @@
                                                     }
                                                 })
                                             }else if(data.status == 3){
-                                                alert('已登录');
+                                                
                                                 //直接登录
                                                 //设置 登陆表识
                                                 var uid = data.msg;
