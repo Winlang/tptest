@@ -270,6 +270,7 @@
                                 //设置 登陆表识
                                 var uid = data.msg;
                                 $api.setStorage('uid',uid);
+                                $api.setStorage('login_type','wx');
 
                                 //用户中心信息
                                     api.ajax({
@@ -323,7 +324,7 @@
                                                 //跳至绑定手机页面
                                                 api.openWin({
                                                     name:'bindmobile_win',
-                                                    url:'bindmobile_win.html?uid='+uid,
+                                                    url:'bindmobile_win.html?uid='+uid+'&login_type=wx',
                                                     delay:300,
                                                     animation:{
                                                         type:'fade'
@@ -335,6 +336,7 @@
                                                 //设置 登陆表识
                                                 var uid = data.msg;
                                                 $api.setStorage('uid',uid);
+                                                $api.setStorage('login_type','wx');
 
                                                 //用户中心信息
                                                     api.ajax({

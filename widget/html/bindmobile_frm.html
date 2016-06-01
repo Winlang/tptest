@@ -73,6 +73,9 @@
 
         //获取登陆标识
         var uid = getQueryString('uid');
+
+        //从哪里授权登陆  微信 QQ 微博
+        var login_type = getQueryString('login_type');
         
         //提交数据
         api.ajax({

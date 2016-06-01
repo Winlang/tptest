@@ -354,7 +354,9 @@
 
           //加载相关数据
           var uid = is_login();
-          
+          //获取用户登陆来源
+          var login_type = $api.getStorage('login_type');
+
           //alert(uid);
           
           if(uid > 0){
@@ -371,8 +373,23 @@
                     }
                   }
               },function(data, err){
-                  //头像
-                  var imgpath = UploadUrl+'/avatar/'+data.avatar;
+                  if(login_type == 'wx'){
+                      //头像
+                      var imgpath = data.wx_avatar;
+
+                  }else if(login_type == 'qq'){
+
+                      var imgpath = data.qq_avatar;
+
+                  }else if(login_type == 'wb'){
+
+                      var imgpath = data.wb_avatar;
+                      
+                  }else{
+                      //头像
+                      var imgpath = UploadUrl+'/avatar/'+data.avatar;
+                  }
+                  
                   $api.attr($api.byId("avatar_img"),'src',imgpath);
                   //昵称
                   $('#nickname').html(data.mobile);
