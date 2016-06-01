@@ -43,9 +43,9 @@
             <script id="comments" type="text/html">
                     {{each list as value i}}
                     <li class="aui-list-view-cell aui-img" tapmode>
-                          <img class="aui-img-object aui-pull-left" src="../image/demo2.png"  />
+                          <img class="aui-img-object aui-pull-left avatar" src="../image/demo2.png"  />
                           <div class="aui-img-body">
-                                                                                        流浪猫{{value.c_id}}
+                                <span class="nickname">流浪猫{{value.c_id}}</span>
                                 <p class="sub-tit aui-text-default">2016-5-10 20:00:00</p>                                                      
                           </div>
                           <p style="clear:both;"></p>
@@ -88,6 +88,14 @@
        }
    },function(data, err){
        if (data) {
+          //获取用户基本信息
+          var nickname = $api.getStorage('nickname');
+          var wx_avatar = $api.getStorage('wx_avatar');
+
+          $('.avatar').attr('src',wx_avatar);
+          $('.nickname').attr('src',nickname);
+
+
            var html = template('comments', data);
            document.getElementById('comment_list').innerHTML = html;
        } else {

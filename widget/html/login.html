@@ -269,6 +269,7 @@
                                 
                                 //设置 登陆表识
                                 var uid = data.msg;
+
                                 $api.setStorage('uid',uid);
                                 $api.setStorage('login_type','wx');
 
@@ -282,7 +283,11 @@
                                         }
                                       }
                                   },function(data, err){
-                                      // 广播事件
+                                        //存储常用信息
+                                        $api.setStorage('nickname',data.nick);
+                                        $api.setStorage('wx_avatar',data.wx_avatar);
+                                        
+                                        //广播事件
                                         api.sendEvent({
                                             name : 'reg_login_successEvent',
                                             extra : {
@@ -348,7 +353,12 @@
                                                         }
                                                       }
                                                   },function(data, err){
-                                                      // 广播事件
+
+                                                        //存储常用信息
+                                                        $api.setStorage('nickname',data.nick);
+                                                        $api.setStorage('wx_avatar',data.wx_avatar);
+
+                                                        //广播事件
                                                         api.sendEvent({
                                                             name : 'reg_login_successEvent',
                                                             extra : {

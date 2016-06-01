@@ -106,7 +106,9 @@
                         }
                       }
                   },function(data, err){
-                      // 广播事件
+                        $api.setStorage('nickname',data.nick);
+                        $api.setStorage('wx_avatar',data.wx_avatar);
+                        // 广播事件
                         api.sendEvent({
                             name : 'reg_login_successEvent',
                             extra : {
