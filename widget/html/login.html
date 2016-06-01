@@ -350,8 +350,9 @@
                                                         api.sendEvent({
                                                             name : 'reg_login_successEvent',
                                                             extra : {
-                                                       name : data.mobile,
-                                                               avatar : data.avatar,
+                                                               name : data.mobile,
+                                                               wx_avatar : data.wx_avatar,
+                                                               type : 'wx_login'
                                                             }
                                                         });
 
