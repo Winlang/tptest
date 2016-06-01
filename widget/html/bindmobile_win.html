@@ -32,6 +32,7 @@
     }
     apiready = function () {
         var uid = getQueryString('uid');
+        var login_type = getQueryString('login_type');
         api.parseTapmode();
         var header = $api.byId('aui-header');
         $api.fixStatusBar(header); 
@@ -39,7 +40,7 @@
         var body_h = $api.offset($api.dom('body')).h;
         api.openFrame({
             name: 'bindmobile_frm',
-            url: 'bindmobile_frm.html?uid='+uid,
+            url: 'bindmobile_frm.html?uid='+uid+'&login_type='+login_type,
             bounces: true,
             rect: {
                 x: 0,
