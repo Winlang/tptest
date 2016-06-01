@@ -94,6 +94,7 @@
                 //设置 登陆表识
                 var uid = data.msg;
                 $api.setStorage('uid',uid);
+                $api.setStorage('login_type',login_type);
 
                 //用户中心信息
                     api.ajax({
