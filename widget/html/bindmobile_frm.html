@@ -88,8 +88,32 @@
             //绑定成功 进入首页
             if(data.status == 1){
                 //跳至应用首页
-                alert('绑定成功~');
-                backtoindex();
+                //设置 登陆表识
+                var uid = data.msg;
+                $api.setStorage('uid',uid);
+
+                //用户中心信息
+                    api.ajax({
+                      url: ApiUrl+'/api/userinfo',
+                      method: 'post',
+                      data: {
+                        values: { 
+                            'uid':uid
+                        }
+                      }
+                  },function(data, err){
+                      // 广播事件
+                        api.sendEvent({
+                            name : 'reg_login_successEvent',
+                            extra : {
+                               name : data.mobile,
+                               wx_avatar : data.wx_avatar,
+                               type : 'wx_login'
+                            }
+                        });
+
+                        backtoindex();
+                }); 
             }else{
                 alert(data.msg);
             }
