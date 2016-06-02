@@ -256,7 +256,7 @@
                     apiKey: '',
                     apiSecret: '',
                     code: ret.code
-                },function(ret, err){ 
+                },function(ret, err){
                     if(ret.status){
                         // 1.首先获取到微信的openID，然后通过openID去后台数据库查询该微信的openID有没有绑定好的手机号.
                         api.ajax({
@@ -307,74 +307,73 @@
                                 wx.getUserInfo({
                                     accessToken: ret.accessToken,
                                     openId: ret.openId
-                                }, function(ret,err){ 
+                                }, function(ret,err){
+
                                     if(ret.status){
-                                        
-                                        api.ajax({
-                                            url:ApiUrl+'/userapi/savewxuserinfo',
-                                            method:'post',
-                                            data:{
-                                                values: { 
-                                                    'openid':ret.openid,
-                                                    'nickname':ret.nickname,
-                                                    'sex':ret.sex,
-                                                    'avatar':ret.headimgurl,
-                                                    'unionid':ret.unionid
-                                                }
-                                            }
-                                        },function(data,err){
-                                            if(data.status == 2){
-                                            
-                                                var uid = data.msg;
-                                                //跳至绑定手机页面
-                                                api.openWin({
-                                                    name:'bindmobile_win',
-                                                    url:'bindmobile_win.html?uid='+uid+'&login_type=wx',
-                                                    delay:300,
-                                                    animation:{
-                                                        type:'fade'
+                                            api.ajax({
+                                                url:ApiUrl+'/userapi/savewxuserinfo',
+                                                method:'post',
+                                                data:{
+                                                    values: { 
+                                                        'openid':ret.openid,
+                                                        'nickname':ret.nickname,
+                                                        'sex':ret.sex,
+                                                        'avatar':ret.headimgurl,
+                                                        'unionid':ret.unionid
                                                     }
-                                                })
-                                            }else if(data.status == 3){
+                                                }
+                                            },function(data,err){
+                                                if(data.status == 2){
                                                 
-                                                //直接登录
-                                                //设置 登陆表识
-                                                var uid = data.msg;
-                                                $api.setStorage('uid',uid);
-                                                $api.setStorage('login_type','wx');
-
-                                                //用户中心信息
-                                                    api.ajax({
-                                                      url: ApiUrl+'/api/userinfo',
-                                                      method: 'post',
-                                                      data: {
-                                                        values: { 
-                                                            'uid':uid
+                                                    var uid = data.msg;
+                                                    //跳至绑定手机页面
+                                                    api.openWin({
+                                                        name:'bindmobile_win',
+                                                        url:'bindmobile_win.html?uid='+uid+'&login_type=wx',
+                                                        delay:300,
+                                                        animation:{
+                                                            type:'fade'
                                                         }
-                                                      }
-                                                  },function(data, err){
+                                                    })
+                                                }else if(data.status == 3){
+                                                    
+                                                    //直接登录
+                                                    //设置 登陆表识
+                                                    var uid = data.msg;
+                                                    $api.setStorage('uid',uid);
+                                                    $api.setStorage('login_type','wx');
 
-                                                        //存储常用信息
-                                                        $api.setStorage('nickname',data.nick);
-                                                        $api.setStorage('wx_avatar',data.wx_avatar);
-
-                                                        //广播事件
-                                                        api.sendEvent({
-                                                            name : 'reg_login_successEvent',
-                                                            extra : {
-                                                               name : data.mobile,
-                                                               wx_avatar : data.wx_avatar,
-                                                               type : 'wx_login'
+                                                    //用户中心信息
+                                                        api.ajax({
+                                                          url: ApiUrl+'/api/userinfo',
+                                                          method: 'post',
+                                                          data: {
+                                                            values: { 
+                                                                'uid':uid
                                                             }
-                                                        });
+                                                          }
+                                                      },function(data, err){
 
-                                                        api.closeWin();
-                                                });
-                                            }else{
-                                                alert('授权失败，请重新尝试~');
-                                            }
+                                                            //存储常用信息
+                                                            $api.setStorage('nickname',data.nick);
+                                                            $api.setStorage('wx_avatar',data.wx_avatar);
 
-                                        });
+                                                            //广播事件
+                                                            api.sendEvent({
+                                                                name : 'reg_login_successEvent',
+                                                                extra : {
+                                                                   name : data.mobile,
+                                                                   wx_avatar : data.wx_avatar,
+                                                                   type : 'wx_login'
+                                                                }
+                                                            });
+
+                                                            api.closeWin();
+                                                    });
+                                                }else{
+                                                    alert('授权失败，请重新尝试~');
+                                                }
+                                            });
 
 
                                     }else{
