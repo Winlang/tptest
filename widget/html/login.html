@@ -249,7 +249,7 @@
         var wx = api.require('wx');
         wx.auth({
             apiKey: ''
-        }, function(ret, err){ 
+        }, function(ret, err){
             if(ret.status){
                 //getToken
                 wx.getToken({
@@ -308,76 +308,71 @@
                                     accessToken: ret.accessToken,
                                     openId: ret.openId
                                 }, function(ret,err){
-
                                     if(ret.status){
-                                            api.ajax({
-                                                url:ApiUrl+'/userapi/savewxuserinfo',
-                                                method:'post',
-                                                data:{
-                                                    values: { 
-                                                        'openid':ret.openid,
-                                                        'nickname':ret.nickname,
-                                                        'sex':ret.sex,
-                                                        'avatar':ret.headimgurl,
-                                                        'unionid':ret.unionid
+                                        api.ajax({
+                                            url:ApiUrl+'/userapi/savewxuserinfo',
+                                            method:'post',
+                                            data:{
+                                                values: { 
+                                                    'openid':ret.openid,
+                                                    'nickname':ret.nickname,
+                                                    'sex':ret.sex,
+                                                    'avatar':ret.headimgurl,
+                                                    'unionid':ret.unionid
+                                                }
+                                            }
+                                        },function(data,err){
+                                            if(data.status == 2){
+                                            
+                                                var uid = data.msg;
+                                                //跳至绑定手机页面
+                                                api.openWin({
+                                                    name:'bindmobile_win',
+                                                    url:'bindmobile_win.html?uid='+uid+'&login_type=wx',
+                                                    delay:300,
+                                                    animation:{
+                                                        type:'fade'
                                                     }
-                                                }
-                                            },function(data,err){
-                                                if(data.status == 2){
+                                                })
+                                            }else if(data.status == 3){
                                                 
-                                                    var uid = data.msg;
-                                                    //跳至绑定手机页面
-                                                    api.openWin({
-                                                        name:'bindmobile_win',
-                                                        url:'bindmobile_win.html?uid='+uid+'&login_type=wx',
-                                                        delay:300,
-                                                        animation:{
-                                                            type:'fade'
+                                                //直接登录
+                                                //设置 登陆表识
+                                                var uid = data.msg;
+                                                $api.setStorage('uid',uid);
+                                                $api.setStorage('login_type','wx');
+
+                                                //用户中心信息
+                                                api.ajax({
+                                                      url: ApiUrl+'/api/userinfo',
+                                                      method: 'post',
+                                                      data: {
+                                                        values: { 
+                                                            'uid':uid
                                                         }
-                                                    })
-                                                }else if(data.status == 3){
-                                                    
-                                                    //直接登录
-                                                    //设置 登陆表识
-                                                    var uid = data.msg;
-                                                    $api.setStorage('uid',uid);
-                                                    $api.setStorage('login_type','wx');
+                                                      }
+                                                },function(data, err){
+                                                        //存储常用信息
+                                                        $api.setStorage('nickname',data.nick);
+                                                        $api.setStorage('wx_avatar',data.wx_avatar);
 
-                                                    //用户中心信息
-                                                        api.ajax({
-                                                          url: ApiUrl+'/api/userinfo',
-                                                          method: 'post',
-                                                          data: {
-                                                            values: { 
-                                                                'uid':uid
+                                                        //广播事件
+                                                        api.sendEvent({
+                                                            name : 'reg_login_successEvent',
+                                                            extra : {
+                                                               name : data.mobile,
+                                                               wx_avatar : data.wx_avatar,
+                                                               type : 'wx_login'
                                                             }
-                                                          }
-                                                      },function(data, err){
-
-                                                            //存储常用信息
-                                                            $api.setStorage('nickname',data.nick);
-                                                            $api.setStorage('wx_avatar',data.wx_avatar);
-
-                                                            //广播事件
-                                                            api.sendEvent({
-                                                                name : 'reg_login_successEvent',
-                                                                extra : {
-                                                                   name : data.mobile,
-                                                                   wx_avatar : data.wx_avatar,
-                                                                   type : 'wx_login'
-                                                                }
-                                                            });
-
-                                                            api.closeWin();
-                                                    });
-                                                }else{
-                                                    alert('授权失败，请重新尝试~');
-                                                }
-                                            });
-
-
+                                                        });
+                                                        api.closeWin();
+                                                });
+                                            }else{
+                                                alert('授权失败，请重新尝试~');
+                                            }
+                                        });
                                     }else{
-                                        alert(err.code);
+                                        alert('获取用户信息失败');
                                     }
                                 });
 
@@ -391,7 +386,7 @@
 
 
             }else{
-                alert(err.code);
+                alertWindow('已取消~');
             }
         });
     }
