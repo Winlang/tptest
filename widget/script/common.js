@@ -101,7 +101,8 @@ function is_login(){
 // }
 
 function dologout(){
-	$api.setStorage('uid','');
+    $api.setStorage('uid','');
+	
 	api.sendEvent({
         name : 'logoutEvent',
         extra : {

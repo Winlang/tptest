@@ -93,6 +93,10 @@
           var login_type = $api.getStorage('login_type');
           if(login_type == 'wx'){
               var avatar = $api.getStorage('wx_avatar');
+          }else if(login_type == 'qq'){
+              var avatar = $api.getStorage('qq_avatar');
+          }else if(login_type == 'wb'){
+              var avatar = $api.getStorage('wb_avatar');
           }else{
               var avatar = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBT8VwJ7zicH8bibmks6bZQSktnXtXVdibWflcztVKJib3ljyIUM5XP6oBT4CFQppRmKg2oze6IZWicu7A/0';
           }
