@@ -167,6 +167,10 @@ function login(){
                       //存储常用信息
                       $api.setStorage('nickname',data.nick);
                       $api.setStorage('wx_avatar',data.wx_avatar);
+                      $api.setStorage('avatar',data.avatar);
+
+
+                      
                       // 广播事件
     			            api.sendEvent({
     				            name : 'reg_login_successEvent',

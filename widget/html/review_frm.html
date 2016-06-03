@@ -43,10 +43,10 @@
             <script id="comments" type="text/html">
                     {{each list as value i}}
                     <li class="aui-list-view-cell aui-img" tapmode>
-                          <img class="aui-img-object aui-pull-left" src="{{value.avatar}}"  />
+                          <img class="aui-img-object aui-pull-left" src="{{info.avatar}}"  />
                           <div class="aui-img-body">
-                                <span class="nickname">{{value.nickname}}</span>
-                                <p class="sub-tit aui-text-default">2016-5-10 20:00:00</p>                                                      
+                                <span class="nickname">{{info.nickname}}</span>
+                                <p class="sub-tit aui-text-default">{{value.comm_ctime}}</p>                                                      
                           </div>
                           <p style="clear:both;"></p>
                           <div class="aui-ellipsis-2 aui-pull-left zan">{{value.comm_con}}</div>
@@ -98,14 +98,20 @@
           }else if(login_type == 'wb'){
               var avatar = $api.getStorage('wb_avatar');
           }else{
-              var avatar = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBT8VwJ7zicH8bibmks6bZQSktnXtXVdibWflcztVKJib3ljyIUM5XP6oBT4CFQppRmKg2oze6IZWicu7A/0';
+              var avatar = UploadUrl+'/avatar/'+$api.getStorage('avatar');
           }
 
-          for (var i = data.list.length - 1; i >= 0; i--) {
-              data.list[i].avatar = avatar;
-              data.list[i].nickname = nickname;
-          }
-            
+
+          //方式1 
+          //data['avatar'] = avatar;
+          //data['nickname'] = nickname;
+          
+          //方式2
+          var test = new Array();
+          test['avatar'] = avatar;
+          test['nickname'] = nickname;
+
+          data['info'] = test;
 
            var html = template('comments', data);
            document.getElementById('comment_list').innerHTML = html;
@@ -120,27 +126,24 @@ function loading_comments(page){
     //获取当前登陆用户的id
     var uid = is_login();
     var next_page = page+1;
-    $.ajax({
-      'type':'get',
-      'url':ApiUrl+'/userapi/loading_comments?uid='+uid+'&page='+page+'&callback=?',
-      beforeSend:function(){
-        $('#loading').removeAttr('onclick');
-        $('#loading').html('正在加载中...');
-      },
-      success:function(data){
-        var data = JSON.parse(data);
-        if(data.status == 0){
-          $('#comment_list').append(data.msg);
-          $('#loading').html('查看更多评论信息');
-          $('#loading').attr('onclick','loading_comments('+next_page+')');
-        }else if(data.status == 2){
-          $('#loading').removeAttr('onclick');
-          $('#loading').html('没有更多评论信息了');
-        }else{
-          api.alert({msg:data.msg});
-        }
-      }
-    });
+
+    api.ajax({
+            url: ApiUrl+'/userapi/loading_comments?uid='+uid+'&page='+page+'&callback=?',
+            method: 'get',
+            data: {}
+        },function(data, err){
+            if (data.status == 0) {
+                $('#comment_list').append(data.msg);
+                $('#loading').html('查看更多评论信息');
+                $('#loading').attr('onclick','loading_comments('+next_page+')');
+            } else if(data.status == 2) {
+                $('#loading').removeAttr('onclick');
+                $('#loading').html('没有更多评论信息了');
+            }else{
+                api.alert({msg:data.msg});
+            }
+      });
+
 }
 </script>
 </html>

@@ -262,7 +262,12 @@
                         api.ajax({
                             url:ApiUrl+'/userapi/checkopenid',
                             method:'post',
-                            data:{'openId':ret.openId}
+                            data:{
+                                values: { 
+                                    'openId':ret.openId,
+                                    'login_type':'wx'
+                                        }
+                            }
                         },function(data,err){
                             if(data.status == 1){
                                 //登陆成功
