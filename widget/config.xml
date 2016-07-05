@@ -3,20 +3,20 @@
 <widget id="A6917226871452" version="1.0"> 
   <name>投票项目</name>  
   <description>应用AUI框架</description>  
-  <author email="cuihuale@yeah.net" href="http://www.apicloud.com">APPxn</author>  
-  <content src="index.html"/>  
-  <preference name="appBackground" value="rgba(0,0,0,0)"/>  
-  <preference name="windowBackground" value="rgba(0,0,0,0)"/>  
-  <preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/>  
+  <author email="cuihuale@yeah.net" href="http://www.apicloud.com">APPxn</author>
+  <content src="index.html"/>
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>
+  <preference name="windowBackground" value="rgba(0,0,0,0)"/> 
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/> 
   <preference name="autoLaunch" value="true"/>  
   <preference name="autoUpdate" value="true"/>  
   <preference name="smartUpdate" value="false"/>  
   <preference name="debug" value="true"/>  
   <preference name="statusBarAppearance" value="true"/>  
   <permission name="location"/>  
-  <permission name="internet"/>  
+  <permission name="internet"/>
   <access origin="*"/>  
-  <feature name="qq"> 
+  <feature name="qq">
     <param name="urlScheme" value="tencent101064640"/>  
     <param name="apiKey" value="101064640"/> 
   </feature>  
