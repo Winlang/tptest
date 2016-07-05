@@ -208,6 +208,14 @@
  	}
 
  	function submit_item(tag){
+ 		//判断是否登录
+ 		var member_id = is_login();
+ 		if (member_id <= 0){
+ 			alert('请您先登录');
+ 			login_page();
+ 			return false;
+ 		}
+
  		var item_titleimg = $('#item_img_path').val();
  		var item_title = $('#item_title').val();
  		var item_desc = $('#item_desc').val();
