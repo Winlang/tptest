@@ -563,13 +563,15 @@
                           title: share_text,
                           description: desc,
                           thumb: 'widget://icon/icon2.png',
-                          contentUrl: 'http://www.xieli.com'
+                          contentUrl: 'http://www.xieli.cn'
                     }, function(ret, err){
 
                           if(ret.status){
                               alertWindow('分享成功~');
+                              cancel();
                           }else{
                               alertWindow('已取消~');
+                              cancel();
                               //alert(err.code);
                           }
                     });
